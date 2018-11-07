@@ -62,44 +62,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-CS/OS/-linux/linux kenel/进程管理/轻量级进程" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wiki/CS/OS/-linux/linux kenel/进程管理/轻量级进程/" class="article-date">
-  <time datetime="2018-06-20T11:22:09.102Z" itemprop="datePublished">2018-06-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/OS/">OS</a>►<a class="article-category-link" href="/categories/CS/OS/linux/">-linux</a>►<a class="article-category-link" href="/categories/CS/OS/linux/linux-kenel/">linux kenel</a>►<a class="article-category-link" href="/categories/CS/OS/linux/linux-kenel/进程管理/">进程管理</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>轻量级进程（LWP）是一种实现多任务的方法。</p>
-<ul>
-<li>与普通进程相比，LWP与其他进程共享所有（或大部分）它的逻辑地址空间和系统资源；</li>
-<li>与线程相比，LWP有它自己的进程标识符，并和其他进程有着父子关系；这是和类Unix操作系统的系统调用vfork()生成的进程一样的。另外，线程既可由应用程序管理，又可由内核管理，而LWP只能由内核管理并像普通进程一样被调度。Linux内核是支持LWP的典型例子。</li>
-</ul>
-<p>LWP与普通进程的区别也在于它只有一个最小的执行上下文和调度程序所需的统计信息，而这也是它之所以被称为轻量级的原因。</p>
-<p>在大多数系统中，LWP与普通进程的区别也在于它只有一个最小的执行上下文和调度程序所需的统计信息，而这也是它之所以被称为轻量级的原因。一般来说，一个进程代表程序的一个实例，而LWP代表程序的执行线程（其实，在内核不支持线程的时候，LWP可以很方便地提供线程的实现）。因为一个执行线程不像进程那样需要那么多状态信息，所以LWP也不带有这样的信息。</p>
-<h2 id="为什么说linux是轻量级进程？"><a href="#为什么说linux是轻量级进程？" class="headerlink" title="为什么说linux是轻量级进程？"></a>为什么说linux是轻量级进程？</h2><p>因为linux并没有为线程准备特定的数据结构。在内核看来，只有进程而没有线程，在调度时也是当做进程来调度。<br>linux所谓的线程其实是与其他进程共享资源的进程。为什么说是轻量级？在于它只有一个最小的执行上下文和调度程序所需的统计信息。他是进程的执行部分，只带有执行相关的信息。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/OS/-linux/linux kenel/进程管理/轻量级进程/" data-id="cjo6xa0fq02xn05zyuk8q41ks" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-CS/OS/-linux/linux kenel/进程管理/进程管理" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/wiki/CS/OS/-linux/linux kenel/进程管理/进程管理/" class="article-date">
@@ -121,7 +83,37 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/OS/-linux/linux kenel/进程管理/进程管理/" data-id="cjo6xa0g602xs05zyu8tpz6jk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/OS/-linux/linux kenel/进程管理/进程管理/" data-id="cjo6xru6q02wl30zyscnnmblf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CS/OS/-linux/linux kenel/进程管理/简介" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/OS/-linux/linux kenel/进程管理/简介/" class="article-date">
+  <time datetime="2018-06-20T11:22:09.102Z" itemprop="datePublished">2018-06-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/OS/">OS</a>►<a class="article-category-link" href="/categories/CS/OS/linux/">-linux</a>►<a class="article-category-link" href="/categories/CS/OS/linux/linux-kenel/">linux kenel</a>►<a class="article-category-link" href="/categories/CS/OS/linux/linux-kenel/进程管理/">进程管理</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/OS/-linux/linux kenel/进程管理/简介/" data-id="cjo6xru8x02xl30zyf7o2w3up" class="article-share-link">Share</a>
       
       
     </footer>
@@ -153,7 +145,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/OS/-linux/linux kenel/1.内核引导/内核引导/" data-id="cjo6xa0b502vt05zynrwa2en8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/OS/-linux/linux kenel/1.内核引导/内核引导/" data-id="cjo6xru5t02w430zym4jwudjv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -183,7 +175,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/OS/-linux/linux kenel/进程管理/创建进程/" data-id="cjo6xa0ew02x905zyjqwrv0bd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/OS/-linux/linux kenel/进程管理/创建进程/" data-id="cjo6xru6302w930zyzpg265kz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -213,7 +205,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/OS/-linux/linux kenel/进程管理/进程调度/" data-id="cjo6xa0h502xz05zy4r1y7k2l" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/OS/-linux/linux kenel/进程管理/进程调度/" data-id="cjo6xru6t02wo30zyomkqkaie" class="article-share-link">Share</a>
       
       
     </footer>
@@ -243,7 +235,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/OS/-linux/linux kenel/1.内核引导/BIOS/" data-id="cjo6xa0fa02xf05zy697hcou9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/OS/-linux/linux kenel/1.内核引导/BIOS/" data-id="cjo6xru5q02w130zy3fw9a9hl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -314,7 +306,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/OS/-linux/linux kenel/如何阅读Linux源码/" data-id="cjo6x9yqy01sa05zyqhc2ul73" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/OS/-linux/linux kenel/如何阅读Linux源码/" data-id="cjo6xrsos01rv30zy4y1px62l" class="article-share-link">Share</a>
       
       
     </footer>
@@ -362,7 +354,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/OS/-linux/linux kenel/文件系统/文件系统/" data-id="cjo6xa0eq02x605zy84t2w2j3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/OS/-linux/linux kenel/文件系统/文件系统/" data-id="cjo6xruc902z030zyp0k5kyk4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -393,7 +385,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/OS/-linux/linux kenel/文件系统/存储管理/" data-id="cjo6xa0fd02xi05zy1r32fiw4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/OS/-linux/linux kenel/文件系统/存储管理/" data-id="cjo6xru6002w730zyaa7kq1k9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -423,7 +415,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/OS/-linux/linux kenel/源码/" data-id="cjo6x9yr001sc05zygktp1coi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/OS/-linux/linux kenel/源码/" data-id="cjo6xrspr01sp30zy9apctm8c" class="article-share-link">Share</a>
       
       
     </footer>

@@ -85,7 +85,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/web/blog-framework/nodejs-hexo/-theme dev and contribute/" data-id="cjo6x9z2a020805zywe1s2jok" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/web/blog-framework/nodejs-hexo/-theme dev and contribute/" data-id="cjo6xrsx001zq30zy4zlu5wux" class="article-share-link">Share</a>
       
       
     </footer>
@@ -123,7 +123,49 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/web/-cluster 集群要解决的问题/fileServer/" data-id="cjo6x9y0i00wo05zyn6yo7ndm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/web/-cluster 集群要解决的问题/fileServer/" data-id="cjo6xrru600sf30zysmg7jokx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CS/web/-cluster 集群要解决的问题/bluescan-HA" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/web/-cluster 集群要解决的问题/bluescan-HA/" class="article-date">
+  <time datetime="2018-06-20T11:22:09.000Z" itemprop="datePublished">2018-06-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/web/">web</a>►<a class="article-category-link" href="/categories/CS/web/cluster-集群要解决的问题/">-cluster 集群要解决的问题</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="HA"><a href="#HA" class="headerlink" title="HA"></a>HA</h2><hr>
+<h2 id="应用服务器HA-集群-amp-负载均衡-amp-session共享"><a href="#应用服务器HA-集群-amp-负载均衡-amp-session共享" class="headerlink" title="应用服务器HA/集群 &amp; 负载均衡 &amp; session共享"></a>应用服务器HA/集群 &amp; 负载均衡 &amp; session共享</h2><p>hi zhili ，我用nginx搭的负载均衡。</p>
+<p>入口：<br><a href="http://172.29.163.101:8080/bluescan/" rel="external nofollow noopener noreferrer" target="_blank">http://172.29.163.101:8080/bluescan/</a></p>
+<p>实际节点：<br><a href="http://172.29.163.104:8081/bluescan/" rel="external nofollow noopener noreferrer" target="_blank">http://172.29.163.104:8081/bluescan/</a><br><a href="http://172.29.163.101:8081/bluescan/" rel="external nofollow noopener noreferrer" target="_blank">http://172.29.163.101:8081/bluescan/</a></p>
+<p>目前采用的round-robin的轮替方式，暂时没发现什么问题。<br>另外绑定ip的方式，当一个节点故障，nginx会自动切换到另外节点。所以source-ip轮替方式也差不多够用</p>
+<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><h3 id="session共享"><a href="#session共享" class="headerlink" title="session共享"></a>session共享</h3><hr>
+<h2 id="数据库-amp-缓存"><a href="#数据库-amp-缓存" class="headerlink" title="数据库 &amp; 缓存"></a>数据库 &amp; 缓存</h2><p>为什么要用solr？<br>不全文检索，就没必要用solr</p>
+<p>derby？<br>小，稳定，但是只有本地版，</p>
+<p>mysql？</p>
+<p>redis</p>
+<p>postgres</p>
+<p>## </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/web/-cluster 集群要解决的问题/bluescan-HA/" data-id="cjo6xrru400sc30zy7vd4rqoe" class="article-share-link">Share</a>
       
       
     </footer>
@@ -166,49 +208,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/web/-cluster 集群要解决的问题/session/" data-id="cjo6x9y0p00wt05zydkzbu7vh" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-CS/web/-cluster 集群要解决的问题/bluescan-HA" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wiki/CS/web/-cluster 集群要解决的问题/bluescan-HA/" class="article-date">
-  <time datetime="2018-06-20T11:22:09.000Z" itemprop="datePublished">2018-06-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/web/">web</a>►<a class="article-category-link" href="/categories/CS/web/cluster-集群要解决的问题/">-cluster 集群要解决的问题</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="HA"><a href="#HA" class="headerlink" title="HA"></a>HA</h2><hr>
-<h2 id="应用服务器HA-集群-amp-负载均衡-amp-session共享"><a href="#应用服务器HA-集群-amp-负载均衡-amp-session共享" class="headerlink" title="应用服务器HA/集群 &amp; 负载均衡 &amp; session共享"></a>应用服务器HA/集群 &amp; 负载均衡 &amp; session共享</h2><p>hi zhili ，我用nginx搭的负载均衡。</p>
-<p>入口：<br><a href="http://172.29.163.101:8080/bluescan/" rel="external nofollow noopener noreferrer" target="_blank">http://172.29.163.101:8080/bluescan/</a></p>
-<p>实际节点：<br><a href="http://172.29.163.104:8081/bluescan/" rel="external nofollow noopener noreferrer" target="_blank">http://172.29.163.104:8081/bluescan/</a><br><a href="http://172.29.163.101:8081/bluescan/" rel="external nofollow noopener noreferrer" target="_blank">http://172.29.163.101:8081/bluescan/</a></p>
-<p>目前采用的round-robin的轮替方式，暂时没发现什么问题。<br>另外绑定ip的方式，当一个节点故障，nginx会自动切换到另外节点。所以source-ip轮替方式也差不多够用</p>
-<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><h3 id="session共享"><a href="#session共享" class="headerlink" title="session共享"></a>session共享</h3><hr>
-<h2 id="数据库-amp-缓存"><a href="#数据库-amp-缓存" class="headerlink" title="数据库 &amp; 缓存"></a>数据库 &amp; 缓存</h2><p>为什么要用solr？<br>不全文检索，就没必要用solr</p>
-<p>derby？<br>小，稳定，但是只有本地版，</p>
-<p>mysql？</p>
-<p>redis</p>
-<p>postgres</p>
-<p>## </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/web/-cluster 集群要解决的问题/bluescan-HA/" data-id="cjo6x9y1l00xk05zyrmi7dwls" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/web/-cluster 集群要解决的问题/session/" data-id="cjo6xrru900sk30zyrtzat0ww" class="article-share-link">Share</a>
       
       
     </footer>
@@ -245,7 +245,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/-java语言的诞生/" data-id="cjo6x9yuw01vb05zyvhylglck" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/-java语言的诞生/" data-id="cjo6xrssr01v530zyqzo9tmkr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -283,7 +283,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/-tools/javac/" data-id="cjo6xa0ln02zx05zyk7zksr39" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/-tools/javac/" data-id="cjo6xrud502zd30zynuzqbzwv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -314,7 +314,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/-tools/javap/" data-id="cjo6xa0lu030005zyonhc37z2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/-tools/javap/" data-id="cjo6xrude02zh30zyb9tmxqzq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -369,7 +369,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/rt/util/-Arrays/" data-id="cjo6xa4r2046v05zyweel0moe" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/rt/util/-Arrays/" data-id="cjo6xry91046o30zy3bdk2e0b" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/collection/">collection</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java源码/">java源码</a></li></ul>
@@ -403,7 +403,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/jvm/-Class/" data-id="cjo6xa2mu03sf05zy9obq08xo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/jvm/-Class/" data-id="cjo6xrwdw03sr30zyycd51e71" class="article-share-link">Share</a>
       
       
     </footer>
@@ -434,7 +434,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/jvm/HotSpot/-classloader/" data-id="cjo6xa4pc046f05zyt7k9fchf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/jvm/HotSpot/-classloader/" data-id="cjo6xry9s047330zyc0rmxs5u" class="article-share-link">Share</a>
       
       
     </footer>

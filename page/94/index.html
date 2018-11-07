@@ -62,6 +62,54 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-docker/tutorial/images/-images" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/docker/tutorial/images/-images/" class="article-date">
+  <time datetime="2017-12-31T16:00:00.000Z" itemprop="datePublished">2018-01-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/docker/">docker</a>►<a class="article-category-link" href="/categories/docker/tutorial/">tutorial</a>►<a class="article-category-link" href="/categories/docker/tutorial/images/">images</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/docker/tutorial/images/-images/">Docker镜像分层技术</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>采用的sha256对每层编码。对image进行编码。</p>
+<p>Docker对于镜像的维护类似于git对于repository的维护，都是只记录增量的。原有镜像是静态文件，基于这个静态文件可以创建的一个动态容器，在这个动态的容器中做任何你希望做的修改，然后退出容器后使用commit生成新的镜像，这个新的镜像就保留了你做的改动，从而生成新的一层。  未改变的文件还是使用原有镜像的文件，  被改动的文件作为新的layer被保存。基于同一个base image构建的两个不同的镜像，就类似于 基于同一个repository创建的两个不同的branch， 未修改的文件由两个镜像公用，每个镜像又独自保留他们特定的修改内容的增量。</p>
+<p>从命令行上来说：</p>
+<ul>
+<li>一个commit指令对应一个新的layer</li>
+<li>一条RUN语句对应一个新的layer</li>
+</ul>
+<h1 id="Ubuntu系统的镜像"><a href="#Ubuntu系统的镜像" class="headerlink" title="Ubuntu系统的镜像"></a>Ubuntu系统的镜像</h1><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>-</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/docker/tutorial/images/-images/" data-id="cjo6xrs6q018k30zyc32jalwv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-docker/tutorial/images/-build" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/wiki/docker/tutorial/images/-build/" class="article-date">
@@ -116,55 +164,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/docker/tutorial/images/-build/" data-id="cjo6x9y93015a05zy2zlaalvw" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-docker/tutorial/images/-images" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wiki/docker/tutorial/images/-images/" class="article-date">
-  <time datetime="2017-12-31T16:00:00.000Z" itemprop="datePublished">2018-01-01</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/docker/">docker</a>►<a class="article-category-link" href="/categories/docker/tutorial/">tutorial</a>►<a class="article-category-link" href="/categories/docker/tutorial/images/">images</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wiki/docker/tutorial/images/-images/">Docker镜像分层技术</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>采用的sha256对每层编码。对image进行编码。</p>
-<p>Docker对于镜像的维护类似于git对于repository的维护，都是只记录增量的。原有镜像是静态文件，基于这个静态文件可以创建的一个动态容器，在这个动态的容器中做任何你希望做的修改，然后退出容器后使用commit生成新的镜像，这个新的镜像就保留了你做的改动，从而生成新的一层。  未改变的文件还是使用原有镜像的文件，  被改动的文件作为新的layer被保存。基于同一个base image构建的两个不同的镜像，就类似于 基于同一个repository创建的两个不同的branch， 未修改的文件由两个镜像公用，每个镜像又独自保留他们特定的修改内容的增量。</p>
-<p>从命令行上来说：</p>
-<ul>
-<li>一个commit指令对应一个新的layer</li>
-<li>一条RUN语句对应一个新的layer</li>
-</ul>
-<h1 id="Ubuntu系统的镜像"><a href="#Ubuntu系统的镜像" class="headerlink" title="Ubuntu系统的镜像"></a>Ubuntu系统的镜像</h1><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>-</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/docker/tutorial/images/-images/" data-id="cjo6x9y94015d05zyc55mfwgc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/docker/tutorial/images/-build/" data-id="cjo6xrs6s018n30zy6fgsnseo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -263,7 +263,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/ML/app/vision/app/Object Recognition/image-classification/image classification/" data-id="cjo6xa3zn043605zysv1bncjs" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/ML/app/vision/app/Object Recognition/image-classification/image classification/" data-id="cjo6xrxm8041d30zyipb1le0s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cv/">cv</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/deep-learning/">deep learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/image-classification/">image classification</a></li></ul>
@@ -459,11 +459,57 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/ML/app/vision/dataset/dataset/" data-id="cjo6x9zgm02g805zyzf5th6oz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/ML/app/vision/dataset/dataset/" data-id="cjo6xrte702hf30zyas8zxb7l" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cv/">cv</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dataset/">dataset</a></li></ul>
 
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CS/programing/lan/java/-JavaBytecodes" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/programing/lan/java/-JavaBytecodes/" class="article-date">
+  <time datetime="2017-02-01T16:00:00.000Z" itemprop="datePublished">2017-02-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/programing/">programing</a>►<a class="article-category-link" href="/categories/CS/programing/lan/">lan</a>►<a class="article-category-link" href="/categories/CS/programing/lan/java/">java</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/CS/programing/lan/java/-JavaBytecodes/">java系列 - byte code</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="查看byte-code"><a href="#查看byte-code" class="headerlink" title="查看byte code"></a>查看byte code</h2><ol>
+<li><p>javap -c java.lang.Object</p>
+</li>
+<li><p>eclipse插件<a href="http://asm.ow2.org/eclipse/index.html" rel="external nofollow noopener noreferrer" target="_blank">ASM</a></p>
+</li>
+</ol>
+<h2 id="常用byte-code"><a href="#常用byte-code" class="headerlink" title="常用byte code"></a>常用byte code</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/-JavaBytecodes/" data-id="cjo6xrssc01ut30zyu8q0sklv" class="article-share-link">Share</a>
+      
+      
     </footer>
   </div>
   
@@ -577,53 +623,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/Error-and-Exception/" data-id="cjo6x9yv201vi05zy7uv3hst0" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-CS/programing/lan/java/-JavaBytecodes" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wiki/CS/programing/lan/java/-JavaBytecodes/" class="article-date">
-  <time datetime="2017-02-01T16:00:00.000Z" itemprop="datePublished">2017-02-02</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/programing/">programing</a>►<a class="article-category-link" href="/categories/CS/programing/lan/">lan</a>►<a class="article-category-link" href="/categories/CS/programing/lan/java/">java</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wiki/CS/programing/lan/java/-JavaBytecodes/">java系列 - byte code</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="查看byte-code"><a href="#查看byte-code" class="headerlink" title="查看byte code"></a>查看byte code</h2><ol>
-<li><p>javap -c java.lang.Object</p>
-</li>
-<li><p>eclipse插件<a href="http://asm.ow2.org/eclipse/index.html" rel="external nofollow noopener noreferrer" target="_blank">ASM</a></p>
-</li>
-</ol>
-<h2 id="常用byte-code"><a href="#常用byte-code" class="headerlink" title="常用byte code"></a>常用byte code</h2>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/-JavaBytecodes/" data-id="cjo6x9yvw01w005zyxea5wexg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/Error-and-Exception/" data-id="cjo6xrssu01v830zyr501roop" class="article-share-link">Share</a>
       
       
     </footer>
@@ -676,7 +676,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/String/" data-id="cjo6xa0m8030405zyxxtelc8c" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/String/" data-id="cjo6xrud902zf30zymowy0t6v" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/string/">string</a></li></ul>
@@ -819,7 +819,101 @@ attribute_count
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/jvm/classFile/" data-id="cjo6xa2my03si05zydstnws6z" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/jvm/classFile/" data-id="cjo6xrwf503t630zy5czlq0u1" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CS/programing/lan/java/jdk/rt/Thread" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/programing/lan/java/jdk/rt/Thread/" class="article-date">
+  <time datetime="2017-02-01T16:00:00.000Z" itemprop="datePublished">2017-02-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/programing/">programing</a>►<a class="article-category-link" href="/categories/CS/programing/lan/">lan</a>►<a class="article-category-link" href="/categories/CS/programing/lan/java/">java</a>►<a class="article-category-link" href="/categories/CS/programing/lan/java/jdk/">jdk</a>►<a class="article-category-link" href="/categories/CS/programing/lan/java/jdk/rt/">rt</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/CS/programing/lan/java/jdk/rt/Thread/">【java源码系列】- Thread</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2><h3 id="Java的线程是如何创建的，是直接调用OS的API，还是有自己的“抽象线程”？"><a href="#Java的线程是如何创建的，是直接调用OS的API，还是有自己的“抽象线程”？" class="headerlink" title="Java的线程是如何创建的，是直接调用OS的API，还是有自己的“抽象线程”？"></a>Java的线程是如何创建的，是直接调用OS的API，还是有自己的“抽象线程”？</h3><p>java线程是映射到操作系统的内核线程上的</p>
+<h2 id="跟踪Thread-start"><a href="#跟踪Thread-start" class="headerlink" title="跟踪Thread.start()"></a>跟踪Thread.start()</h2><p>java</p>
+<pre><code>// Thread.java
+public synchronized void start() {
+    group.add(this);
+    ...
+    start0();
+    ...
+}
+
+private native void start0();
+</code></pre><p>native方法hotspot源码</p>
+<pre><code>// openjdk\jdk\src\share\native\java\lang\Thread.c
+static JNINativeMethod methods[] = {
+    {&quot;start0&quot;,           &quot;()V&quot;,        (void *)&amp;JVM_StartThread},
+   ...
+};
+
+
+// openjdk\hotspot\src\share\vm\prims\jvm.cpp
+JVM_ENTRY(void, JVM_StartThread(JNIEnv* env, jobject jthread))
+  JVMWrapper(&quot;JVM_StartThread&quot;);
+  JavaThread *native_thread = NULL;
+  ...
+  native_thread = new JavaThread(&amp;thread_entry, sz); // 重点
+  ...
+  Thread::start(native_thread); // 重点
+JVM_END
+
+
+
+// openjdk\hotspot\src\share\vm\runtime\thread.cpp
+JavaThread::JavaThread(ThreadFunction entry_point, size_t stack_sz) :
+  Thread() {
+   ...
+   os::create_thread(this, thr_type, stack_sz);
+   // 可以看出java线程是映射到操作系统的内核线程上的
+   ...
+}
+
+void Thread::start(Thread* thread) {
+    ...
+    os::start_thread(thread);
+  }
+}
+
+
+// 在hotspot\src\os目录下可以看到windows, linux, solaris和posix的实现，先检查linux\vm\os_linux.cpp
+
+bool os::create_thread(Thread* thread, ThreadType thr_type, size_t stack_size) {
+  ...
+  int ret = pthread_create(&amp;tid, &amp;attr, (void* (*)(void*)) java_start, thread);  // linux中调用的pthread，POSIX中的api
+  ...
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/rt/Thread/" data-id="cjo6xrwhb03tz30zy8kotoy4q" class="article-share-link">Share</a>
       
       
     </footer>
@@ -980,101 +1074,7 @@ inline jlong    Atomic::cmpxchg    (jlong    exchange_value, volatile jlong*    
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/rt/Atomic/" data-id="cjo6xa2n703sl05zydyr9o3gt" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-CS/programing/lan/java/jdk/rt/Thread" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wiki/CS/programing/lan/java/jdk/rt/Thread/" class="article-date">
-  <time datetime="2017-02-01T16:00:00.000Z" itemprop="datePublished">2017-02-02</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/programing/">programing</a>►<a class="article-category-link" href="/categories/CS/programing/lan/">lan</a>►<a class="article-category-link" href="/categories/CS/programing/lan/java/">java</a>►<a class="article-category-link" href="/categories/CS/programing/lan/java/jdk/">jdk</a>►<a class="article-category-link" href="/categories/CS/programing/lan/java/jdk/rt/">rt</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wiki/CS/programing/lan/java/jdk/rt/Thread/">【java源码系列】- Thread</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2><h3 id="Java的线程是如何创建的，是直接调用OS的API，还是有自己的“抽象线程”？"><a href="#Java的线程是如何创建的，是直接调用OS的API，还是有自己的“抽象线程”？" class="headerlink" title="Java的线程是如何创建的，是直接调用OS的API，还是有自己的“抽象线程”？"></a>Java的线程是如何创建的，是直接调用OS的API，还是有自己的“抽象线程”？</h3><p>java线程是映射到操作系统的内核线程上的</p>
-<h2 id="跟踪Thread-start"><a href="#跟踪Thread-start" class="headerlink" title="跟踪Thread.start()"></a>跟踪Thread.start()</h2><p>java</p>
-<pre><code>// Thread.java
-public synchronized void start() {
-    group.add(this);
-    ...
-    start0();
-    ...
-}
-
-private native void start0();
-</code></pre><p>native方法hotspot源码</p>
-<pre><code>// openjdk\jdk\src\share\native\java\lang\Thread.c
-static JNINativeMethod methods[] = {
-    {&quot;start0&quot;,           &quot;()V&quot;,        (void *)&amp;JVM_StartThread},
-   ...
-};
-
-
-// openjdk\hotspot\src\share\vm\prims\jvm.cpp
-JVM_ENTRY(void, JVM_StartThread(JNIEnv* env, jobject jthread))
-  JVMWrapper(&quot;JVM_StartThread&quot;);
-  JavaThread *native_thread = NULL;
-  ...
-  native_thread = new JavaThread(&amp;thread_entry, sz); // 重点
-  ...
-  Thread::start(native_thread); // 重点
-JVM_END
-
-
-
-// openjdk\hotspot\src\share\vm\runtime\thread.cpp
-JavaThread::JavaThread(ThreadFunction entry_point, size_t stack_sz) :
-  Thread() {
-   ...
-   os::create_thread(this, thr_type, stack_sz);
-   // 可以看出java线程是映射到操作系统的内核线程上的
-   ...
-}
-
-void Thread::start(Thread* thread) {
-    ...
-    os::start_thread(thread);
-  }
-}
-
-
-// 在hotspot\src\os目录下可以看到windows, linux, solaris和posix的实现，先检查linux\vm\os_linux.cpp
-
-bool os::create_thread(Thread* thread, ThreadType thr_type, size_t stack_size) {
-  ...
-  int ret = pthread_create(&amp;tid, &amp;attr, (void* (*)(void*)) java_start, thread);  // linux中调用的pthread，POSIX中的api
-  ...
-}
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/rt/Thread/" data-id="cjo6xa2nb03so05zyhk0fg255" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/rt/Atomic/" data-id="cjo6xrwhk03u330zyfbh03l75" class="article-share-link">Share</a>
       
       
     </footer>

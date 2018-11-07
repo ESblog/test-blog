@@ -132,10 +132,73 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/web/blog-framework/-blog framework比较/" data-id="cjo6x9y0z00x005zysp4a9wj3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/web/blog-framework/-blog framework比较/" data-id="cjo6xrrue00sp30zy0zsvopsk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/framework/">framework</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CS/web/blog-framework/nodejs-hexo/Hexo简介" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/web/blog-framework/nodejs-hexo/Hexo简介/" class="article-date">
+  <time datetime="2018-01-24T19:08:53.000Z" itemprop="datePublished">2018-01-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/web/">web</a>►<a class="article-category-link" href="/categories/CS/web/blog-framework/">blog-framework</a>►<a class="article-category-link" href="/categories/CS/web/blog-framework/nodejs-hexo/">nodejs-hexo</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/CS/web/blog-framework/nodejs-hexo/Hexo简介/">Hexo简介</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Hexo剖析"><a href="#Hexo剖析" class="headerlink" title="Hexo剖析"></a>Hexo剖析</h2><p>中文文档：<a href="https://hexo.io/zh-cn/docs/" rel="external nofollow noopener noreferrer" target="_blank">https://hexo.io/zh-cn/docs/</a><br>官方主题库：<a href="https://hexo.io/themes/" rel="external nofollow noopener noreferrer" target="_blank">https://hexo.io/themes/</a><br>next主题：<a href="https://github.com/theme-next" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/theme-next</a></p>
+<h2 id="Hexo原理综述"><a href="#Hexo原理综述" class="headerlink" title="Hexo原理综述"></a>Hexo原理综述</h2><p>markdown到html的旅程</p>
+<ul>
+<li>模板渲染</li>
+<li>模板渲染</li>
+</ul>
+<h2 id="hexo文件结构"><a href="#hexo文件结构" class="headerlink" title="hexo文件结构"></a>hexo文件结构</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">├── _config.yml     <span class="comment"># 站点配置文件</span></span><br><span class="line">├── db.json     <span class="comment"># database，缓存文件</span></span><br><span class="line">├── node_modules  <span class="comment"># 安装的插件以及hexo所需的一些node.js模块</span></span><br><span class="line">├── package.json  <span class="comment"># 应用程序信息，配置hexo运行需要的js包</span></span><br><span class="line">├── public     <span class="comment"># deploy时生成，最终所见网页的所有内容</span></span><br><span class="line">├── scaffolds  <span class="comment"># 模板文件夹，hexo默认包含以下三种布局(layout)    https://hexo.io/zh-cn/docs/writing.html</span></span><br><span class="line">│     ├──draft.md   <span class="comment"># hexo new draft &lt;title&gt; 会在source/_drafts目录下生成md文件</span></span><br><span class="line">│     ├──page.md  <span class="comment"># hexo new page &lt;title&gt; 在source目录下</span></span><br><span class="line">│     └──post.md   <span class="comment"># hexo new post &lt;title&gt;  在source/_posts目录下生成md文件</span></span><br><span class="line">├── source    <span class="comment"># 资源文件夹。除 posts 文件夹之外，开头命名为 (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件会被拷贝过去。</span></span><br><span class="line">│     ├── _draft  <span class="comment"># 除 _posts 文件夹之外，开头命名为 _ (下划线)的文件 / 文件夹和隐藏的文件将会被忽略</span></span><br><span class="line">│     └── _posts  <span class="comment">#</span></span><br><span class="line">│             └──  hello-world.md</span><br><span class="line">└── themes   <span class="comment">#主题文件夹</span></span><br><span class="line">      ├──</span><br><span class="line">      └──next</span><br><span class="line">          ├──</span><br><span class="line">          ├──</span><br><span class="line">          ├──</span><br><span class="line">          ├──</span><br></pre></td></tr></table></figure>
+<h2 id="详解clean"><a href="#详解clean" class="headerlink" title="详解clean"></a>详解clean</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean --debug</span><br><span class="line"></span><br><span class="line">INFO  Deleted database.       <span class="comment"># 清空 db.json</span></span><br><span class="line">INFO  Deleted public folder.  <span class="comment"># 删除public目录</span></span><br></pre></td></tr></table></figure>
+<h2 id="详解hexo-g"><a href="#详解hexo-g" class="headerlink" title="详解hexo g"></a>详解hexo g</h2><p>每次运行 hexo g 命令，hexo(node.js程序)会遍历你的 source 目录，建立索引，根据你 theme 文件夹的主题生成页面到 public 文件夹。这时 public 文件夹就是一个纯由 html javascript css 等内容制作的博客，而这些恰好能在 git pages 识别</p>
+<h2 id="详解deploy"><a href="#详解deploy" class="headerlink" title="详解deploy"></a>详解deploy</h2><p>最后 hexo d 将 public 文件夹的内容复制到临时目录，以 git 方式 push 到 github 的指定项目的指定分支，由 github 进行显示</p>
+<p>首次deploy<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">$ hexo d --debug</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 首先加载plugin和theme</span></span><br><span class="line">DEBUG Config loaded: ~/xs/blog/_config.yml</span><br><span class="line">DEBUG Plugin loaded: hexo-generator-category</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 开始转化html</span></span><br><span class="line">INFO  Start processing</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.1 处理404页面</span></span><br><span class="line">DEBUG Processed: <span class="built_in">source</span>/404.html  <span class="comment"># 404不需要theme</span></span><br><span class="line">DEBUG Processed: 404.html</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.2 加载主题，处理source目录下的.md .html</span></span><br><span class="line">DEBUG Theme config loaded.</span><br><span class="line">DEBUG Processed: _config.yml  <span class="comment"># 这个也需要处理？</span></span><br><span class="line">DEBUG Processed: <span class="built_in">source</span>/css/main.styl  <span class="comment"># 处理source目录下所有文件，包括js image md</span></span><br><span class="line">DEBUG Processed: layout/archive.swig   <span class="comment"># 处理layout languages等</span></span><br><span class="line"></span><br><span class="line">DEBUG Generator: page  <span class="comment"># 还包括post category archive index tag</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 生成html，存储在public目录</span></span><br><span class="line">INFO  Files loaded <span class="keyword">in</span> 796 ms  <span class="comment">#</span></span><br><span class="line">DEBUG Rendering page: 404.html</span><br><span class="line">DEBUG Rendering post: 2018/01/25/hello-world/index.html</span><br><span class="line">DEBUG Rendering archive: archives/index.html</span><br><span class="line">DEBUG Rendering index: index.html</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. deploy: 创建git repo，在public中拷贝文件，并push</span></span><br><span class="line">INFO  Deploying: git</span><br><span class="line">Initialized empty Git repository   <span class="comment"># git init</span></span><br><span class="line">INFO  Copying files from public folder...  <span class="comment"># 从public复制到.deploy_git目录</span></span><br><span class="line">INFO  Copying files from extend <span class="built_in">dirs</span>...</span><br><span class="line">INFO  Deploy <span class="keyword">done</span>: git  <span class="comment"># commit &amp; push 已完成</span></span><br><span class="line">DEBUG Database saved</span><br></pre></td></tr></table></figure></p>
+<h2 id="详解hexo-server"><a href="#详解hexo-server" class="headerlink" title="详解hexo server"></a>详解hexo server</h2><p>hexo s –debug</p>
+<h2 id="hexo的模板引擎-Rendering-HTML"><a href="#hexo的模板引擎-Rendering-HTML" class="headerlink" title="hexo的模板引擎,Rendering HTML"></a>hexo的模板引擎,Rendering HTML</h2><p>模板引擎的作用，就是将界面与数据分离。最简单的原理是将模板内容中指定的地方替换成数据，实现业务代码与逻辑代码分离。</p>
+<p>source 文件夹理解为数据库，而theme文件夹相当于 界面。 hexo g 就将我们的数据和界面相结合生成静态文件 public。</p>
+<p>Hexo 的模板引擎是默认使用 ejs 编写的，同类型的东西还有很多，比如jade，swig。</p>
+<p>next选用的swig</p>
+<h2 id="比较赞的设计"><a href="#比较赞的设计" class="headerlink" title="比较赞的设计"></a>比较赞的设计</h2><ul>
+<li>文件名与博客名分离，即title不直接采用文件名。(这样保证了不会因为title的变动引起url的变动)</li>
+<li>url路径与实际路径分离 ()</li>
+</ul>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p><a href="http://coderunthings.com/2017/08/20/howhexoworks/" rel="external nofollow noopener noreferrer" target="_blank">http://coderunthings.com/2017/08/20/howhexoworks/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/web/blog-framework/nodejs-hexo/Hexo简介/" data-id="cjo6xrsxc020030zyruv5is6e" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
 
     </footer>
   </div>
@@ -231,70 +294,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/web/blog-framework/nodejs-hexo/Hexo使用建议/" data-id="cjo6x9z26020605zy12afqh18" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-CS/web/blog-framework/nodejs-hexo/Hexo简介" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wiki/CS/web/blog-framework/nodejs-hexo/Hexo简介/" class="article-date">
-  <time datetime="2018-01-24T19:08:53.000Z" itemprop="datePublished">2018-01-25</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/web/">web</a>►<a class="article-category-link" href="/categories/CS/web/blog-framework/">blog-framework</a>►<a class="article-category-link" href="/categories/CS/web/blog-framework/nodejs-hexo/">nodejs-hexo</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wiki/CS/web/blog-framework/nodejs-hexo/Hexo简介/">Hexo简介</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Hexo剖析"><a href="#Hexo剖析" class="headerlink" title="Hexo剖析"></a>Hexo剖析</h2><p>中文文档：<a href="https://hexo.io/zh-cn/docs/" rel="external nofollow noopener noreferrer" target="_blank">https://hexo.io/zh-cn/docs/</a><br>官方主题库：<a href="https://hexo.io/themes/" rel="external nofollow noopener noreferrer" target="_blank">https://hexo.io/themes/</a><br>next主题：<a href="https://github.com/theme-next" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/theme-next</a></p>
-<h2 id="Hexo原理综述"><a href="#Hexo原理综述" class="headerlink" title="Hexo原理综述"></a>Hexo原理综述</h2><p>markdown到html的旅程</p>
-<ul>
-<li>模板渲染</li>
-<li>模板渲染</li>
-</ul>
-<h2 id="hexo文件结构"><a href="#hexo文件结构" class="headerlink" title="hexo文件结构"></a>hexo文件结构</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">├── _config.yml     <span class="comment"># 站点配置文件</span></span><br><span class="line">├── db.json     <span class="comment"># database，缓存文件</span></span><br><span class="line">├── node_modules  <span class="comment"># 安装的插件以及hexo所需的一些node.js模块</span></span><br><span class="line">├── package.json  <span class="comment"># 应用程序信息，配置hexo运行需要的js包</span></span><br><span class="line">├── public     <span class="comment"># deploy时生成，最终所见网页的所有内容</span></span><br><span class="line">├── scaffolds  <span class="comment"># 模板文件夹，hexo默认包含以下三种布局(layout)    https://hexo.io/zh-cn/docs/writing.html</span></span><br><span class="line">│     ├──draft.md   <span class="comment"># hexo new draft &lt;title&gt; 会在source/_drafts目录下生成md文件</span></span><br><span class="line">│     ├──page.md  <span class="comment"># hexo new page &lt;title&gt; 在source目录下</span></span><br><span class="line">│     └──post.md   <span class="comment"># hexo new post &lt;title&gt;  在source/_posts目录下生成md文件</span></span><br><span class="line">├── source    <span class="comment"># 资源文件夹。除 posts 文件夹之外，开头命名为 (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件会被拷贝过去。</span></span><br><span class="line">│     ├── _draft  <span class="comment"># 除 _posts 文件夹之外，开头命名为 _ (下划线)的文件 / 文件夹和隐藏的文件将会被忽略</span></span><br><span class="line">│     └── _posts  <span class="comment">#</span></span><br><span class="line">│             └──  hello-world.md</span><br><span class="line">└── themes   <span class="comment">#主题文件夹</span></span><br><span class="line">      ├──</span><br><span class="line">      └──next</span><br><span class="line">          ├──</span><br><span class="line">          ├──</span><br><span class="line">          ├──</span><br><span class="line">          ├──</span><br></pre></td></tr></table></figure>
-<h2 id="详解clean"><a href="#详解clean" class="headerlink" title="详解clean"></a>详解clean</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean --debug</span><br><span class="line"></span><br><span class="line">INFO  Deleted database.       <span class="comment"># 清空 db.json</span></span><br><span class="line">INFO  Deleted public folder.  <span class="comment"># 删除public目录</span></span><br></pre></td></tr></table></figure>
-<h2 id="详解hexo-g"><a href="#详解hexo-g" class="headerlink" title="详解hexo g"></a>详解hexo g</h2><p>每次运行 hexo g 命令，hexo(node.js程序)会遍历你的 source 目录，建立索引，根据你 theme 文件夹的主题生成页面到 public 文件夹。这时 public 文件夹就是一个纯由 html javascript css 等内容制作的博客，而这些恰好能在 git pages 识别</p>
-<h2 id="详解deploy"><a href="#详解deploy" class="headerlink" title="详解deploy"></a>详解deploy</h2><p>最后 hexo d 将 public 文件夹的内容复制到临时目录，以 git 方式 push 到 github 的指定项目的指定分支，由 github 进行显示</p>
-<p>首次deploy<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">$ hexo d --debug</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 首先加载plugin和theme</span></span><br><span class="line">DEBUG Config loaded: ~/xs/blog/_config.yml</span><br><span class="line">DEBUG Plugin loaded: hexo-generator-category</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 开始转化html</span></span><br><span class="line">INFO  Start processing</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.1 处理404页面</span></span><br><span class="line">DEBUG Processed: <span class="built_in">source</span>/404.html  <span class="comment"># 404不需要theme</span></span><br><span class="line">DEBUG Processed: 404.html</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.2 加载主题，处理source目录下的.md .html</span></span><br><span class="line">DEBUG Theme config loaded.</span><br><span class="line">DEBUG Processed: _config.yml  <span class="comment"># 这个也需要处理？</span></span><br><span class="line">DEBUG Processed: <span class="built_in">source</span>/css/main.styl  <span class="comment"># 处理source目录下所有文件，包括js image md</span></span><br><span class="line">DEBUG Processed: layout/archive.swig   <span class="comment"># 处理layout languages等</span></span><br><span class="line"></span><br><span class="line">DEBUG Generator: page  <span class="comment"># 还包括post category archive index tag</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 生成html，存储在public目录</span></span><br><span class="line">INFO  Files loaded <span class="keyword">in</span> 796 ms  <span class="comment">#</span></span><br><span class="line">DEBUG Rendering page: 404.html</span><br><span class="line">DEBUG Rendering post: 2018/01/25/hello-world/index.html</span><br><span class="line">DEBUG Rendering archive: archives/index.html</span><br><span class="line">DEBUG Rendering index: index.html</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. deploy: 创建git repo，在public中拷贝文件，并push</span></span><br><span class="line">INFO  Deploying: git</span><br><span class="line">Initialized empty Git repository   <span class="comment"># git init</span></span><br><span class="line">INFO  Copying files from public folder...  <span class="comment"># 从public复制到.deploy_git目录</span></span><br><span class="line">INFO  Copying files from extend <span class="built_in">dirs</span>...</span><br><span class="line">INFO  Deploy <span class="keyword">done</span>: git  <span class="comment"># commit &amp; push 已完成</span></span><br><span class="line">DEBUG Database saved</span><br></pre></td></tr></table></figure></p>
-<h2 id="详解hexo-server"><a href="#详解hexo-server" class="headerlink" title="详解hexo server"></a>详解hexo server</h2><p>hexo s –debug</p>
-<h2 id="hexo的模板引擎-Rendering-HTML"><a href="#hexo的模板引擎-Rendering-HTML" class="headerlink" title="hexo的模板引擎,Rendering HTML"></a>hexo的模板引擎,Rendering HTML</h2><p>模板引擎的作用，就是将界面与数据分离。最简单的原理是将模板内容中指定的地方替换成数据，实现业务代码与逻辑代码分离。</p>
-<p>source 文件夹理解为数据库，而theme文件夹相当于 界面。 hexo g 就将我们的数据和界面相结合生成静态文件 public。</p>
-<p>Hexo 的模板引擎是默认使用 ejs 编写的，同类型的东西还有很多，比如jade，swig。</p>
-<p>next选用的swig</p>
-<h2 id="比较赞的设计"><a href="#比较赞的设计" class="headerlink" title="比较赞的设计"></a>比较赞的设计</h2><ul>
-<li>文件名与博客名分离，即title不直接采用文件名。(这样保证了不会因为title的变动引起url的变动)</li>
-<li>url路径与实际路径分离 ()</li>
-</ul>
-<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p><a href="http://coderunthings.com/2017/08/20/howhexoworks/" rel="external nofollow noopener noreferrer" target="_blank">http://coderunthings.com/2017/08/20/howhexoworks/</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/web/blog-framework/nodejs-hexo/Hexo简介/" data-id="cjo6x9z2d020c05zyf7idtdbd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/web/blog-framework/nodejs-hexo/Hexo使用建议/" data-id="cjo6xrsxp020930zy8auxckg5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
@@ -438,7 +438,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/web/blog-framework/nodejs-hexo/Hexo源码浅析/" data-id="cjo6xa05t02qx05zyvaq4eoi9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/web/blog-framework/nodejs-hexo/Hexo源码浅析/" data-id="cjo6xrtuf02ou30zy5gl2nwgf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原理/">原理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
@@ -485,7 +485,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/web/blog-framework/nodejs-hexo/theme/-关于theme-next/" data-id="cjo6xa0rt032a05zy2wwkac5o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/web/blog-framework/nodejs-hexo/theme/-关于theme-next/" data-id="cjo6xrujl031m30zyxoj5e6gl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
@@ -611,7 +611,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/web/blog-framework/nodejs-hexo/src/Hexo源码浅析/" data-id="cjo6xa1dx03ii05zykz5ovixs" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/web/blog-framework/nodejs-hexo/src/Hexo源码浅析/" data-id="cjo6xrv4m03d930zyhzya8qz3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原理/">原理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
@@ -668,7 +668,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/web/blog-framework/nodejs-hexo/plugin/2/Hexo博客添加在线联系功能--DaoVoice分析/" data-id="cjo6xa2r603u505zydv8w5jmo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/web/blog-framework/nodejs-hexo/plugin/2/Hexo博客添加在线联系功能--DaoVoice分析/" data-id="cjo6xrwiv03uh30zy25atsqac" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/instant-message/">instant-message</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/plugin/">plugin</a></li></ul>
@@ -1008,7 +1008,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/web/建站/domain/" data-id="cjo6x9ym601pq05zyc7xplw4d" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/web/建站/domain/" data-id="cjo6xrsbs01fn30zyklj15s1a" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/domain/">domain</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/建站/">建站</a></li></ul>
@@ -1227,7 +1227,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/web/建站/seo/seo-for-spider/" data-id="cjo6xa0eh02x105zyy6b1j8w5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/web/建站/seo/seo-for-spider/" data-id="cjo6xru5i02vw30zydb96sgwa" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SEO/">SEO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/domain/">domain</a></li></ul>
@@ -1321,7 +1321,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/demo/hexo/hexo-tag/" data-id="cjo6x9xfv00c405zyspcj939y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/demo/hexo/hexo-tag/" data-id="cjo6xrrfp00c530zypb5w3v9a" class="article-share-link">Share</a>
       
       
     </footer>
