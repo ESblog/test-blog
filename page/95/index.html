@@ -96,7 +96,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/jvm/HotSpot/SocketOutputStream/" data-id="cjo6vcg8f047bkpzyv5fwe57s" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/jvm/HotSpot/SocketOutputStream/" data-id="cjo6wo2sz047nxnzyo9aue692" class="article-share-link">Share</a>
       
       
     </footer>
@@ -150,7 +150,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/jvm/HotSpot/init/" data-id="cjo6vcg8i047ckpzyogs2wetj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/jvm/HotSpot/init/" data-id="cjo6wo2t6047oxnzy1ap96kgg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -284,11 +284,77 @@ class oopDesc {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/jvm/HotSpot/klass/" data-id="cjo6vcg8r047dkpzyzqb1lbm4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/jvm/HotSpot/klass/" data-id="cjo6wo2te047pxnzyih54b62l" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/class/">class</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hotspot/">hotspot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
 
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CS/programing/lan/java/jdk/rt/system/System" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/programing/lan/java/jdk/rt/system/System/" class="article-date">
+  <time datetime="2017-02-01T16:00:00.000Z" itemprop="datePublished">2017-02-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/programing/">programing</a>►<a class="article-category-link" href="/categories/CS/programing/lan/">lan</a>►<a class="article-category-link" href="/categories/CS/programing/lan/java/">java</a>►<a class="article-category-link" href="/categories/CS/programing/lan/java/jdk/">jdk</a>►<a class="article-category-link" href="/categories/CS/programing/lan/java/jdk/rt/">rt</a>►<a class="article-category-link" href="/categories/CS/programing/lan/java/jdk/rt/system/">system</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/CS/programing/lan/java/jdk/rt/system/System/">【java源码系列】 - System</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>java.lang.System.java</p>
+<h2 id="跟踪arraycopy"><a href="#跟踪arraycopy" class="headerlink" title="跟踪arraycopy"></a>跟踪arraycopy</h2><p>public static native void arraycopy(Object src,  int  srcPos, Object dest, int destPos, int length);</p>
+<h3 id="System-c"><a href="#System-c" class="headerlink" title="System.c"></a>System.c</h3><pre><code>// jdk/src/share/native/java/lang/System.c
+
+/* Only register the performance-critical methods */
+static JNINativeMethod methods[] = {
+    {&quot;currentTimeMillis&quot;, &quot;()J&quot;,              (void *)&amp;JVM_CurrentTimeMillis},
+    {&quot;nanoTime&quot;,          &quot;()J&quot;,              (void *)&amp;JVM_NanoTime},
+    {&quot;arraycopy&quot;,     &quot;(&quot; OBJ &quot;I&quot; OBJ &quot;II)V&quot;, (void *)&amp;JVM_ArrayCopy},
+};
+</code></pre><h3 id="jvm-cpp"><a href="#jvm-cpp" class="headerlink" title="jvm.cpp"></a>jvm.cpp</h3><pre><code>// src/share/vm/prims/jvm.cpp
+
+JVM_ENTRY(void, JVM_ArrayCopy(JNIEnv *env, jclass ignored, jobject src, jint src_pos,
+                               jobject dst, jint dst_pos, jint length))
+  JVMWrapper(&quot;JVM_ArrayCopy&quot;);
+  // Check if we have null pointers
+  if (src == NULL || dst == NULL) {
+    THROW(vmSymbols::java_lang_NullPointerException());
+  }
+  arrayOop s = arrayOop(JNIHandles::resolve_non_null(src));
+  arrayOop d = arrayOop(JNIHandles::resolve_non_null(dst));
+  assert(s-&gt;is_oop(), &quot;JVM_ArrayCopy: src not an oop&quot;);
+  assert(d-&gt;is_oop(), &quot;JVM_ArrayCopy: dst not an oop&quot;);
+  // Do copy
+  Klass::cast(s-&gt;klass())-&gt;copy_array(s, src_pos, d, dst_pos, length, thread);
+JVM_END
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/rt/system/System/" data-id="cjo6wo2tl047rxnzygevnd6n5" class="article-share-link">Share</a>
+      
+      
     </footer>
   </div>
   
@@ -380,7 +446,7 @@ class oopDesc {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/rt/util/Collection/" data-id="cjo6vcg8z047jkpzy3f12l60v" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/rt/util/Collection/" data-id="cjo6wo2tp047txnzycwiwmf80" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/collection/">collection</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java源码/">java源码</a></li></ul>
@@ -534,77 +600,11 @@ class oopDesc {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/rt/util/Map/" data-id="cjo6vcg98047pkpzy54p9v4eu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/rt/util/Map/" data-id="cjo6wo2tz047wxnzyhep4t2hl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java源码/">java源码</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/map/">map</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-CS/programing/lan/java/jdk/rt/system/System" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wiki/CS/programing/lan/java/jdk/rt/system/System/" class="article-date">
-  <time datetime="2017-02-01T16:00:00.000Z" itemprop="datePublished">2017-02-02</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/programing/">programing</a>►<a class="article-category-link" href="/categories/CS/programing/lan/">lan</a>►<a class="article-category-link" href="/categories/CS/programing/lan/java/">java</a>►<a class="article-category-link" href="/categories/CS/programing/lan/java/jdk/">jdk</a>►<a class="article-category-link" href="/categories/CS/programing/lan/java/jdk/rt/">rt</a>►<a class="article-category-link" href="/categories/CS/programing/lan/java/jdk/rt/system/">system</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wiki/CS/programing/lan/java/jdk/rt/system/System/">【java源码系列】 - System</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>java.lang.System.java</p>
-<h2 id="跟踪arraycopy"><a href="#跟踪arraycopy" class="headerlink" title="跟踪arraycopy"></a>跟踪arraycopy</h2><p>public static native void arraycopy(Object src,  int  srcPos, Object dest, int destPos, int length);</p>
-<h3 id="System-c"><a href="#System-c" class="headerlink" title="System.c"></a>System.c</h3><pre><code>// jdk/src/share/native/java/lang/System.c
-
-/* Only register the performance-critical methods */
-static JNINativeMethod methods[] = {
-    {&quot;currentTimeMillis&quot;, &quot;()J&quot;,              (void *)&amp;JVM_CurrentTimeMillis},
-    {&quot;nanoTime&quot;,          &quot;()J&quot;,              (void *)&amp;JVM_NanoTime},
-    {&quot;arraycopy&quot;,     &quot;(&quot; OBJ &quot;I&quot; OBJ &quot;II)V&quot;, (void *)&amp;JVM_ArrayCopy},
-};
-</code></pre><h3 id="jvm-cpp"><a href="#jvm-cpp" class="headerlink" title="jvm.cpp"></a>jvm.cpp</h3><pre><code>// src/share/vm/prims/jvm.cpp
-
-JVM_ENTRY(void, JVM_ArrayCopy(JNIEnv *env, jclass ignored, jobject src, jint src_pos,
-                               jobject dst, jint dst_pos, jint length))
-  JVMWrapper(&quot;JVM_ArrayCopy&quot;);
-  // Check if we have null pointers
-  if (src == NULL || dst == NULL) {
-    THROW(vmSymbols::java_lang_NullPointerException());
-  }
-  arrayOop s = arrayOop(JNIHandles::resolve_non_null(src));
-  arrayOop d = arrayOop(JNIHandles::resolve_non_null(dst));
-  assert(s-&gt;is_oop(), &quot;JVM_ArrayCopy: src not an oop&quot;);
-  assert(d-&gt;is_oop(), &quot;JVM_ArrayCopy: dst not an oop&quot;);
-  // Do copy
-  Klass::cast(s-&gt;klass())-&gt;copy_array(s, src_pos, d, dst_pos, length, thread);
-JVM_END
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/rt/system/System/" data-id="cjo6vcg9r047tkpzyi8afwr0z" class="article-share-link">Share</a>
-      
-      
     </footer>
   </div>
   
@@ -703,7 +703,7 @@ JVM_END
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/rt/-lang/Object/" data-id="cjo6vchio04e7kpzycl85qdho" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/java/jdk/rt/-lang/Object/" data-id="cjo6wo43p04eyxnzy0rvbfnpz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -832,7 +832,7 @@ JVM_END
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/电子/芯片/厂商/寒武纪/" data-id="cjo6vcacy01ahkpzy1agpm5mq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/电子/芯片/厂商/寒武纪/" data-id="cjo6wnwn101e6xnzycsh7ilg1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -874,7 +874,7 @@ JVM_END
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/demo/hexo/hexo-abbrlink/" data-id="cjo6vc9is00cckpzyshiq79cf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/demo/hexo/hexo-abbrlink/" data-id="cjo6wnvnl00bsxnzyx9t9yw4m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo-abbrlink/">hexo-abbrlink</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/plugin/">plugin</a></li></ul>

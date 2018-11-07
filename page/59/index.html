@@ -62,9 +62,9 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post--audio/toolbox/kaldi/-分布式训练" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post--audio/toolbox/kaldi/kaldi-intro" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/wiki/-audio/toolbox/kaldi/-分布式训练/" class="article-date">
+    <a href="/wiki/-audio/toolbox/kaldi/kaldi-intro/" class="article-date">
   <time datetime="2018-06-20T11:22:09.201Z" itemprop="datePublished">2018-06-20</time>
 </a>
     
@@ -76,14 +76,42 @@
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/-audio/toolbox/kaldi/kaldi-intro/">kaldi简介</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>见 multi-gpu项目</p>
+        <h2 id="kaldi"><a href="#kaldi" class="headerlink" title="kaldi"></a>kaldi</h2><ul>
+<li><p>学习thchs30的脚本：<a href="https://github.com/kaldi-asr/kaldi/tree/master/egs/thchs30/s5" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/kaldi-asr/kaldi/tree/master/egs/thchs30/s5</a>  中文语音识别</p>
+</li>
+<li><p>学习kaldi的话，先从hmm-gmm入手比较好，</p>
+<ul>
+<li><a href="https://github.com/kaldi-asr/kaldi/blob/master/egs/wsj/s5/steps/train_deltas.sh" rel="external nofollow noopener noreferrer" target="_blank">steps/train_delta.sh</a> build-tree命令那部分的代码对应htk book第十章tree-based clustering, gmm-est命令那部分的代码对应htk book第八章的Parameter Re-Estimation Formulae;</li>
+</ul>
+</li>
+<li><a href="没找到">steps/train_fmllr.sh</a>, <a href="https://github.com/kaldi-asr/kaldi/blob/master/egs/wsj/s5/steps/decode.sh" rel="external nofollow noopener noreferrer" target="_blank">steps/decode.sh</a>这些脚本都是基于hmm-gmm模型。</li>
+<li>神经网络<ul>
+<li><a href="https://github.com/kaldi-asr/kaldi/tree/master/egs/wsj/s5/steps/nnet" rel="external nofollow noopener noreferrer" target="_blank">nnet1</a> hmm-dnn架构，相关的知识可以查阅微软俞栋2009-2013期间发表的论文</li>
+<li><a href="https://github.com/kaldi-asr/kaldi/tree/master/egs/wsj/s5/steps/nnet2" rel="external nofollow noopener noreferrer" target="_blank">nnet2</a> 同样是hmm-dnn架构，但是使用的是dan povey团队设计的NSGD算法，支持多线程并行训练，学习nnet2可以追dan povey从2012年之后的论文</li>
+<li><a href="https://github.com/kaldi-asr/kaldi/tree/master/egs/wsj/s5/steps/nnet3" rel="external nofollow noopener noreferrer" target="_blank">nnet3</a> chain model,以及其他的神经网路结构(rn,cnn,lstm)的学习</li>
+</ul>
+</li>
+</ul>
+<h1 id="扩展阅读"><a href="#扩展阅读" class="headerlink" title="扩展阅读"></a>扩展阅读</h1><ul>
+<li><a href="https://www.zhihu.com/question/65516424" rel="external nofollow noopener noreferrer" target="_blank">语音识别kaldi该如何学习？ | 知乎</a></li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/-audio/toolbox/kaldi/-分布式训练/" data-id="cjo6vc9rp00mwkpzy9la1y62u" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/-audio/toolbox/kaldi/kaldi-intro/" data-id="cjo6wnw0n00mexnzyx2uelr0a" class="article-share-link">Share</a>
       
       
     </footer>
@@ -158,7 +186,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/-audio/ASR/资源整合/" data-id="cjo6vc8zh001jkpzybp7lt9a5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/-audio/ASR/资源整合/" data-id="cjo6wnv7l001oxnzy1yzdjzt9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -188,7 +216,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/-audio/dl-music/" data-id="cjo6vc7vk0005kpzyzzfxthk4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/-audio/dl-music/" data-id="cjo6wnui50002xnzy5g2ts27a" class="article-share-link">Share</a>
       
       
     </footer>
@@ -226,7 +254,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/-audio/-唤醒/" data-id="cjo6vc7vv0009kpzywgxp1h0h" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/-audio/-唤醒/" data-id="cjo6wnuif0005xnzyq26oa6rj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -256,7 +284,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/-audio/基础知识/编码/PCM/" data-id="cjo6vc9td00ojkpzyps2s029k" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/-audio/基础知识/编码/PCM/" data-id="cjo6wnw0o00mgxnzyvuc7x5pn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -286,7 +314,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/-audio/基础知识/打包类型/Mp3、WMA、AAC、OGG音质对比/" data-id="cjo6vc9rk00mpkpzy46ri4t11" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/-audio/基础知识/打包类型/Mp3、WMA、AAC、OGG音质对比/" data-id="cjo6wnw0t00moxnzy2ypn544e" class="article-share-link">Share</a>
       
       
     </footer>
@@ -324,7 +352,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/-audio/基础知识/特征/MFCC/" data-id="cjo6vc9rm00mrkpzylu8kidcw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/-audio/基础知识/特征/MFCC/" data-id="cjo6wnw0k00m9xnzyg0jv74id" class="article-share-link">Share</a>
       
       
     </footer>
@@ -367,7 +395,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/-audio/基础知识/什么是声波/" data-id="cjo6vc90g002ekpzyie08c1t9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/-audio/基础知识/什么是声波/" data-id="cjo6wnv9k002pxnzygc3cewup" class="article-share-link">Share</a>
       
       
     </footer>
@@ -413,7 +441,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/ML/app/nlp/-metric/" data-id="cjo6vca2a00xvkpzykya3q0j1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/ML/app/nlp/-metric/" data-id="cjo6wnwf20140xnzye0lkk92q" class="article-share-link">Share</a>
       
       
     </footer>
@@ -449,7 +477,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/ML/app/nlp/app/conversation/-_webqq/" data-id="cjo6vcd1r03c3kpzyxtrwyyly" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/ML/app/nlp/app/conversation/-_webqq/" data-id="cjo6wnz4t0363xnzypnghm9yk" class="article-share-link">Share</a>
       
       
     </footer>

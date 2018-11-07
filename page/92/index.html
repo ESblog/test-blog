@@ -94,7 +94,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/tools/formatting/markdown/render-marked/" data-id="cjo6vcavo01xakpzyzhalnhvt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/tools/formatting/markdown/render-marked/" data-id="cjo6wnxds021vxnzykbn5mzwg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/markdown/">markdown</a></li></ul>
@@ -145,7 +145,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/tools/formatting/-tex/-tex在线编译工具/" data-id="cjo6vcaw101xskpzy5cg2jcm5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/tools/formatting/-tex/-tex在线编译工具/" data-id="cjo6wnxbo01zcxnzyestc6xtb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tex/">tex</a></li></ul>
@@ -190,7 +190,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/tools/formatting/-tex/-tex简介与编译流程/" data-id="cjo6vcaw801xxkpzyugkki1q6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/tools/formatting/-tex/-tex简介与编译流程/" data-id="cjo6wnxbr01zfxnzyta0mjrck" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tex/">tex</a></li></ul>
@@ -305,10 +305,77 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/tools/同步与版本管理/git/一图知git/" data-id="cjo6vcaxo01z4kpzywtgvh4iu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/tools/同步与版本管理/git/一图知git/" data-id="cjo6wnxdi021nxnzym9udgthp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CS/web/建站/host/github-pages/利用Github-Pages搭建独立域名的个人博客" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/web/建站/host/github-pages/利用Github-Pages搭建独立域名的个人博客/" class="article-date">
+  <time datetime="2018-01-25T19:08:53.000Z" itemprop="datePublished">2018-01-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/web/">web</a>►<a class="article-category-link" href="/categories/CS/web/建站/">建站</a>►<a class="article-category-link" href="/categories/CS/web/建站/host/">host</a>►<a class="article-category-link" href="/categories/CS/web/建站/host/github-pages/">github-pages</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/CS/web/建站/host/github-pages/利用Github-Pages搭建独立域名的个人博客/">利用Github Pages搭建独立域名的个人博客</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="购买域名"><a href="#购买域名" class="headerlink" title="购买域名"></a>购买域名</h1><p><a href="https://wanwang.aliyun.com/" rel="external nofollow noopener noreferrer" target="_blank">阿里云-万网</a> 或其他供应商</p>
+<p><a href="../8dcc3c99/">了解更多域名</a></p>
+<h1 id="域名解析-xusong-vip-–-gt-xu-song-github-io"><a href="#域名解析-xusong-vip-–-gt-xu-song-github-io" class="headerlink" title="域名解析 (xusong.vip –&gt; xu-song.github.io)"></a>域名解析 (xusong.vip –&gt; xu-song.github.io)</h1><p>域名注册完成后首先需要做域名解析，域名解析就是把域名指向网站所在服务器的IP，让人们通过注册的域名可以访问到网站。</p>
+<h2 id="配置DNS解析"><a href="#配置DNS解析" class="headerlink" title="配置DNS解析"></a>配置DNS解析</h2><p>进入你的<a href="https://home.console.aliyun.com" rel="external nofollow noopener noreferrer" target="_blank">阿里云DNS解析</a>，选择你想要解析的域名，点击后面的解析。如下图所示：<br><img src="https://user-images.githubusercontent.com/13825126/35460092-a97a685a-031d-11e8-9cc6-1ce1b730a917.PNG" alt="dns"></p>
+<blockquote>
+<p>We recommend you change this to a CNAME record pointing at [YOUR USERNAME].github.io.<br>– <a href="https://help.github.com/articles/setting-up-a-custom-subdomain/" rel="external nofollow noopener noreferrer" target="_blank">Github Help</a></p>
+</blockquote>
+<p><strong>Github建议采用CNAME记录，为什么？</strong></p>
+<p>因为IP有可能会变动，导致A记录失效吗？不是，是因为所有Github Pages共用ip，Github后台是根据host定位www目录的。详见<a href="../bfc2ae40/">Github Pages原理</a></p>
+<p><strong>阿里云建议采用A记录</strong></p>
+<p>因为A记录限制最少，最灵活，多条不会冲突</p>
+<p>参考<br><a href="../87420f16/">DNS解析-解析记录</a></p>
+<h1 id="重定向-xu-song-github-io-–-gt-xusong-vip"><a href="#重定向-xu-song-github-io-–-gt-xusong-vip" class="headerlink" title="重定向(xu-song.github.io –&gt; xusong.vip)"></a>重定向(xu-song.github.io –&gt; xusong.vip)</h1><h2 id="配置github-pages的custom-domain"><a href="#配置github-pages的custom-domain" class="headerlink" title="配置github pages的custom domain"></a>配置github pages的custom domain</h2><p>进入你的github pages的仓库，然后在设置里面将的你的域名的地址，添加到custom domain中，然后保存即可。如下图所示：</p>
+<p><img src="https://user-images.githubusercontent.com/13825126/35460275-62ca64a4-031e-11e8-8e43-b15c8b2e1bcc.PNG" alt="default"></p>
+<p>这里是对github.io做了重定向，会重定向到所配置的站点。也可以随便填写一个站点，比如<a href="http://www.baidu.com，也会重定向过去" rel="external nofollow noopener noreferrer" target="_blank">www.baidu.com，也会重定向过去</a></p>
+<p>细心的同学会发现，配置custom domain后github仓库的根目录多了一个<code>CNAME</code>文件，里面正式刚刚配置的域名地址。</p>
+<h3 id="重新deploy，你会发现github-page的domain设置又被改回去了，肿么办？"><a href="#重新deploy，你会发现github-page的domain设置又被改回去了，肿么办？" class="headerlink" title="重新deploy，你会发现github page的domain设置又被改回去了，肿么办？"></a>重新deploy，你会发现github page的domain设置又被改回去了，肿么办？</h3><p>原因是，hexo deploy时会采用<code>git push --force</code>。如果deploy版本没有<code>CNAME</code>文件，则会强制删除3.1中添加的CNAME文件，导致custom domain失效。</p>
+<p>因此，最佳的方式是我们手动添加CNAME文件来设置domain。在source目录下新建CNAME文件，内容是<code>xusong.vip</code>。这样每次deploy会自动完成<code>步骤3.1</code>。</p>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><ul>
+<li>为什么还要再github仓库中设置？dns解析不是已经做了重定向了吗。指向ip:80端口还不够吗？</li>
+<li>每个账号的gitpage都是独立的IP吗？github怎么这么多独立外网IP？还是不同账号共用IP？</li>
+<li>不同github page共享ip 正因为如此，才需要<code>步骤3</code>的设置。</li>
+<li>配置github pages的custom domain，其作用仅仅是<code>xu-song.github.io --&gt; xusong.vip (重定向)</code>吗？</li>
+</ul>
+<p><a href="../bfc2ae40/">思考题 - 答疑</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/web/建站/host/github-pages/利用Github-Pages搭建独立域名的个人博客/" data-id="cjo6wnyyv0334xnzyvvs0oown" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/domain/">domain</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pages/">pages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/建站/">建站</a></li></ul>
 
     </footer>
   </div>
@@ -403,7 +470,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/tools/同步与版本管理/git/github/gist/" data-id="cjo6vccjf030wkpzyvscize1q" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/tools/同步与版本管理/git/github/gist/" data-id="cjo6wnyzv033sxnzy5eu9xtsi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
@@ -492,7 +559,7 @@ Address: 9.186.88.5
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/network/网络协议-OSI七层模型/1. 第七层 应用层/DNS/DNS解析-资源记录/" data-id="cjo6vccue038xkpzyww7oip1r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/network/网络协议-OSI七层模型/1. 第七层 应用层/DNS/DNS解析-资源记录/" data-id="cjo6wnzxh03q3xnzyyei266it" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/domain/">domain</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pages/">pages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/建站/">建站</a></li></ul>
@@ -504,10 +571,10 @@ Address: 9.186.88.5
 
 
   
-    <article id="post-CS/web/建站/host/github-pages/利用Github-Pages搭建独立域名的个人博客" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-CS/web/建站/host/github-pages/github-pages原理" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/wiki/CS/web/建站/host/github-pages/利用Github-Pages搭建独立域名的个人博客/" class="article-date">
-  <time datetime="2018-01-25T19:08:53.000Z" itemprop="datePublished">2018-01-26</time>
+    <a href="/wiki/CS/web/建站/host/github-pages/github-pages原理/" class="article-date">
+  <time datetime="2018-01-25T16:00:00.000Z" itemprop="datePublished">2018-01-26</time>
 </a>
     
   <div class="article-category">
@@ -522,7 +589,7 @@ Address: 9.186.88.5
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/wiki/CS/web/建站/host/github-pages/利用Github-Pages搭建独立域名的个人博客/">利用Github Pages搭建独立域名的个人博客</a>
+      <a class="article-title" href="/wiki/CS/web/建站/host/github-pages/github-pages原理/">Github Pages托管静态博客-原理浅析</a>
     </h1>
   
 
@@ -530,39 +597,57 @@ Address: 9.186.88.5
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="购买域名"><a href="#购买域名" class="headerlink" title="购买域名"></a>购买域名</h1><p><a href="https://wanwang.aliyun.com/" rel="external nofollow noopener noreferrer" target="_blank">阿里云-万网</a> 或其他供应商</p>
-<p><a href="../8dcc3c99/">了解更多域名</a></p>
-<h1 id="域名解析-xusong-vip-–-gt-xu-song-github-io"><a href="#域名解析-xusong-vip-–-gt-xu-song-github-io" class="headerlink" title="域名解析 (xusong.vip –&gt; xu-song.github.io)"></a>域名解析 (xusong.vip –&gt; xu-song.github.io)</h1><p>域名注册完成后首先需要做域名解析，域名解析就是把域名指向网站所在服务器的IP，让人们通过注册的域名可以访问到网站。</p>
-<h2 id="配置DNS解析"><a href="#配置DNS解析" class="headerlink" title="配置DNS解析"></a>配置DNS解析</h2><p>进入你的<a href="https://home.console.aliyun.com" rel="external nofollow noopener noreferrer" target="_blank">阿里云DNS解析</a>，选择你想要解析的域名，点击后面的解析。如下图所示：<br><img src="https://user-images.githubusercontent.com/13825126/35460092-a97a685a-031d-11e8-9cc6-1ce1b730a917.PNG" alt="dns"></p>
-<blockquote>
-<p>We recommend you change this to a CNAME record pointing at [YOUR USERNAME].github.io.<br>– <a href="https://help.github.com/articles/setting-up-a-custom-subdomain/" rel="external nofollow noopener noreferrer" target="_blank">Github Help</a></p>
-</blockquote>
-<p><strong>Github建议采用CNAME记录，为什么？</strong></p>
-<p>因为IP有可能会变动，导致A记录失效吗？不是，是因为所有Github Pages共用ip，Github后台是根据host定位www目录的。详见<a href="../bfc2ae40/">Github Pages原理</a></p>
-<p><strong>阿里云建议采用A记录</strong></p>
-<p>因为A记录限制最少，最灵活，多条不会冲突</p>
-<p>参考<br><a href="../87420f16/">DNS解析-解析记录</a></p>
-<h1 id="重定向-xu-song-github-io-–-gt-xusong-vip"><a href="#重定向-xu-song-github-io-–-gt-xusong-vip" class="headerlink" title="重定向(xu-song.github.io –&gt; xusong.vip)"></a>重定向(xu-song.github.io –&gt; xusong.vip)</h1><h2 id="配置github-pages的custom-domain"><a href="#配置github-pages的custom-domain" class="headerlink" title="配置github pages的custom domain"></a>配置github pages的custom domain</h2><p>进入你的github pages的仓库，然后在设置里面将的你的域名的地址，添加到custom domain中，然后保存即可。如下图所示：</p>
-<p><img src="https://user-images.githubusercontent.com/13825126/35460275-62ca64a4-031e-11e8-8e43-b15c8b2e1bcc.PNG" alt="default"></p>
-<p>这里是对github.io做了重定向，会重定向到所配置的站点。也可以随便填写一个站点，比如<a href="http://www.baidu.com，也会重定向过去" rel="external nofollow noopener noreferrer" target="_blank">www.baidu.com，也会重定向过去</a></p>
-<p>细心的同学会发现，配置custom domain后github仓库的根目录多了一个<code>CNAME</code>文件，里面正式刚刚配置的域名地址。</p>
-<h3 id="重新deploy，你会发现github-page的domain设置又被改回去了，肿么办？"><a href="#重新deploy，你会发现github-page的domain设置又被改回去了，肿么办？" class="headerlink" title="重新deploy，你会发现github page的domain设置又被改回去了，肿么办？"></a>重新deploy，你会发现github page的domain设置又被改回去了，肿么办？</h3><p>原因是，hexo deploy时会采用<code>git push --force</code>。如果deploy版本没有<code>CNAME</code>文件，则会强制删除3.1中添加的CNAME文件，导致custom domain失效。</p>
-<p>因此，最佳的方式是我们手动添加CNAME文件来设置domain。在source目录下新建CNAME文件，内容是<code>xusong.vip</code>。这样每次deploy会自动完成<code>步骤3.1</code>。</p>
-<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><ul>
-<li>为什么还要再github仓库中设置？dns解析不是已经做了重定向了吗。指向ip:80端口还不够吗？</li>
-<li>每个账号的gitpage都是独立的IP吗？github怎么这么多独立外网IP？还是不同账号共用IP？</li>
-<li>不同github page共享ip 正因为如此，才需要<code>步骤3</code>的设置。</li>
-<li>配置github pages的custom domain，其作用仅仅是<code>xu-song.github.io --&gt; xusong.vip (重定向)</code>吗？</li>
-</ul>
-<p><a href="../bfc2ae40/">思考题 - 答疑</a></p>
+        <h2 id="关于github提供的http-server"><a href="#关于github提供的http-server" class="headerlink" title="关于github提供的http server"></a>关于github提供的http server</h2><h4 id="ping-几个不同账号的gitpage-比如colah-github-io-xu-song-github-io-，发现对应的是同一个ip。为什么返回的页面不同呢？"><a href="#ping-几个不同账号的gitpage-比如colah-github-io-xu-song-github-io-，发现对应的是同一个ip。为什么返回的页面不同呢？" class="headerlink" title="ping 几个不同账号的gitpage(比如colah.github.io,xu-song.github.io)，发现对应的是同一个ip。为什么返回的页面不同呢？"></a>ping 几个不同账号的gitpage(比如<code>colah.github.io</code>,<code>xu-song.github.io</code>)，发现对应的是同一个ip。为什么返回的页面不同呢？</h4><p>github pages 的 CNAME 是绑定 pages.github.io，不是${username}.github.io</p>
+<p>coding.net 的 CNAME 是绑定 pages.coding.me</p>
+<p>显然，Github肯定在后台做了处理。即github自身会维护一个映射，<code>host_name --&gt; www_path</code>，这样就可以根据不同的host信息返回不同的html了。</p>
+<p>这样，在访问<code>xu-song.github.io</code>时github就找到了该返回的html。</p>
+<h2 id="关于custom-domain"><a href="#关于custom-domain" class="headerlink" title="关于custom domain"></a>关于custom domain</h2><p>现在我们改用<code>custom domain</code>的方式访问gitpage主页。假设已经配置好了dns的A记录映射。<br>访问<code>xusong.vip</code>，dns解析得到ip地址。然而这次github服务器得到的host是<code>xusong.vip</code>。懵逼了，github不认识<code>xusong.vip</code>(host数据里没有该记录)，返回404页面</p>
+<image src="https://user-images.githubusercontent.com/13825126/35623051-fc61df6c-06c4-11e8-89a7-6207bc430d85.PNG" style="width: 60%;">
 
+
+<p><strong>怎么办呢？</strong></p>
+<p>那就让github认识一下<code>xusong.vip</code>，也就是在github page里设置一下custom domain，或者添加CNAME文件，详见<a href="../利用Github Pages搭建独立域名的个人博客/">用Github Pages搭建独立域名的个人博客</a></p>
+<ul>
+<li style="list-style: none"><input type="checkbox"> 如果DNS设置CNAME记录，是不是github page不用设置就能work？</li>
+</ul>
+<h2 id="那么上一篇中的重重疑点也就解开了"><a href="#那么上一篇中的重重疑点也就解开了" class="headerlink" title="那么上一篇中的重重疑点也就解开了"></a>那么上一篇中的重重疑点也就解开了</h2><ul>
+<li style="list-style: none"><input type="checkbox" checked> 每个账号的gitpage都是独立的IP吗？github怎么这么多独立外网IP？还是不同账号共用IP？<ul>
+<li>很多账号是同一个ip。</li>
+</ul>
+</li>
+<li style="list-style: none"><input type="checkbox" checked> 不同github page共享ip 正因为如此，才需要<code>步骤3</code>的设置。</li>
+<li style="list-style: none"><input type="checkbox" checked> 配置github pages的custom domain，其作用仅仅是<code>xu-song.github.io --&gt; xusong.vip (重定向)</code>吗？<ul>
+<li>不是。1. 查dns解析是否通过 2. 部署到github服务器的相应目录（因为） 3. github page到domain的重定向</li>
+</ul>
+</li>
+</ul>
+<h2 id="关于https"><a href="#关于https" class="headerlink" title="关于https"></a>关于https</h2><h3 id="为什么Github-Pages不支持为自定义域名添加SSL证书？"><a href="#为什么Github-Pages不支持为自定义域名添加SSL证书？" class="headerlink" title="为什么Github Pages不支持为自定义域名添加SSL证书？"></a>为什么Github Pages不支持为自定义域名添加SSL证书？</h3><p><a href="https://steffan.cn/2017/03/22/use-cloudflare-to-implement-HTTPS-for-GithubPages-with-custom-domain-names/" rel="external nofollow noopener noreferrer" target="_blank">https://steffan.cn/2017/03/22/use-cloudflare-to-implement-HTTPS-for-GithubPages-with-custom-domain-names/</a></p>
+<h2 id="多个域名能否指向同一个-GitHub-Pages？"><a href="#多个域名能否指向同一个-GitHub-Pages？" class="headerlink" title="多个域名能否指向同一个 GitHub Pages？"></a>多个域名能否指向同一个 GitHub Pages？</h2><p>GitHub Pages 的官方文档，一个 username.github.io 只能支持一个域名。</p>
+<p>coding page支持多个域名。</p>
+<h2 id="一个账号能否见多个github-page？"><a href="#一个账号能否见多个github-page？" class="headerlink" title="一个账号能否见多个github page？"></a>一个账号能否见多个github page？</h2><p>可以建立多个， 个人账户page只能有一个， 项目page可以有多个</p>
+<p>比如你的账号名为  username, 项目叫 project1    那你可以通过  username.github.io/project1 访问， 如果配置了个人域名就可以用自己的域名访问了</p>
+<p>但是CNAME不能指向username.github.io/project1，怎么办？</p>
+<h2 id="todo"><a href="#todo" class="headerlink" title="todo"></a>todo</h2><ul>
+<li style="list-style: none"><input type="checkbox"> 如何解决md同步问题？<ul>
+<li>git-repo源，gist源，git issue源，gitpage源。最优的方式就是同源 + 自动deploy。</li>
+<li>方式一：以issue作源，要自己利用github api，读取issue，然后写到source目录(貌似也挺简单)。</li>
+<li>方式二：以git-repo作源，貌似不错哎。单独把source目录单独作为repo</li>
+<li>方式三：以gist作源：易集成(一行js即可)，但不易管理(不支持directory，文档多了很麻烦)</li>
+</ul>
+</li>
+<li style="list-style: none"><input type="checkbox"> 如何实现在线写blog，像wordpress那样<ul>
+<li>用js调用github api，或者其他后台api即可</li>
+</ul>
+</li>
+</ul>
+</image>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/web/建站/host/github-pages/利用Github-Pages搭建独立域名的个人博客/" data-id="cjo6vccx1039tkpzyhz8bc1l4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/web/建站/host/github-pages/github-pages原理/" data-id="cjo6wnyyq0330xnzy67uumbo5" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/domain/">domain</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pages/">pages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/建站/">建站</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pages/">pages</a></li></ul>
 
     </footer>
   </div>
@@ -724,95 +809,10 @@ Address: 9.186.88.5
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/tools/同步与版本管理/git/github/git gist wiki 区别/" data-id="cjo6vccjj030zkpzys457vljl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/tools/同步与版本管理/git/github/git gist wiki 区别/" data-id="cjo6wnz080340xnzypt6p7v2t" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-CS/web/建站/host/github-pages/github-pages原理" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wiki/CS/web/建站/host/github-pages/github-pages原理/" class="article-date">
-  <time datetime="2018-01-25T16:00:00.000Z" itemprop="datePublished">2018-01-26</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/web/">web</a>►<a class="article-category-link" href="/categories/CS/web/建站/">建站</a>►<a class="article-category-link" href="/categories/CS/web/建站/host/">host</a>►<a class="article-category-link" href="/categories/CS/web/建站/host/github-pages/">github-pages</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wiki/CS/web/建站/host/github-pages/github-pages原理/">Github Pages托管静态博客-原理浅析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="关于github提供的http-server"><a href="#关于github提供的http-server" class="headerlink" title="关于github提供的http server"></a>关于github提供的http server</h2><h4 id="ping-几个不同账号的gitpage-比如colah-github-io-xu-song-github-io-，发现对应的是同一个ip。为什么返回的页面不同呢？"><a href="#ping-几个不同账号的gitpage-比如colah-github-io-xu-song-github-io-，发现对应的是同一个ip。为什么返回的页面不同呢？" class="headerlink" title="ping 几个不同账号的gitpage(比如colah.github.io,xu-song.github.io)，发现对应的是同一个ip。为什么返回的页面不同呢？"></a>ping 几个不同账号的gitpage(比如<code>colah.github.io</code>,<code>xu-song.github.io</code>)，发现对应的是同一个ip。为什么返回的页面不同呢？</h4><p>github pages 的 CNAME 是绑定 pages.github.io，不是${username}.github.io</p>
-<p>coding.net 的 CNAME 是绑定 pages.coding.me</p>
-<p>显然，Github肯定在后台做了处理。即github自身会维护一个映射，<code>host_name --&gt; www_path</code>，这样就可以根据不同的host信息返回不同的html了。</p>
-<p>这样，在访问<code>xu-song.github.io</code>时github就找到了该返回的html。</p>
-<h2 id="关于custom-domain"><a href="#关于custom-domain" class="headerlink" title="关于custom domain"></a>关于custom domain</h2><p>现在我们改用<code>custom domain</code>的方式访问gitpage主页。假设已经配置好了dns的A记录映射。<br>访问<code>xusong.vip</code>，dns解析得到ip地址。然而这次github服务器得到的host是<code>xusong.vip</code>。懵逼了，github不认识<code>xusong.vip</code>(host数据里没有该记录)，返回404页面</p>
-<image src="https://user-images.githubusercontent.com/13825126/35623051-fc61df6c-06c4-11e8-89a7-6207bc430d85.PNG" style="width: 60%;">
-
-
-<p><strong>怎么办呢？</strong></p>
-<p>那就让github认识一下<code>xusong.vip</code>，也就是在github page里设置一下custom domain，或者添加CNAME文件，详见<a href="../利用Github Pages搭建独立域名的个人博客/">用Github Pages搭建独立域名的个人博客</a></p>
-<ul>
-<li style="list-style: none"><input type="checkbox"> 如果DNS设置CNAME记录，是不是github page不用设置就能work？</li>
-</ul>
-<h2 id="那么上一篇中的重重疑点也就解开了"><a href="#那么上一篇中的重重疑点也就解开了" class="headerlink" title="那么上一篇中的重重疑点也就解开了"></a>那么上一篇中的重重疑点也就解开了</h2><ul>
-<li style="list-style: none"><input type="checkbox" checked> 每个账号的gitpage都是独立的IP吗？github怎么这么多独立外网IP？还是不同账号共用IP？<ul>
-<li>很多账号是同一个ip。</li>
-</ul>
-</li>
-<li style="list-style: none"><input type="checkbox" checked> 不同github page共享ip 正因为如此，才需要<code>步骤3</code>的设置。</li>
-<li style="list-style: none"><input type="checkbox" checked> 配置github pages的custom domain，其作用仅仅是<code>xu-song.github.io --&gt; xusong.vip (重定向)</code>吗？<ul>
-<li>不是。1. 查dns解析是否通过 2. 部署到github服务器的相应目录（因为） 3. github page到domain的重定向</li>
-</ul>
-</li>
-</ul>
-<h2 id="关于https"><a href="#关于https" class="headerlink" title="关于https"></a>关于https</h2><h3 id="为什么Github-Pages不支持为自定义域名添加SSL证书？"><a href="#为什么Github-Pages不支持为自定义域名添加SSL证书？" class="headerlink" title="为什么Github Pages不支持为自定义域名添加SSL证书？"></a>为什么Github Pages不支持为自定义域名添加SSL证书？</h3><p><a href="https://steffan.cn/2017/03/22/use-cloudflare-to-implement-HTTPS-for-GithubPages-with-custom-domain-names/" rel="external nofollow noopener noreferrer" target="_blank">https://steffan.cn/2017/03/22/use-cloudflare-to-implement-HTTPS-for-GithubPages-with-custom-domain-names/</a></p>
-<h2 id="多个域名能否指向同一个-GitHub-Pages？"><a href="#多个域名能否指向同一个-GitHub-Pages？" class="headerlink" title="多个域名能否指向同一个 GitHub Pages？"></a>多个域名能否指向同一个 GitHub Pages？</h2><p>GitHub Pages 的官方文档，一个 username.github.io 只能支持一个域名。</p>
-<p>coding page支持多个域名。</p>
-<h2 id="一个账号能否见多个github-page？"><a href="#一个账号能否见多个github-page？" class="headerlink" title="一个账号能否见多个github page？"></a>一个账号能否见多个github page？</h2><p>可以建立多个， 个人账户page只能有一个， 项目page可以有多个</p>
-<p>比如你的账号名为  username, 项目叫 project1    那你可以通过  username.github.io/project1 访问， 如果配置了个人域名就可以用自己的域名访问了</p>
-<p>但是CNAME不能指向username.github.io/project1，怎么办？</p>
-<h2 id="todo"><a href="#todo" class="headerlink" title="todo"></a>todo</h2><ul>
-<li style="list-style: none"><input type="checkbox"> 如何解决md同步问题？<ul>
-<li>git-repo源，gist源，git issue源，gitpage源。最优的方式就是同源 + 自动deploy。</li>
-<li>方式一：以issue作源，要自己利用github api，读取issue，然后写到source目录(貌似也挺简单)。</li>
-<li>方式二：以git-repo作源，貌似不错哎。单独把source目录单独作为repo</li>
-<li>方式三：以gist作源：易集成(一行js即可)，但不易管理(不支持directory，文档多了很麻烦)</li>
-</ul>
-</li>
-<li style="list-style: none"><input type="checkbox"> 如何实现在线写blog，像wordpress那样<ul>
-<li>用js调用github api，或者其他后台api即可</li>
-</ul>
-</li>
-</ul>
-</image>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/web/建站/host/github-pages/github-pages原理/" data-id="cjo6vccxh039ykpzy9gnwtn5s" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pages/">pages</a></li></ul>
 
     </footer>
   </div>
@@ -972,7 +972,7 @@ Address: 9.186.88.5
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/cloud/google/google云主机--GCE/" data-id="cjo6vc9tg00ookpzy3yb9zom3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/cloud/google/google云主机--GCE/" data-id="cjo6wnw1q00ntxnzyceit8jiy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GPU/">GPU</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cloud/">cloud</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/computer-engine/">computer engine</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/google/">google</a></li></ul>

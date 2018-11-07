@@ -62,6 +62,86 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-CS/programing/algorithm-数据结构与算法/递归" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/programing/algorithm-数据结构与算法/递归/" class="article-date">
+  <time datetime="2018-09-15T16:00:00.000Z" itemprop="datePublished">2018-09-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/programing/">programing</a>►<a class="article-category-link" href="/categories/CS/programing/algorithm-数据结构与算法/">algorithm-数据结构与算法</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/CS/programing/algorithm-数据结构与算法/递归/">递归</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h1><p>递归是⼀种优雅的问题解决⽅法，<br>是一种分⽽治之(divide and conquer，D&amp;C)的⽅法。<br>递归，就是函数调⽤⾃⼰。</p>
+<p>递归的<strong>核心思想</strong> 就是：把问题分解成规模更小，但和原问题有着相同解法的问题。</p>
+<p>##</p>
+<p>编写递归函数时，必须告诉它何时停⽌递归。正因为如此，每个递归函数都有两部分：</p>
+<ul>
+<li>基线条件（base case）: 函数调⽤⾃⼰的条件</li>
+<li>递归条件（recursive case）: 函数不再调⽤⾃⼰的条件，从⽽避免形成⽆限循环。</li>
+</ul>
+<p>其中有一个基础的编程概念 - 调⽤栈（call stack）。调⽤栈不仅对编程来说很重要，使⽤递归时也必须理解这个概念</p>
+<h2 id="示例-求阶乘"><a href="#示例-求阶乘" class="headerlink" title="示例 - 求阶乘"></a>示例 - 求阶乘</h2><iframe width="800" height="500" frameborder="0" src="http://pythontutor.com/iframe-embed.html#code=def%20fact%28x%29%3A%0A%20%20%20%20if%20x%20%3D%3D1%3A%0A%20%20%20%20%20%20%20%20return%201%3B%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20return%20x%20*%20fact%28x-1%29%0A%0Avalue%20%3D%20fact%283%29%0Aprint%28value%29&codeDivHeight=400&codeDivWidth=350&cumulative=true&curInstr=15&heapPrimitives=nevernest&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+
+<ul>
+<li><strong>压栈</strong>: <code>x==1</code>之前，压了三个函数栈，但一个都没调用结束</li>
+<li><strong>出栈</strong>: <code>x==1</code>后，从<code>栈顶</code>开始<code>出栈</code></li>
+</ul>
+<p>使⽤栈虽然很⽅便，但是也要付出代价：存储详尽的信息可能占⽤⼤量的内存。每个函数调⽤都要占⽤⼀定的内存，如果栈很⾼，就意味着计算机存储了⼤量函数调⽤的信息。在这种情况下，你有两种选择。</p>
+<ul>
+<li>重新编写代码，转⽽使⽤循环。</li>
+<li>使⽤尾递归。这是⼀个⾼级递归主题，不在本书的讨论范围内。另外，并⾮所有的语⾔都⽀持尾递归。</li>
+</ul>
+<h4 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h4><ul>
+<li>假设你编写了⼀个递归函数，但不⼩⼼导致它没完没了地运⾏。正如你看到的，对于每次函数<br>调⽤，计算机都将为其在栈中分配内存。递归函数没完没了地运⾏时，将给栈带来什么影响？</li>
+</ul>
+<p>####　⼩结</p>
+<ul>
+<li>递归指的是调⽤⾃⼰的函数。</li>
+<li>每个递归函数都有两个条件：基线条件和递归条件。</li>
+<li>栈有两种操作：压⼊和弹出。</li>
+<li>所有函数调⽤都进⼊调⽤栈。</li>
+<li>调⽤栈可能很长，这将占⽤⼤量的内存</li>
+</ul>
+<h1 id="递归转循环"><a href="#递归转循环" class="headerlink" title="递归转循环"></a>递归转循环</h1><h1 id="递归转尾递归"><a href="#递归转尾递归" class="headerlink" title="递归转尾递归"></a>递归转尾递归</h1><p>比如维特比算法+</p>
+<p>有些简单的递归问题，可以不借助堆栈结构而改成循环的非递归问题。</p>
+<h1 id="递归的应用"><a href="#递归的应用" class="headerlink" title="递归的应用"></a>递归的应用</h1><h2 id="维特比算法"><a href="#维特比算法" class="headerlink" title="维特比算法"></a>维特比算法</h2><p>见 。。</p>
+<h2 id="快排"><a href="#快排" class="headerlink" title="快排"></a>快排</h2><p>见 。。</p>
+<h2 id="RNN、LSTM"><a href="#RNN、LSTM" class="headerlink" title="RNN、LSTM"></a>RNN、LSTM</h2><p>递归神经网络（RNN）是两种人工神经网络的总称。一种是时间递归神经网络（recurrent neural network），另一种是结构递归神经网络（recursive neural network）。</p>
+<h1 id="扩展阅读"><a href="#扩展阅读" class="headerlink" title="扩展阅读"></a>扩展阅读</h1><ul>
+<li><a href="https://www.zhihu.com/question/35255112" rel="external nofollow noopener noreferrer" target="_blank">为什么说递归效率低？ | 知乎</a></li>
+<li><a href="https://www.cnblogs.com/bakari/p/5349383.html" rel="external nofollow noopener noreferrer" target="_blank">漫谈递归转非递归 | cnblog</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/programing/algorithm-数据结构与算法/递归/" data-id="cjo6wnw1s00nwxnzy7o9o1lny" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-CS/programing/lan/-control-flow" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/wiki/CS/programing/lan/-control-flow/" class="article-date">
@@ -92,7 +172,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/programing/lan/-control-flow/" data-id="cjo6vc9yn00t6kpzyz3uzy1hi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/-control-flow/" data-id="cjo6wnw1x00o4xnzyzbkwl6js" class="article-share-link">Share</a>
       
       
     </footer>
@@ -202,87 +282,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/programing/lan/variable/" data-id="cjo6vc9z800tvkpzyddp6trhe" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-CS/programing/algorithm-数据结构与算法/递归" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wiki/CS/programing/algorithm-数据结构与算法/递归/" class="article-date">
-  <time datetime="2018-09-15T16:00:00.000Z" itemprop="datePublished">2018-09-16</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/programing/">programing</a>►<a class="article-category-link" href="/categories/CS/programing/algorithm-数据结构与算法/">algorithm-数据结构与算法</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wiki/CS/programing/algorithm-数据结构与算法/递归/">递归</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h1><p>递归是⼀种优雅的问题解决⽅法，<br>是一种分⽽治之(divide and conquer，D&amp;C)的⽅法。<br>递归，就是函数调⽤⾃⼰。</p>
-<p>递归的<strong>核心思想</strong> 就是：把问题分解成规模更小，但和原问题有着相同解法的问题。</p>
-<p>##</p>
-<p>编写递归函数时，必须告诉它何时停⽌递归。正因为如此，每个递归函数都有两部分：</p>
-<ul>
-<li>基线条件（base case）: 函数调⽤⾃⼰的条件</li>
-<li>递归条件（recursive case）: 函数不再调⽤⾃⼰的条件，从⽽避免形成⽆限循环。</li>
-</ul>
-<p>其中有一个基础的编程概念 - 调⽤栈（call stack）。调⽤栈不仅对编程来说很重要，使⽤递归时也必须理解这个概念</p>
-<h2 id="示例-求阶乘"><a href="#示例-求阶乘" class="headerlink" title="示例 - 求阶乘"></a>示例 - 求阶乘</h2><iframe width="800" height="500" frameborder="0" src="http://pythontutor.com/iframe-embed.html#code=def%20fact%28x%29%3A%0A%20%20%20%20if%20x%20%3D%3D1%3A%0A%20%20%20%20%20%20%20%20return%201%3B%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20return%20x%20*%20fact%28x-1%29%0A%0Avalue%20%3D%20fact%283%29%0Aprint%28value%29&codeDivHeight=400&codeDivWidth=350&cumulative=true&curInstr=15&heapPrimitives=nevernest&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
-
-<ul>
-<li><strong>压栈</strong>: <code>x==1</code>之前，压了三个函数栈，但一个都没调用结束</li>
-<li><strong>出栈</strong>: <code>x==1</code>后，从<code>栈顶</code>开始<code>出栈</code></li>
-</ul>
-<p>使⽤栈虽然很⽅便，但是也要付出代价：存储详尽的信息可能占⽤⼤量的内存。每个函数调⽤都要占⽤⼀定的内存，如果栈很⾼，就意味着计算机存储了⼤量函数调⽤的信息。在这种情况下，你有两种选择。</p>
-<ul>
-<li>重新编写代码，转⽽使⽤循环。</li>
-<li>使⽤尾递归。这是⼀个⾼级递归主题，不在本书的讨论范围内。另外，并⾮所有的语⾔都⽀持尾递归。</li>
-</ul>
-<h4 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h4><ul>
-<li>假设你编写了⼀个递归函数，但不⼩⼼导致它没完没了地运⾏。正如你看到的，对于每次函数<br>调⽤，计算机都将为其在栈中分配内存。递归函数没完没了地运⾏时，将给栈带来什么影响？</li>
-</ul>
-<p>####　⼩结</p>
-<ul>
-<li>递归指的是调⽤⾃⼰的函数。</li>
-<li>每个递归函数都有两个条件：基线条件和递归条件。</li>
-<li>栈有两种操作：压⼊和弹出。</li>
-<li>所有函数调⽤都进⼊调⽤栈。</li>
-<li>调⽤栈可能很长，这将占⽤⼤量的内存</li>
-</ul>
-<h1 id="递归转循环"><a href="#递归转循环" class="headerlink" title="递归转循环"></a>递归转循环</h1><h1 id="递归转尾递归"><a href="#递归转尾递归" class="headerlink" title="递归转尾递归"></a>递归转尾递归</h1><p>比如维特比算法+</p>
-<p>有些简单的递归问题，可以不借助堆栈结构而改成循环的非递归问题。</p>
-<h1 id="递归的应用"><a href="#递归的应用" class="headerlink" title="递归的应用"></a>递归的应用</h1><h2 id="维特比算法"><a href="#维特比算法" class="headerlink" title="维特比算法"></a>维特比算法</h2><p>见 。。</p>
-<h2 id="快排"><a href="#快排" class="headerlink" title="快排"></a>快排</h2><p>见 。。</p>
-<h2 id="RNN、LSTM"><a href="#RNN、LSTM" class="headerlink" title="RNN、LSTM"></a>RNN、LSTM</h2><p>递归神经网络（RNN）是两种人工神经网络的总称。一种是时间递归神经网络（recurrent neural network），另一种是结构递归神经网络（recursive neural network）。</p>
-<h1 id="扩展阅读"><a href="#扩展阅读" class="headerlink" title="扩展阅读"></a>扩展阅读</h1><ul>
-<li><a href="https://www.zhihu.com/question/35255112" rel="external nofollow noopener noreferrer" target="_blank">为什么说递归效率低？ | 知乎</a></li>
-<li><a href="https://www.cnblogs.com/bakari/p/5349383.html" rel="external nofollow noopener noreferrer" target="_blank">漫谈递归转非递归 | cnblog</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/programing/algorithm-数据结构与算法/递归/" data-id="cjo6vc9zo00uekpzyywlxy637" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/variable/" data-id="cjo6wnw2a00oqxnzy951dmhz4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -312,7 +312,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/-audio/声纹识别/GMM+SVM/" data-id="cjo6vc90q002okpzy6xjtwn93" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/-audio/声纹识别/GMM+SVM/" data-id="cjo6wnv9t002uxnzyd3ohaaer" class="article-share-link">Share</a>
       
       
     </footer>
@@ -342,7 +342,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/-audio/声纹识别/ivector+PLDA/" data-id="cjo6vc91m0035kpzyi2w5bh4r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/-audio/声纹识别/ivector+PLDA/" data-id="cjo6wnvas0039xnzyswnmj9e7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -372,7 +372,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/-audio/前端信号处理/特征/BNF/" data-id="cjo6vc9rt00mzkpzyizykiyz9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/-audio/前端信号处理/特征/BNF/" data-id="cjo6wnw0m00mbxnzyjsqungot" class="article-share-link">Share</a>
       
       
     </footer>
@@ -402,7 +402,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/-audio/声纹识别/ivevtor-plda/" data-id="cjo6vc92w003nkpzyhnrgqu5u" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/-audio/声纹识别/ivevtor-plda/" data-id="cjo6wnvb0003jxnzy87aijdcb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -432,7 +432,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/-audio/声纹识别/Supervised-UBM i-vector/" data-id="cjo6vc92q003kkpzyh3gsilwx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/-audio/声纹识别/Supervised-UBM i-vector/" data-id="cjo6wnva90034xnzyepsfqyid" class="article-share-link">Share</a>
       
       
     </footer>
@@ -462,7 +462,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/-audio/声纹识别/GMM-UBM i-vector/" data-id="cjo6vc90o002lkpzylrp280io" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/-audio/声纹识别/GMM-UBM i-vector/" data-id="cjo6wnv9z002xxnzyy9tobqua" class="article-share-link">Share</a>
       
       
     </footer>
@@ -492,7 +492,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/-audio/声纹识别/JFA/" data-id="cjo6vc90u002vkpzy6cexh8eb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/-audio/声纹识别/JFA/" data-id="cjo6wnva60031xnzyey61v6vg" class="article-share-link">Share</a>
       
       
     </footer>
