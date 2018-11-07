@@ -90,7 +90,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/ML/app/vision/app/OCR/Tesseract-OCR/-架构/" data-id="cjo6wo14l03x0xnzysu4k3lb5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/ML/app/vision/app/OCR/Tesseract-OCR/-架构/" data-id="cjo6xa2tk03v905zylzjjjb66" class="article-share-link">Share</a>
       
       
     </footer>
@@ -190,7 +190,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/ML/app/vision/app/Object Recognition/survey/" data-id="cjo6wnza00386xnzygh5cdtgf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/ML/app/vision/app/Object Recognition/survey/" data-id="cjo6xa1es03ix05zyfbik4z9s" class="article-share-link">Share</a>
       
       
     </footer>
@@ -231,7 +231,57 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/ML/app/vision/-from autoencoder to cnn/" data-id="cjo6wnwfi014gxnzyn5n9xrhf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/ML/app/vision/-from autoencoder to cnn/" data-id="cjo6x9y3a00zo05zyh6t4cxq9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ML/app/IR/-LSH" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/ML/app/IR/-LSH/" class="article-date">
+  <time datetime="2018-06-20T11:22:09.122Z" itemprop="datePublished">2018-06-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/ML/">ML</a>►<a class="article-category-link" href="/categories/ML/app/">app</a>►<a class="article-category-link" href="/categories/ML/app/IR/">IR</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<hr>
+<h1 id="semantic-hash"><a href="#semantic-hash" class="headerlink" title="semantic hash"></a>semantic hash</h1><p>加速环节：</p>
+<h2 id="检索"><a href="#检索" class="headerlink" title="检索"></a>检索</h2><p>v1 bit[] [1 0 0 0 1 0 1],.<br>v2 bit[] [1 0 0 0 1 1 1]</p>
+<p>|v1-V2|</p>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>v1 double[]    softmax(v1)=<br>v2 double[]</p>
+<p>|v1-v2|<br>cosine()</p>
+<h2 id="局部敏感哈希-Locality-Sensitive-Hashing，LSH"><a href="#局部敏感哈希-Locality-Sensitive-Hashing，LSH" class="headerlink" title="局部敏感哈希(Locality Sensitive Hashing，LSH)"></a>局部敏感哈希(Locality Sensitive Hashing，LSH)</h2><ul>
+<li>传统 Hash 希望即使两个数据有一点点不一样，也要尽可能差异大。</li>
+<li>而LSH则是希望相似的 value 对应的 Hash 值越相似越好。</li>
+</ul>
+<p>常见的使用场景:</p>
+<ul>
+<li>判重 Near-duplicate detection</li>
+<li>摘要 Sketching</li>
+<li>聚类 Clustering</li>
+<li>相似搜索 Near-neighbor search</li>
+</ul>
+<p>如果两个文本在原有的数据空间是相似的，那么分别经过哈希函数转换以后的它们也具有很高的相似度；相反，如果它们本身是不相似的，那么经过转换后它们应仍不具有相似性。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>局部敏感哈希(Locality Sensitive Hashing，LSH) <a href="http://www.cnblogs.com/maybe2030/p/4953039.html" rel="external nofollow noopener noreferrer" target="_blank">http://www.cnblogs.com/maybe2030/p/4953039.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/ML/app/IR/-LSH/" data-id="cjo6x9y2i00ym05zy99n0xrg9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -289,57 +339,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/ML/app/IR/-survey/" data-id="cjo6wnwf40144xnzy5h6qb3yp" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-ML/app/IR/-LSH" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wiki/ML/app/IR/-LSH/" class="article-date">
-  <time datetime="2018-06-20T11:22:09.122Z" itemprop="datePublished">2018-06-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/ML/">ML</a>►<a class="article-category-link" href="/categories/ML/app/">app</a>►<a class="article-category-link" href="/categories/ML/app/IR/">IR</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<hr>
-<h1 id="semantic-hash"><a href="#semantic-hash" class="headerlink" title="semantic hash"></a>semantic hash</h1><p>加速环节：</p>
-<h2 id="检索"><a href="#检索" class="headerlink" title="检索"></a>检索</h2><p>v1 bit[] [1 0 0 0 1 0 1],.<br>v2 bit[] [1 0 0 0 1 1 1]</p>
-<p>|v1-V2|</p>
-<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>v1 double[]    softmax(v1)=<br>v2 double[]</p>
-<p>|v1-v2|<br>cosine()</p>
-<h2 id="局部敏感哈希-Locality-Sensitive-Hashing，LSH"><a href="#局部敏感哈希-Locality-Sensitive-Hashing，LSH" class="headerlink" title="局部敏感哈希(Locality Sensitive Hashing，LSH)"></a>局部敏感哈希(Locality Sensitive Hashing，LSH)</h2><ul>
-<li>传统 Hash 希望即使两个数据有一点点不一样，也要尽可能差异大。</li>
-<li>而LSH则是希望相似的 value 对应的 Hash 值越相似越好。</li>
-</ul>
-<p>常见的使用场景:</p>
-<ul>
-<li>判重 Near-duplicate detection</li>
-<li>摘要 Sketching</li>
-<li>聚类 Clustering</li>
-<li>相似搜索 Near-neighbor search</li>
-</ul>
-<p>如果两个文本在原有的数据空间是相似的，那么分别经过哈希函数转换以后的它们也具有很高的相似度；相反，如果它们本身是不相似的，那么经过转换后它们应仍不具有相似性。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>局部敏感哈希(Locality Sensitive Hashing，LSH) <a href="http://www.cnblogs.com/maybe2030/p/4953039.html" rel="external nofollow noopener noreferrer" target="_blank">http://www.cnblogs.com/maybe2030/p/4953039.html</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/ML/app/IR/-LSH/" data-id="cjo6wnwfl014jxnzy1uxed85a" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/ML/app/IR/-survey/" data-id="cjo6x9y2m00yr05zycvd359cf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -391,7 +391,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/ML/ml 传统方法/-有向图 VS 无向图/" data-id="cjo6wnvga006pxnzyrnm10aa5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/ML/ml 传统方法/-有向图 VS 无向图/" data-id="cjo6x9xaq006v05zyr9agkbwk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -430,7 +430,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/ML/ml 传统方法/-一句话机器学习/" data-id="cjo6wnvg9006oxnzyizfvw8uq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/ML/ml 传统方法/-一句话机器学习/" data-id="cjo6x9xao006t05zyqpmfcc5b" class="article-share-link">Share</a>
       
       
     </footer>
@@ -470,7 +470,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/ML/ml 传统方法/supervised/-random-forest/" data-id="cjo6wnwdx012yxnzysyj9mxny" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/ML/ml 传统方法/supervised/-random-forest/" data-id="cjo6x9y4l011g05zyel68fall" class="article-share-link">Share</a>
       
       
     </footer>
@@ -509,7 +509,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/ML/ml 传统方法/supervised/SVM/-SVM/" data-id="cjo6wnxia026lxnzynqcrhs22" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/ML/ml 传统方法/supervised/SVM/-SVM/" data-id="cjo6x9zn002k805zyhky570ay" class="article-share-link">Share</a>
       
       
     </footer>
@@ -542,7 +542,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/ML/ml 传统方法/supervised/-gbdt/" data-id="cjo6wnwdo012nxnzyl8qzhdv3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/ML/ml 传统方法/supervised/-gbdt/" data-id="cjo6x9y4i011c05zy927u85z9" class="article-share-link">Share</a>
       
       
     </footer>

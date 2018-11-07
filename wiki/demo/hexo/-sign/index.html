@@ -103,7 +103,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/demo/hexo/-sign/" data-id="cjo6wnvna00bexnzy0xlfm74u" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/demo/hexo/-sign/" data-id="cjo6x9xfo00bw05zyt36jetok" class="article-share-link">Share</a>
       
       
     </footer>
@@ -133,6 +133,21 @@
 </article>
 
 
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    jax: ["input/TeX", "output/HTML-CSS"],   # 可以更改mathjax的默认输出样式
+    tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    messageStyle: "none",
+    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 </section>
         

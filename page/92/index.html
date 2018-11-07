@@ -62,9 +62,9 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-CS/tools/formatting/markdown/render-marked" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-CS/tools/formatting/markdown/advanced-markdown-tips" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/wiki/CS/tools/formatting/markdown/render-marked/" class="article-date">
+    <a href="/wiki/CS/tools/formatting/markdown/advanced-markdown-tips/" class="article-date">
   <time datetime="2018-02-03T16:00:00.000Z" itemprop="datePublished">2018-02-04</time>
 </a>
     
@@ -80,7 +80,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/wiki/CS/tools/formatting/markdown/render-marked/">【Markdown系列】marked渲染器</a>
+      <a class="article-title" href="/wiki/CS/tools/formatting/markdown/advanced-markdown-tips/">【Markdown系列】语法进阶 (Advanced Markdown Tips)</a>
     </h1>
   
 
@@ -88,16 +88,133 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>hexo博客默认采用marked引擎进行markdown解析。</p>
-<p><a href="https://marked.js.org/demo/" rel="external nofollow noopener noreferrer" target="_blank">online demo</a></p>
+        <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><!--
+## Inline HTML
+
+You can also use raw HTML in your Markdown, and it'll mostly work pretty well.
+
+-->
+<p><code>markdown</code>语法简单方便，但要实现复杂的样式仍然要借助html标签。本文介绍常用的<code>html标签</code>，用于对<code>markdown</code>原生格式的增强。</p>
+<!--
+有些markdown render不支持内嵌html
+-->
+<h1 id="常用的标签"><a href="#常用的标签" class="headerlink" title="常用的标签"></a>常用的标签</h1><h2 id="折叠块-lt-summary-gt"><a href="#折叠块-lt-summary-gt" class="headerlink" title="折叠块 &lt;summary&gt;"></a>折叠块 <code>&lt;summary&gt;</code></h2><p>你和猪，打一种动物</p>
+<details><br>  <summary>点击展开答案</summary><br>  <p> 象</p><br></details>
+
+<p>源码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;details&gt;</span><br><span class="line">  &lt;summary&gt;点击展开答案&lt;/summary&gt;</span><br><span class="line">  &lt;p&gt; 象&lt;/p&gt;</span><br><span class="line">&lt;/details&gt;</span><br></pre></td></tr></table></figure></p>
+<p>通常用于FAQ页面。</p>
+<!--
+## click事件
+
+这个要加js，比较复杂。也有不需要js的click，
+-->
+<h2 id="图片-lt-img-gt"><a href="#图片-lt-img-gt" class="headerlink" title="图片 &lt;img&gt;"></a>图片 <code>&lt;img&gt;</code></h2><p>markdown的语法不支持图片大小，位置等样式。<br><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">Alt text</span>](<span class="link">图片链接 "optional title"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>所以可采用<code>&lt;img&gt;</code>标签</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">align</span>=<span class="string">"middle"</span> <span class="attr">alt</span>=<span class="string">"=&amp;quot;alternate_text&amp;quot;"</span> <span class="attr">src</span>=<span class="string">"http://img5.2345.com/duoteimg/zixunImg/local/2016/03/18/14582940693488.gif"</span> <span class="attr">title</span>=<span class="string">"hover"</span> <span class="attr">width</span>=<span class="string">"20%"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img align="middle" alt="图片样式" src="http://img5.2345.com/duoteimg/zixunImg/local/2016/03/18/14582940693488.gif" title="图片样式" width="20%"></p>
+<h2 id="对齐-align"><a href="#对齐-align" class="headerlink" title="对齐 (align)"></a>对齐 (align)</h2><blockquote>
+<p>学而不思则罔，思而不学则殆  <div style="text-align:right">—— 《论语》</div></p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"text-align:right"</span> &gt;</span>-- 《论语》<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="注释-comment"><a href="#注释-comment" class="headerlink" title="注释 (comment)"></a>注释 (comment)</h2><p>不在页面显示，一般写给自己看，或者写给编辑者看(比如提交issue的模板中附带的注释)</p>
+<ul>
+<li>方式一: 采用html注释标签    <code>&lt;!-- 这里不会显示  --&gt;</code></li>
+<li>方式二: 直接采用&lt;标签   <code>&lt;这里不会显示&gt;</code></li>
+</ul>
+<p>推荐方式一</p>
+<h2 id="代码块-code-block"><a href="#代码块-code-block" class="headerlink" title="代码块 (code block)"></a>代码块 (code block)</h2><h3 id="个性化设置code-block的样式"><a href="#个性化设置code-block的样式" class="headerlink" title="个性化设置code block的样式"></a>个性化设置<code>code block</code>的样式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;pre&gt;sample &lt;b&gt;sample&lt;/b&gt; sample&lt;/pre&gt;</span><br></pre></td></tr></table></figure>
+<pre>sample <b>sample</b> sample</pre>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;pre&gt;</span><br><span class="line">&lt;i&gt;&lt;a href=&quot;http://manpages.ubuntu.com/manpages/dapper/man1/prename.1.html&quot;&gt;rename&lt;/a&gt;&lt;/i&gt; sfds</span><br><span class="line">&lt;/pre&gt;</span><br></pre></td></tr></table></figure>
+<pre>
+<i><a href="http://manpages.ubuntu.com/manpages/dapper/man1/prename.1.html" rel="external nofollow noopener noreferrer" target="_blank">rename</a></i> sfds
+</pre>
+
+<p><code>&lt;pre&gt;</code>标签更灵活。但是，不能显示行号，需要自定义每个元素的格式。</p>
+<h3 id="code-block不常用的语言"><a href="#code-block不常用的语言" class="headerlink" title="code block不常用的语言"></a>code block不常用的语言</h3><p><code>diff</code>样式用的不多，但比较实用。<br><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class Hello1</span><br><span class="line">&#123;</span><br><span class="line">   public static void Main()</span><br><span class="line">   &#123;</span><br><span class="line"><span class="deletion">-      System.Console.WriteLine("Hello, World!");</span></span><br><span class="line"><span class="addition">+      System.Console.WriteLine("Rock all night long!");</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="动态链接-link"><a href="#动态链接-link" class="headerlink" title="动态链接 (link)"></a>动态链接 (link)</h2><p>这部分属于需要动态link，需要借助<code>javascript</code>。因此需要markdown render支持（比如<a href="https://github.com/fletcher/MultiMarkdown/wiki/MultiMarkdown-Syntax-Guide#footnotes" rel="external nofollow noopener noreferrer" target="_blank">MultiMarkdown</a>），或者利用插件（比如<a href="https://github.com/kchen0x/hexo-reference" rel="external nofollow noopener noreferrer" target="_blank">hexo-reference</a>）</p>
+<!--
+### section link
+-->
+<h3 id="链接的集中管理"><a href="#链接的集中管理" class="headerlink" title="链接的集中管理"></a>链接的集中管理</h3><p>对link的集中管理，方便复用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">这是[链接一][1]，这是[链接二][2]。多次引用更方便、更简洁，[链接一][1]。</span><br><span class="line"></span><br><span class="line">   [1]: http://url1</span><br><span class="line">   [2]: http://url2 &quot;这是2的标题，可以试着把指针移到链接二上&quot;</span><br></pre></td></tr></table></figure>
+<p>这是<a href="http://url1" rel="external nofollow noopener noreferrer" target="_blank">链接一</a>，这是<a href="http://url2" title="还可以添加标题" rel="external nofollow noopener noreferrer" target="_blank">链接二</a>。多次引用更方便、更简洁，<a href="http://url1" rel="external nofollow noopener noreferrer" target="_blank">链接一</a>。</p>
+<h3 id="脚注-footnote"><a href="#脚注-footnote" class="headerlink" title="脚注 (footnote)"></a>脚注 (footnote)</h3><ul>
+<li><p>马克飞象支持footnote，它采用的<a href="https://github.com/fletcher/MultiMarkdown/wiki/MultiMarkdown-Syntax-Guide#footnotes" rel="external nofollow noopener noreferrer" target="_blank">MultiMarkdown</a>，已经停止开发了。</p>
+</li>
+<li><p><a href="https://github.com/kchen0x/hexo-reference" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/kchen0x/hexo-reference</a></p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">basic footnote[^demo]</span><br><span class="line"></span><br><span class="line">[^demo]: basic footnote content [title](http://link)</span><br></pre></td></tr></table></figure>
+<h3 id="link总结"><a href="#link总结" class="headerlink" title="link总结"></a>link总结</h3><p>集中link和脚注link最好都放在文档末尾。区别是，前者只提供link，后者明文显示参考文献。我更倾向于后者。</p>
+<blockquote>
+<p>Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。    —— <a href="https://zh.wikipedia.org/wiki/Markdown" rel="external nofollow noopener noreferrer" target="_blank">维基百科</a></p>
+</blockquote>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="是否支持嵌入js？"><a href="#是否支持嵌入js？" class="headerlink" title="是否支持嵌入js？"></a>是否支持嵌入js？</h3><h3 id="是否支持Markdown-Inside-HTML-Blocks"><a href="#是否支持Markdown-Inside-HTML-Blocks" class="headerlink" title="是否支持Markdown Inside HTML Blocks?"></a>是否支持Markdown Inside HTML Blocks?</h3><blockquote>
+<p>Markdown in HTML does not work very well  –来自官方文档</p>
+</blockquote>
+<p><a href="https://stackoverflow.com/questions/29368902/how-can-i-wrap-my-markdown-in-an-html-div" rel="external nofollow noopener noreferrer" target="_blank">部分支持</a></p>
+<ul>
+<li style="list-style: none"><input type="checkbox" checked> <code>&lt;div&gt; *Emphasized* text. &lt;/div&gt;</code></li>
+<li style="list-style: none"><input type="checkbox"> <code>&lt;div&gt; ## dfd &lt;/div&gt;</code></li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" rel="external nofollow noopener noreferrer" target="_blank">Github-Markdown | 官方文档</a></li>
+<li><a href="https://sourceforge.net/p/hexo/wiki/markdown_syntax/" rel="external nofollow noopener noreferrer" target="_blank">Hexo-Markdown | 官方文档</a></li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/tools/formatting/markdown/render-marked/" data-id="cjo6wnxds021vxnzykbn5mzwg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/tools/formatting/markdown/advanced-markdown-tips/" data-id="cjo6x9z1101zd05zy8rs3i1s5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/markdown/">markdown</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CS/tools/formatting/-tex/-tex简介与编译流程" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/tools/formatting/-tex/-tex简介与编译流程/" class="article-date">
+  <time datetime="2018-01-25T19:08:53.000Z" itemprop="datePublished">2018-01-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/tools/">tools</a>►<a class="article-category-link" href="/categories/CS/tools/formatting/">formatting</a>►<a class="article-category-link" href="/categories/CS/tools/formatting/tex/">-tex</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/CS/tools/formatting/-tex/-tex简介与编译流程/">tex 简介与编译流程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="编译器"><a href="#编译器" class="headerlink" title="编译器"></a>编译器</h2><p>PdfLaTex<br>LaTex<br>XeLaTex   我的简历在sharelatex上要用这个编译器<br>XuaLaTex</p>
+<p>区别是什么？</p>
+<h2 id="编译流程"><a href="#编译流程" class="headerlink" title="编译流程"></a>编译流程</h2><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>为什么编译软件那么大，而js版编译工具却很小？(因为js要调用远程服务吗？)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/tools/formatting/-tex/-tex简介与编译流程/" data-id="cjo6x9yyt01xf05zyrmd740kj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tex/">tex</a></li></ul>
 
     </footer>
   </div>
@@ -145,52 +262,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/tools/formatting/-tex/-tex在线编译工具/" data-id="cjo6wnxbo01zcxnzyestc6xtb" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tex/">tex</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-CS/tools/formatting/-tex/-tex简介与编译流程" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wiki/CS/tools/formatting/-tex/-tex简介与编译流程/" class="article-date">
-  <time datetime="2018-01-25T19:08:53.000Z" itemprop="datePublished">2018-01-26</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/tools/">tools</a>►<a class="article-category-link" href="/categories/CS/tools/formatting/">formatting</a>►<a class="article-category-link" href="/categories/CS/tools/formatting/tex/">-tex</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wiki/CS/tools/formatting/-tex/-tex简介与编译流程/">tex 简介与编译流程</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="编译器"><a href="#编译器" class="headerlink" title="编译器"></a>编译器</h2><p>PdfLaTex<br>LaTex<br>XeLaTex   我的简历在sharelatex上要用这个编译器<br>XuaLaTex</p>
-<p>区别是什么？</p>
-<h2 id="编译流程"><a href="#编译流程" class="headerlink" title="编译流程"></a>编译流程</h2><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>为什么编译软件那么大，而js版编译工具却很小？(因为js要调用远程服务吗？)</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/tools/formatting/-tex/-tex简介与编译流程/" data-id="cjo6wnxbr01zfxnzyta0mjrck" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/tools/formatting/-tex/-tex在线编译工具/" data-id="cjo6x9yyw01xi05zyq1akk7u4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tex/">tex</a></li></ul>
@@ -305,77 +377,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/tools/同步与版本管理/git/一图知git/" data-id="cjo6wnxdi021nxnzym9udgthp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/tools/同步与版本管理/git/一图知git/" data-id="cjo6x9z0v01z705zycebn2gas" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-CS/web/建站/host/github-pages/利用Github-Pages搭建独立域名的个人博客" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wiki/CS/web/建站/host/github-pages/利用Github-Pages搭建独立域名的个人博客/" class="article-date">
-  <time datetime="2018-01-25T19:08:53.000Z" itemprop="datePublished">2018-01-26</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/web/">web</a>►<a class="article-category-link" href="/categories/CS/web/建站/">建站</a>►<a class="article-category-link" href="/categories/CS/web/建站/host/">host</a>►<a class="article-category-link" href="/categories/CS/web/建站/host/github-pages/">github-pages</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wiki/CS/web/建站/host/github-pages/利用Github-Pages搭建独立域名的个人博客/">利用Github Pages搭建独立域名的个人博客</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="购买域名"><a href="#购买域名" class="headerlink" title="购买域名"></a>购买域名</h1><p><a href="https://wanwang.aliyun.com/" rel="external nofollow noopener noreferrer" target="_blank">阿里云-万网</a> 或其他供应商</p>
-<p><a href="../8dcc3c99/">了解更多域名</a></p>
-<h1 id="域名解析-xusong-vip-–-gt-xu-song-github-io"><a href="#域名解析-xusong-vip-–-gt-xu-song-github-io" class="headerlink" title="域名解析 (xusong.vip –&gt; xu-song.github.io)"></a>域名解析 (xusong.vip –&gt; xu-song.github.io)</h1><p>域名注册完成后首先需要做域名解析，域名解析就是把域名指向网站所在服务器的IP，让人们通过注册的域名可以访问到网站。</p>
-<h2 id="配置DNS解析"><a href="#配置DNS解析" class="headerlink" title="配置DNS解析"></a>配置DNS解析</h2><p>进入你的<a href="https://home.console.aliyun.com" rel="external nofollow noopener noreferrer" target="_blank">阿里云DNS解析</a>，选择你想要解析的域名，点击后面的解析。如下图所示：<br><img src="https://user-images.githubusercontent.com/13825126/35460092-a97a685a-031d-11e8-9cc6-1ce1b730a917.PNG" alt="dns"></p>
-<blockquote>
-<p>We recommend you change this to a CNAME record pointing at [YOUR USERNAME].github.io.<br>– <a href="https://help.github.com/articles/setting-up-a-custom-subdomain/" rel="external nofollow noopener noreferrer" target="_blank">Github Help</a></p>
-</blockquote>
-<p><strong>Github建议采用CNAME记录，为什么？</strong></p>
-<p>因为IP有可能会变动，导致A记录失效吗？不是，是因为所有Github Pages共用ip，Github后台是根据host定位www目录的。详见<a href="../bfc2ae40/">Github Pages原理</a></p>
-<p><strong>阿里云建议采用A记录</strong></p>
-<p>因为A记录限制最少，最灵活，多条不会冲突</p>
-<p>参考<br><a href="../87420f16/">DNS解析-解析记录</a></p>
-<h1 id="重定向-xu-song-github-io-–-gt-xusong-vip"><a href="#重定向-xu-song-github-io-–-gt-xusong-vip" class="headerlink" title="重定向(xu-song.github.io –&gt; xusong.vip)"></a>重定向(xu-song.github.io –&gt; xusong.vip)</h1><h2 id="配置github-pages的custom-domain"><a href="#配置github-pages的custom-domain" class="headerlink" title="配置github pages的custom domain"></a>配置github pages的custom domain</h2><p>进入你的github pages的仓库，然后在设置里面将的你的域名的地址，添加到custom domain中，然后保存即可。如下图所示：</p>
-<p><img src="https://user-images.githubusercontent.com/13825126/35460275-62ca64a4-031e-11e8-8e43-b15c8b2e1bcc.PNG" alt="default"></p>
-<p>这里是对github.io做了重定向，会重定向到所配置的站点。也可以随便填写一个站点，比如<a href="http://www.baidu.com，也会重定向过去" rel="external nofollow noopener noreferrer" target="_blank">www.baidu.com，也会重定向过去</a></p>
-<p>细心的同学会发现，配置custom domain后github仓库的根目录多了一个<code>CNAME</code>文件，里面正式刚刚配置的域名地址。</p>
-<h3 id="重新deploy，你会发现github-page的domain设置又被改回去了，肿么办？"><a href="#重新deploy，你会发现github-page的domain设置又被改回去了，肿么办？" class="headerlink" title="重新deploy，你会发现github page的domain设置又被改回去了，肿么办？"></a>重新deploy，你会发现github page的domain设置又被改回去了，肿么办？</h3><p>原因是，hexo deploy时会采用<code>git push --force</code>。如果deploy版本没有<code>CNAME</code>文件，则会强制删除3.1中添加的CNAME文件，导致custom domain失效。</p>
-<p>因此，最佳的方式是我们手动添加CNAME文件来设置domain。在source目录下新建CNAME文件，内容是<code>xusong.vip</code>。这样每次deploy会自动完成<code>步骤3.1</code>。</p>
-<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><ul>
-<li>为什么还要再github仓库中设置？dns解析不是已经做了重定向了吗。指向ip:80端口还不够吗？</li>
-<li>每个账号的gitpage都是独立的IP吗？github怎么这么多独立外网IP？还是不同账号共用IP？</li>
-<li>不同github page共享ip 正因为如此，才需要<code>步骤3</code>的设置。</li>
-<li>配置github pages的custom domain，其作用仅仅是<code>xu-song.github.io --&gt; xusong.vip (重定向)</code>吗？</li>
-</ul>
-<p><a href="../bfc2ae40/">思考题 - 答疑</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/web/建站/host/github-pages/利用Github-Pages搭建独立域名的个人博客/" data-id="cjo6wnyyv0334xnzyvvs0oown" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/domain/">domain</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pages/">pages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/建站/">建站</a></li></ul>
 
     </footer>
   </div>
@@ -470,10 +475,77 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/tools/同步与版本管理/git/github/gist/" data-id="cjo6wnyzv033sxnzy5eu9xtsi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/tools/同步与版本管理/git/github/gist/" data-id="cjo6xa0q2031o05zyaza90tos" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CS/web/建站/host/github-pages/利用Github-Pages搭建独立域名的个人博客" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/web/建站/host/github-pages/利用Github-Pages搭建独立域名的个人博客/" class="article-date">
+  <time datetime="2018-01-25T19:08:53.000Z" itemprop="datePublished">2018-01-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/web/">web</a>►<a class="article-category-link" href="/categories/CS/web/建站/">建站</a>►<a class="article-category-link" href="/categories/CS/web/建站/host/">host</a>►<a class="article-category-link" href="/categories/CS/web/建站/host/github-pages/">github-pages</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/CS/web/建站/host/github-pages/利用Github-Pages搭建独立域名的个人博客/">利用Github Pages搭建独立域名的个人博客</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="购买域名"><a href="#购买域名" class="headerlink" title="购买域名"></a>购买域名</h1><p><a href="https://wanwang.aliyun.com/" rel="external nofollow noopener noreferrer" target="_blank">阿里云-万网</a> 或其他供应商</p>
+<p><a href="../8dcc3c99/">了解更多域名</a></p>
+<h1 id="域名解析-xusong-vip-–-gt-xu-song-github-io"><a href="#域名解析-xusong-vip-–-gt-xu-song-github-io" class="headerlink" title="域名解析 (xusong.vip –&gt; xu-song.github.io)"></a>域名解析 (xusong.vip –&gt; xu-song.github.io)</h1><p>域名注册完成后首先需要做域名解析，域名解析就是把域名指向网站所在服务器的IP，让人们通过注册的域名可以访问到网站。</p>
+<h2 id="配置DNS解析"><a href="#配置DNS解析" class="headerlink" title="配置DNS解析"></a>配置DNS解析</h2><p>进入你的<a href="https://home.console.aliyun.com" rel="external nofollow noopener noreferrer" target="_blank">阿里云DNS解析</a>，选择你想要解析的域名，点击后面的解析。如下图所示：<br><img src="https://user-images.githubusercontent.com/13825126/35460092-a97a685a-031d-11e8-9cc6-1ce1b730a917.PNG" alt="dns"></p>
+<blockquote>
+<p>We recommend you change this to a CNAME record pointing at [YOUR USERNAME].github.io.<br>– <a href="https://help.github.com/articles/setting-up-a-custom-subdomain/" rel="external nofollow noopener noreferrer" target="_blank">Github Help</a></p>
+</blockquote>
+<p><strong>Github建议采用CNAME记录，为什么？</strong></p>
+<p>因为IP有可能会变动，导致A记录失效吗？不是，是因为所有Github Pages共用ip，Github后台是根据host定位www目录的。详见<a href="../bfc2ae40/">Github Pages原理</a></p>
+<p><strong>阿里云建议采用A记录</strong></p>
+<p>因为A记录限制最少，最灵活，多条不会冲突</p>
+<p>参考<br><a href="../87420f16/">DNS解析-解析记录</a></p>
+<h1 id="重定向-xu-song-github-io-–-gt-xusong-vip"><a href="#重定向-xu-song-github-io-–-gt-xusong-vip" class="headerlink" title="重定向(xu-song.github.io –&gt; xusong.vip)"></a>重定向(xu-song.github.io –&gt; xusong.vip)</h1><h2 id="配置github-pages的custom-domain"><a href="#配置github-pages的custom-domain" class="headerlink" title="配置github pages的custom domain"></a>配置github pages的custom domain</h2><p>进入你的github pages的仓库，然后在设置里面将的你的域名的地址，添加到custom domain中，然后保存即可。如下图所示：</p>
+<p><img src="https://user-images.githubusercontent.com/13825126/35460275-62ca64a4-031e-11e8-8e43-b15c8b2e1bcc.PNG" alt="default"></p>
+<p>这里是对github.io做了重定向，会重定向到所配置的站点。也可以随便填写一个站点，比如<a href="http://www.baidu.com，也会重定向过去" rel="external nofollow noopener noreferrer" target="_blank">www.baidu.com，也会重定向过去</a></p>
+<p>细心的同学会发现，配置custom domain后github仓库的根目录多了一个<code>CNAME</code>文件，里面正式刚刚配置的域名地址。</p>
+<h3 id="重新deploy，你会发现github-page的domain设置又被改回去了，肿么办？"><a href="#重新deploy，你会发现github-page的domain设置又被改回去了，肿么办？" class="headerlink" title="重新deploy，你会发现github page的domain设置又被改回去了，肿么办？"></a>重新deploy，你会发现github page的domain设置又被改回去了，肿么办？</h3><p>原因是，hexo deploy时会采用<code>git push --force</code>。如果deploy版本没有<code>CNAME</code>文件，则会强制删除3.1中添加的CNAME文件，导致custom domain失效。</p>
+<p>因此，最佳的方式是我们手动添加CNAME文件来设置domain。在source目录下新建CNAME文件，内容是<code>xusong.vip</code>。这样每次deploy会自动完成<code>步骤3.1</code>。</p>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><ul>
+<li>为什么还要再github仓库中设置？dns解析不是已经做了重定向了吗。指向ip:80端口还不够吗？</li>
+<li>每个账号的gitpage都是独立的IP吗？github怎么这么多独立外网IP？还是不同账号共用IP？</li>
+<li>不同github page共享ip 正因为如此，才需要<code>步骤3</code>的设置。</li>
+<li>配置github pages的custom domain，其作用仅仅是<code>xu-song.github.io --&gt; xusong.vip (重定向)</code>吗？</li>
+</ul>
+<p><a href="../bfc2ae40/">思考题 - 答疑</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/web/建站/host/github-pages/利用Github-Pages搭建独立域名的个人博客/" data-id="cjo6xa0v0033n05zy4bj2utbi" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/domain/">domain</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pages/">pages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/建站/">建站</a></li></ul>
 
     </footer>
   </div>
@@ -559,95 +631,10 @@ Address: 9.186.88.5
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/network/网络协议-OSI七层模型/1. 第七层 应用层/DNS/DNS解析-资源记录/" data-id="cjo6wnzxh03q3xnzyyei266it" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/network/网络协议-OSI七层模型/1. 第七层 应用层/DNS/DNS解析-资源记录/" data-id="cjo6xa1dm03ie05zy3jfa2611" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/domain/">domain</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pages/">pages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/建站/">建站</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-CS/web/建站/host/github-pages/github-pages原理" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wiki/CS/web/建站/host/github-pages/github-pages原理/" class="article-date">
-  <time datetime="2018-01-25T16:00:00.000Z" itemprop="datePublished">2018-01-26</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/web/">web</a>►<a class="article-category-link" href="/categories/CS/web/建站/">建站</a>►<a class="article-category-link" href="/categories/CS/web/建站/host/">host</a>►<a class="article-category-link" href="/categories/CS/web/建站/host/github-pages/">github-pages</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wiki/CS/web/建站/host/github-pages/github-pages原理/">Github Pages托管静态博客-原理浅析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="关于github提供的http-server"><a href="#关于github提供的http-server" class="headerlink" title="关于github提供的http server"></a>关于github提供的http server</h2><h4 id="ping-几个不同账号的gitpage-比如colah-github-io-xu-song-github-io-，发现对应的是同一个ip。为什么返回的页面不同呢？"><a href="#ping-几个不同账号的gitpage-比如colah-github-io-xu-song-github-io-，发现对应的是同一个ip。为什么返回的页面不同呢？" class="headerlink" title="ping 几个不同账号的gitpage(比如colah.github.io,xu-song.github.io)，发现对应的是同一个ip。为什么返回的页面不同呢？"></a>ping 几个不同账号的gitpage(比如<code>colah.github.io</code>,<code>xu-song.github.io</code>)，发现对应的是同一个ip。为什么返回的页面不同呢？</h4><p>github pages 的 CNAME 是绑定 pages.github.io，不是${username}.github.io</p>
-<p>coding.net 的 CNAME 是绑定 pages.coding.me</p>
-<p>显然，Github肯定在后台做了处理。即github自身会维护一个映射，<code>host_name --&gt; www_path</code>，这样就可以根据不同的host信息返回不同的html了。</p>
-<p>这样，在访问<code>xu-song.github.io</code>时github就找到了该返回的html。</p>
-<h2 id="关于custom-domain"><a href="#关于custom-domain" class="headerlink" title="关于custom domain"></a>关于custom domain</h2><p>现在我们改用<code>custom domain</code>的方式访问gitpage主页。假设已经配置好了dns的A记录映射。<br>访问<code>xusong.vip</code>，dns解析得到ip地址。然而这次github服务器得到的host是<code>xusong.vip</code>。懵逼了，github不认识<code>xusong.vip</code>(host数据里没有该记录)，返回404页面</p>
-<image src="https://user-images.githubusercontent.com/13825126/35623051-fc61df6c-06c4-11e8-89a7-6207bc430d85.PNG" style="width: 60%;">
-
-
-<p><strong>怎么办呢？</strong></p>
-<p>那就让github认识一下<code>xusong.vip</code>，也就是在github page里设置一下custom domain，或者添加CNAME文件，详见<a href="../利用Github Pages搭建独立域名的个人博客/">用Github Pages搭建独立域名的个人博客</a></p>
-<ul>
-<li style="list-style: none"><input type="checkbox"> 如果DNS设置CNAME记录，是不是github page不用设置就能work？</li>
-</ul>
-<h2 id="那么上一篇中的重重疑点也就解开了"><a href="#那么上一篇中的重重疑点也就解开了" class="headerlink" title="那么上一篇中的重重疑点也就解开了"></a>那么上一篇中的重重疑点也就解开了</h2><ul>
-<li style="list-style: none"><input type="checkbox" checked> 每个账号的gitpage都是独立的IP吗？github怎么这么多独立外网IP？还是不同账号共用IP？<ul>
-<li>很多账号是同一个ip。</li>
-</ul>
-</li>
-<li style="list-style: none"><input type="checkbox" checked> 不同github page共享ip 正因为如此，才需要<code>步骤3</code>的设置。</li>
-<li style="list-style: none"><input type="checkbox" checked> 配置github pages的custom domain，其作用仅仅是<code>xu-song.github.io --&gt; xusong.vip (重定向)</code>吗？<ul>
-<li>不是。1. 查dns解析是否通过 2. 部署到github服务器的相应目录（因为） 3. github page到domain的重定向</li>
-</ul>
-</li>
-</ul>
-<h2 id="关于https"><a href="#关于https" class="headerlink" title="关于https"></a>关于https</h2><h3 id="为什么Github-Pages不支持为自定义域名添加SSL证书？"><a href="#为什么Github-Pages不支持为自定义域名添加SSL证书？" class="headerlink" title="为什么Github Pages不支持为自定义域名添加SSL证书？"></a>为什么Github Pages不支持为自定义域名添加SSL证书？</h3><p><a href="https://steffan.cn/2017/03/22/use-cloudflare-to-implement-HTTPS-for-GithubPages-with-custom-domain-names/" rel="external nofollow noopener noreferrer" target="_blank">https://steffan.cn/2017/03/22/use-cloudflare-to-implement-HTTPS-for-GithubPages-with-custom-domain-names/</a></p>
-<h2 id="多个域名能否指向同一个-GitHub-Pages？"><a href="#多个域名能否指向同一个-GitHub-Pages？" class="headerlink" title="多个域名能否指向同一个 GitHub Pages？"></a>多个域名能否指向同一个 GitHub Pages？</h2><p>GitHub Pages 的官方文档，一个 username.github.io 只能支持一个域名。</p>
-<p>coding page支持多个域名。</p>
-<h2 id="一个账号能否见多个github-page？"><a href="#一个账号能否见多个github-page？" class="headerlink" title="一个账号能否见多个github page？"></a>一个账号能否见多个github page？</h2><p>可以建立多个， 个人账户page只能有一个， 项目page可以有多个</p>
-<p>比如你的账号名为  username, 项目叫 project1    那你可以通过  username.github.io/project1 访问， 如果配置了个人域名就可以用自己的域名访问了</p>
-<p>但是CNAME不能指向username.github.io/project1，怎么办？</p>
-<h2 id="todo"><a href="#todo" class="headerlink" title="todo"></a>todo</h2><ul>
-<li style="list-style: none"><input type="checkbox"> 如何解决md同步问题？<ul>
-<li>git-repo源，gist源，git issue源，gitpage源。最优的方式就是同源 + 自动deploy。</li>
-<li>方式一：以issue作源，要自己利用github api，读取issue，然后写到source目录(貌似也挺简单)。</li>
-<li>方式二：以git-repo作源，貌似不错哎。单独把source目录单独作为repo</li>
-<li>方式三：以gist作源：易集成(一行js即可)，但不易管理(不支持directory，文档多了很麻烦)</li>
-</ul>
-</li>
-<li style="list-style: none"><input type="checkbox"> 如何实现在线写blog，像wordpress那样<ul>
-<li>用js调用github api，或者其他后台api即可</li>
-</ul>
-</li>
-</ul>
-</image>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/web/建站/host/github-pages/github-pages原理/" data-id="cjo6wnyyq0330xnzy67uumbo5" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pages/">pages</a></li></ul>
 
     </footer>
   </div>
@@ -809,10 +796,95 @@ Address: 9.186.88.5
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/tools/同步与版本管理/git/github/git gist wiki 区别/" data-id="cjo6wnz080340xnzypt6p7v2t" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/tools/同步与版本管理/git/github/git gist wiki 区别/" data-id="cjo6xa0qb031r05zyepbjwqsk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CS/web/建站/host/github-pages/github-pages原理" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/web/建站/host/github-pages/github-pages原理/" class="article-date">
+  <time datetime="2018-01-25T16:00:00.000Z" itemprop="datePublished">2018-01-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/web/">web</a>►<a class="article-category-link" href="/categories/CS/web/建站/">建站</a>►<a class="article-category-link" href="/categories/CS/web/建站/host/">host</a>►<a class="article-category-link" href="/categories/CS/web/建站/host/github-pages/">github-pages</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/CS/web/建站/host/github-pages/github-pages原理/">Github Pages托管静态博客-原理浅析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="关于github提供的http-server"><a href="#关于github提供的http-server" class="headerlink" title="关于github提供的http server"></a>关于github提供的http server</h2><h4 id="ping-几个不同账号的gitpage-比如colah-github-io-xu-song-github-io-，发现对应的是同一个ip。为什么返回的页面不同呢？"><a href="#ping-几个不同账号的gitpage-比如colah-github-io-xu-song-github-io-，发现对应的是同一个ip。为什么返回的页面不同呢？" class="headerlink" title="ping 几个不同账号的gitpage(比如colah.github.io,xu-song.github.io)，发现对应的是同一个ip。为什么返回的页面不同呢？"></a>ping 几个不同账号的gitpage(比如<code>colah.github.io</code>,<code>xu-song.github.io</code>)，发现对应的是同一个ip。为什么返回的页面不同呢？</h4><p>github pages 的 CNAME 是绑定 pages.github.io，不是${username}.github.io</p>
+<p>coding.net 的 CNAME 是绑定 pages.coding.me</p>
+<p>显然，Github肯定在后台做了处理。即github自身会维护一个映射，<code>host_name --&gt; www_path</code>，这样就可以根据不同的host信息返回不同的html了。</p>
+<p>这样，在访问<code>xu-song.github.io</code>时github就找到了该返回的html。</p>
+<h2 id="关于custom-domain"><a href="#关于custom-domain" class="headerlink" title="关于custom domain"></a>关于custom domain</h2><p>现在我们改用<code>custom domain</code>的方式访问gitpage主页。假设已经配置好了dns的A记录映射。<br>访问<code>xusong.vip</code>，dns解析得到ip地址。然而这次github服务器得到的host是<code>xusong.vip</code>。懵逼了，github不认识<code>xusong.vip</code>(host数据里没有该记录)，返回404页面</p>
+<image src="https://user-images.githubusercontent.com/13825126/35623051-fc61df6c-06c4-11e8-89a7-6207bc430d85.PNG" style="width: 60%;">
+
+
+<p><strong>怎么办呢？</strong></p>
+<p>那就让github认识一下<code>xusong.vip</code>，也就是在github page里设置一下custom domain，或者添加CNAME文件，详见<a href="../利用Github Pages搭建独立域名的个人博客/">用Github Pages搭建独立域名的个人博客</a></p>
+<ul>
+<li style="list-style: none"><input type="checkbox"> 如果DNS设置CNAME记录，是不是github page不用设置就能work？</li>
+</ul>
+<h2 id="那么上一篇中的重重疑点也就解开了"><a href="#那么上一篇中的重重疑点也就解开了" class="headerlink" title="那么上一篇中的重重疑点也就解开了"></a>那么上一篇中的重重疑点也就解开了</h2><ul>
+<li style="list-style: none"><input type="checkbox" checked> 每个账号的gitpage都是独立的IP吗？github怎么这么多独立外网IP？还是不同账号共用IP？<ul>
+<li>很多账号是同一个ip。</li>
+</ul>
+</li>
+<li style="list-style: none"><input type="checkbox" checked> 不同github page共享ip 正因为如此，才需要<code>步骤3</code>的设置。</li>
+<li style="list-style: none"><input type="checkbox" checked> 配置github pages的custom domain，其作用仅仅是<code>xu-song.github.io --&gt; xusong.vip (重定向)</code>吗？<ul>
+<li>不是。1. 查dns解析是否通过 2. 部署到github服务器的相应目录（因为） 3. github page到domain的重定向</li>
+</ul>
+</li>
+</ul>
+<h2 id="关于https"><a href="#关于https" class="headerlink" title="关于https"></a>关于https</h2><h3 id="为什么Github-Pages不支持为自定义域名添加SSL证书？"><a href="#为什么Github-Pages不支持为自定义域名添加SSL证书？" class="headerlink" title="为什么Github Pages不支持为自定义域名添加SSL证书？"></a>为什么Github Pages不支持为自定义域名添加SSL证书？</h3><p><a href="https://steffan.cn/2017/03/22/use-cloudflare-to-implement-HTTPS-for-GithubPages-with-custom-domain-names/" rel="external nofollow noopener noreferrer" target="_blank">https://steffan.cn/2017/03/22/use-cloudflare-to-implement-HTTPS-for-GithubPages-with-custom-domain-names/</a></p>
+<h2 id="多个域名能否指向同一个-GitHub-Pages？"><a href="#多个域名能否指向同一个-GitHub-Pages？" class="headerlink" title="多个域名能否指向同一个 GitHub Pages？"></a>多个域名能否指向同一个 GitHub Pages？</h2><p>GitHub Pages 的官方文档，一个 username.github.io 只能支持一个域名。</p>
+<p>coding page支持多个域名。</p>
+<h2 id="一个账号能否见多个github-page？"><a href="#一个账号能否见多个github-page？" class="headerlink" title="一个账号能否见多个github page？"></a>一个账号能否见多个github page？</h2><p>可以建立多个， 个人账户page只能有一个， 项目page可以有多个</p>
+<p>比如你的账号名为  username, 项目叫 project1    那你可以通过  username.github.io/project1 访问， 如果配置了个人域名就可以用自己的域名访问了</p>
+<p>但是CNAME不能指向username.github.io/project1，怎么办？</p>
+<h2 id="todo"><a href="#todo" class="headerlink" title="todo"></a>todo</h2><ul>
+<li style="list-style: none"><input type="checkbox"> 如何解决md同步问题？<ul>
+<li>git-repo源，gist源，git issue源，gitpage源。最优的方式就是同源 + 自动deploy。</li>
+<li>方式一：以issue作源，要自己利用github api，读取issue，然后写到source目录(貌似也挺简单)。</li>
+<li>方式二：以git-repo作源，貌似不错哎。单独把source目录单独作为repo</li>
+<li>方式三：以gist作源：易集成(一行js即可)，但不易管理(不支持directory，文档多了很麻烦)</li>
+</ul>
+</li>
+<li style="list-style: none"><input type="checkbox"> 如何实现在线写blog，像wordpress那样<ul>
+<li>用js调用github api，或者其他后台api即可</li>
+</ul>
+</li>
+</ul>
+</image>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/web/建站/host/github-pages/github-pages原理/" data-id="cjo6xa0uu033j05zyvbdsk3g6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pages/">pages</a></li></ul>
 
     </footer>
   </div>
@@ -972,7 +1044,7 @@ Address: 9.186.88.5
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/cloud/google/google云主机--GCE/" data-id="cjo6wnw1q00ntxnzyceit8jiy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/cloud/google/google云主机--GCE/" data-id="cjo6x9xtg00q105zy9prbnzof" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GPU/">GPU</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cloud/">cloud</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/computer-engine/">computer engine</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/google/">google</a></li></ul>

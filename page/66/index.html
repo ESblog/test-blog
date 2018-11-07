@@ -62,6 +62,54 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-CS/network/网络编程-socket编程/-常见错误" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/network/网络编程-socket编程/-常见错误/" class="article-date">
+  <time datetime="2018-06-20T11:22:09.078Z" itemprop="datePublished">2018-06-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/network/">network</a>►<a class="article-category-link" href="/categories/CS/network/网络编程-socket编程/">网络编程-socket编程</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="java-net-SocketException-No-buffer-space-available"><a href="#java-net-SocketException-No-buffer-space-available" class="headerlink" title="java.net.SocketException: No buffer space available"></a>java.net.SocketException: No buffer space available</h2><ul>
+<li><p>It certainly sounds like you are leaking Sockets somehow in your app. 这句话意思就是开了socket，没有关</p>
+</li>
+<li><p>Check that your code always closes the Sockets it opens … even in the event of some exception; i.e. do the close in a finally block.</p>
+</li>
+</ul>
+<h3 id="state-介绍"><a href="#state-介绍" class="headerlink" title="state 介绍"></a>state 介绍</h3><ul>
+<li>TIME_WAIT：表示主动关闭，通过优化系统内核参数可容易解决。</li>
+<li>CLOSE_WAIT：表示被动关闭，需要从程序本身出发。</li>
+<li>ESTABLISHED：表示正在通信</li>
+</ul>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>下次出现这种情况的时候，<br>netstat -apn | grep java<br>netstat -apn | grep 8983<br> netstat -nap | grep pid<br>检查一下本机java程序占用了多少端口，主要是跟8983的连接还是5000的连接？</p>
+<h2 id="端口占用状态"><a href="#端口占用状态" class="headerlink" title="端口占用状态"></a>端口占用状态</h2><p>某次的结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">tcp        0      0 127.0.0.1:63342         0.0.0.0:*               LISTEN      8959/java</span><br><span class="line">tcp        0      0 127.0.0.1:6942          0.0.0.0:*               LISTEN      8959/java</span><br><span class="line">tcp        0      0 0.0.0.0:54152           0.0.0.0:*               LISTEN      8959/java</span><br><span class="line">tcp6       0      0 127.0.0.1:7983          :::*                    LISTEN      23705/java</span><br><span class="line">tcp6       0      0 :::8080                 :::*                    LISTEN      32668/java    listen状态，是本地tomcat启动的项目，监听8080</span><br><span class="line">tcp6       0      0 :::8983                 :::*                    LISTEN      23705/java     listen状态，是本地jetty启动的solr，监听8983端口</span><br><span class="line">tcp6       0      0 :::53056                :::*                    LISTEN      9342/java</span><br><span class="line">tcp6       0      0 127.0.0.1:8005          :::*                    LISTEN      32668/java</span><br><span class="line">tcp6       0      0 :::8009                 :::*                    LISTEN      32668/java</span><br><span class="line">tcp6       1      0 127.0.0.1:36061             127.0.0.1:8983             CLOSE_WAIT     32668/java  tomcat启动的项目，向solr发送socket连接</span><br><span class="line">tcp6       1      0 127.0.0.1:36060             127.0.0.1:8983             CLOSE_WAIT     32668/java</span><br><span class="line">tcp6       1      0 127.0.0.1:36062             127.0.0.1:8983             CLOSE_WAIT     32668/java</span><br><span class="line">tcp6       0      0 9.186.100.11:57211      151.101.40.215:80       ESTABLISHED  9342/java</span><br><span class="line">tcp6       0      0 9.186.100.11:46481      151.101.44.215:80       ESTABLISHED  9342/java</span><br><span class="line">tcp6       0      0 9.186.100.11:46483      151.101.44.215:80       ESTABLISHED  9342/java</span><br><span class="line"></span><br><span class="line">tcp6       0      0 9.186.100.11:46482      151.101.44.215:80       ESTABLISHED   9342/java</span><br><span class="line"></span><br><span class="line">tcp6       0      0 9.186.100.11:46484      151.101.44.215:80       ESTABLISHED   9342/java</span><br></pre></td></tr></table></figure>
+<p>某次的结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">tcp6       0      0 :::8080                 :::*                    LISTEN      75106/java</span><br><span class="line">tcp6       0      0 :::8983                 :::*                    LISTEN      74867/java</span><br><span class="line"></span><br><span class="line"> tomcat启动的项目，向solr发送socket连接，怎么变这么多了？</span><br><span class="line">会存在多个线程采用同一个单例，向solr发送socket连接</span><br><span class="line">tcp6       1      0 127.0.0.1:48876         127.0.0.1:8983          CLOSE_WAIT  75106/java   close的socket连接</span><br><span class="line">tcp6       1      0 127.0.0.1:45752         127.0.0.1:8983          CLOSE_WAIT  75106/java   close的socket连接</span><br><span class="line">tcp6       1      0 127.0.0.1:48925         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br><span class="line">tcp6       1      0 127.0.0.1:48729         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br><span class="line">tcp6       1      0 127.0.0.1:48714         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br><span class="line">tcp6       1      0 127.0.0.1:48924         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br><span class="line">tcp6       1      0 127.0.0.1:48763         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br><span class="line">tcp6       1      0 127.0.0.1:48764         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br></pre></td></tr></table></figure></p>
+<p>过一段时间会有变化，下面标红色的，是新增的两个socket连接，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tcp6       1      0 127.0.0.1:48925         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br><span class="line">tcp6       1      0 127.0.0.1:48729         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br><span class="line">tcp6       1      0 127.0.0.1:56303         127.0.0.1:8983          CLOSE_WAIT  75106/java    新增的socket连接</span><br><span class="line">tcp6       1      0 127.0.0.1:48714         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br><span class="line">tcp6       1      0 127.0.0.1:48924         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br><span class="line">tcp6       1      0 127.0.0.1:48763         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br><span class="line">tcp6       1      0 127.0.0.1:56302         127.0.0.1:8983          CLOSE_WAIT  75106/java   新增的socket连接</span><br><span class="line">tcp6       1      0 127.0.0.1:48764         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br></pre></td></tr></table></figure></p>
+<p>solrSearch.query(queryParameters);  会建立连接 默认采用GET方式发送请求<br>还是 new HttpSolrClient(URL) 的尚未建立连接，只是做了一下config。</p>
+<p>update的时候<br>solr.add(doc)   send the SolrInputDocument to the Solr update request handler over HTTP.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/network/网络编程-socket编程/-常见错误/" data-id="cjo6x9xtr00qc05zy34bpwfm8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-CS/network/网络编程-socket编程/-网络编程" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/wiki/CS/network/网络编程-socket编程/-网络编程/" class="article-date">
@@ -116,55 +164,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/network/网络编程-socket编程/-网络编程/" data-id="cjo6wnw2x00ptxnzy32e76nrb" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-CS/network/网络编程-socket编程/-常见错误" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wiki/CS/network/网络编程-socket编程/-常见错误/" class="article-date">
-  <time datetime="2018-06-20T11:22:09.078Z" itemprop="datePublished">2018-06-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/network/">network</a>►<a class="article-category-link" href="/categories/CS/network/网络编程-socket编程/">网络编程-socket编程</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="java-net-SocketException-No-buffer-space-available"><a href="#java-net-SocketException-No-buffer-space-available" class="headerlink" title="java.net.SocketException: No buffer space available"></a>java.net.SocketException: No buffer space available</h2><ul>
-<li><p>It certainly sounds like you are leaking Sockets somehow in your app. 这句话意思就是开了socket，没有关</p>
-</li>
-<li><p>Check that your code always closes the Sockets it opens … even in the event of some exception; i.e. do the close in a finally block.</p>
-</li>
-</ul>
-<h3 id="state-介绍"><a href="#state-介绍" class="headerlink" title="state 介绍"></a>state 介绍</h3><ul>
-<li>TIME_WAIT：表示主动关闭，通过优化系统内核参数可容易解决。</li>
-<li>CLOSE_WAIT：表示被动关闭，需要从程序本身出发。</li>
-<li>ESTABLISHED：表示正在通信</li>
-</ul>
-<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>下次出现这种情况的时候，<br>netstat -apn | grep java<br>netstat -apn | grep 8983<br> netstat -nap | grep pid<br>检查一下本机java程序占用了多少端口，主要是跟8983的连接还是5000的连接？</p>
-<h2 id="端口占用状态"><a href="#端口占用状态" class="headerlink" title="端口占用状态"></a>端口占用状态</h2><p>某次的结果</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">tcp        0      0 127.0.0.1:63342         0.0.0.0:*               LISTEN      8959/java</span><br><span class="line">tcp        0      0 127.0.0.1:6942          0.0.0.0:*               LISTEN      8959/java</span><br><span class="line">tcp        0      0 0.0.0.0:54152           0.0.0.0:*               LISTEN      8959/java</span><br><span class="line">tcp6       0      0 127.0.0.1:7983          :::*                    LISTEN      23705/java</span><br><span class="line">tcp6       0      0 :::8080                 :::*                    LISTEN      32668/java    listen状态，是本地tomcat启动的项目，监听8080</span><br><span class="line">tcp6       0      0 :::8983                 :::*                    LISTEN      23705/java     listen状态，是本地jetty启动的solr，监听8983端口</span><br><span class="line">tcp6       0      0 :::53056                :::*                    LISTEN      9342/java</span><br><span class="line">tcp6       0      0 127.0.0.1:8005          :::*                    LISTEN      32668/java</span><br><span class="line">tcp6       0      0 :::8009                 :::*                    LISTEN      32668/java</span><br><span class="line">tcp6       1      0 127.0.0.1:36061             127.0.0.1:8983             CLOSE_WAIT     32668/java  tomcat启动的项目，向solr发送socket连接</span><br><span class="line">tcp6       1      0 127.0.0.1:36060             127.0.0.1:8983             CLOSE_WAIT     32668/java</span><br><span class="line">tcp6       1      0 127.0.0.1:36062             127.0.0.1:8983             CLOSE_WAIT     32668/java</span><br><span class="line">tcp6       0      0 9.186.100.11:57211      151.101.40.215:80       ESTABLISHED  9342/java</span><br><span class="line">tcp6       0      0 9.186.100.11:46481      151.101.44.215:80       ESTABLISHED  9342/java</span><br><span class="line">tcp6       0      0 9.186.100.11:46483      151.101.44.215:80       ESTABLISHED  9342/java</span><br><span class="line"></span><br><span class="line">tcp6       0      0 9.186.100.11:46482      151.101.44.215:80       ESTABLISHED   9342/java</span><br><span class="line"></span><br><span class="line">tcp6       0      0 9.186.100.11:46484      151.101.44.215:80       ESTABLISHED   9342/java</span><br></pre></td></tr></table></figure>
-<p>某次的结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">tcp6       0      0 :::8080                 :::*                    LISTEN      75106/java</span><br><span class="line">tcp6       0      0 :::8983                 :::*                    LISTEN      74867/java</span><br><span class="line"></span><br><span class="line"> tomcat启动的项目，向solr发送socket连接，怎么变这么多了？</span><br><span class="line">会存在多个线程采用同一个单例，向solr发送socket连接</span><br><span class="line">tcp6       1      0 127.0.0.1:48876         127.0.0.1:8983          CLOSE_WAIT  75106/java   close的socket连接</span><br><span class="line">tcp6       1      0 127.0.0.1:45752         127.0.0.1:8983          CLOSE_WAIT  75106/java   close的socket连接</span><br><span class="line">tcp6       1      0 127.0.0.1:48925         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br><span class="line">tcp6       1      0 127.0.0.1:48729         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br><span class="line">tcp6       1      0 127.0.0.1:48714         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br><span class="line">tcp6       1      0 127.0.0.1:48924         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br><span class="line">tcp6       1      0 127.0.0.1:48763         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br><span class="line">tcp6       1      0 127.0.0.1:48764         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br></pre></td></tr></table></figure></p>
-<p>过一段时间会有变化，下面标红色的，是新增的两个socket连接，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tcp6       1      0 127.0.0.1:48925         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br><span class="line">tcp6       1      0 127.0.0.1:48729         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br><span class="line">tcp6       1      0 127.0.0.1:56303         127.0.0.1:8983          CLOSE_WAIT  75106/java    新增的socket连接</span><br><span class="line">tcp6       1      0 127.0.0.1:48714         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br><span class="line">tcp6       1      0 127.0.0.1:48924         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br><span class="line">tcp6       1      0 127.0.0.1:48763         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br><span class="line">tcp6       1      0 127.0.0.1:56302         127.0.0.1:8983          CLOSE_WAIT  75106/java   新增的socket连接</span><br><span class="line">tcp6       1      0 127.0.0.1:48764         127.0.0.1:8983          CLOSE_WAIT  75106/java</span><br></pre></td></tr></table></figure></p>
-<p>solrSearch.query(queryParameters);  会建立连接 默认采用GET方式发送请求<br>还是 new HttpSolrClient(URL) 的尚未建立连接，只是做了一下config。</p>
-<p>update的时候<br>solr.add(doc)   send the SolrInputDocument to the Solr update request handler over HTTP.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/network/网络编程-socket编程/-常见错误/" data-id="cjo6wnw2z00pwxnzyk7vefa4a" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/network/网络编程-socket编程/-网络编程/" data-id="cjo6x9xtt00qe05zy7fvmjyhu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -194,7 +194,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/network/网络工作方式-非协议-可以采用不同的通信协议/p2p/-p2p/" data-id="cjo6wnx3301tcxnzyytypn2bx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/network/网络工作方式-非协议-可以采用不同的通信协议/p2p/-p2p/" data-id="cjo6x9ytc01tt05zygks76ilv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -226,7 +226,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/network/网络工作方式-非协议-可以采用不同的通信协议/vpn/-VPC/" data-id="cjo6wnx3801texnzya16j902x" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/network/网络工作方式-非协议-可以采用不同的通信协议/vpn/-VPC/" data-id="cjo6x9ytj01tz05zyg7dzzhlh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -261,7 +261,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/network/网络工作方式-非协议-可以采用不同的通信协议/proxy/ssr/-源码/" data-id="cjo6wnys5030mxnzyxu1bp0za" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/network/网络工作方式-非协议-可以采用不同的通信协议/proxy/ssr/-源码/" data-id="cjo6xa0mz030h05zy2boig8mm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -322,7 +322,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/network/网络工作方式-非协议-可以采用不同的通信协议/proxy/ss/-原理-源码/" data-id="cjo6wnyrn030fxnzy9wxeyipq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/network/网络工作方式-非协议-可以采用不同的通信协议/proxy/ss/-原理-源码/" data-id="cjo6xa0kg02zg05zyc5z0uzqa" class="article-share-link">Share</a>
       
       
     </footer>
@@ -365,7 +365,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/network/网络工作方式-非协议-可以采用不同的通信协议/proxy/-匿名、透明、HTTP、SSL、SOCKS代理的区别/" data-id="cjo6wnx3t01tixnzymqb2zyv8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/network/网络工作方式-非协议-可以采用不同的通信协议/proxy/-匿名、透明、HTTP、SSL、SOCKS代理的区别/" data-id="cjo6x9ytn01u105zy2s92096s" class="article-share-link">Share</a>
       
       
     </footer>
@@ -403,7 +403,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/network/网络诊断/-wifi有限的访问权限/" data-id="cjo6wnw2n00pcxnzydh87byac" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/network/网络诊断/-wifi有限的访问权限/" data-id="cjo6x9xu300qq05zyt624tqtz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -433,7 +433,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/network/网络诊断/-常用诊断工具/" data-id="cjo6wnw2q00phxnzybvbahxed" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/network/网络诊断/-常用诊断工具/" data-id="cjo6x9xu400qs05zyl459fowb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -463,7 +463,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/CS/network/网络诊断/-网络慢/" data-id="cjo6wnw2s00plxnzyihajyvvu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/CS/network/网络诊断/-网络慢/" data-id="cjo6x9xu700qw05zys1fs9iie" class="article-share-link">Share</a>
       
       
     </footer>

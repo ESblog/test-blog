@@ -120,7 +120,7 @@ Cloudflare-->web服务器: 明文</textarea><textarea id="sequence-1-options" st
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/demo/hexo/hexo-chart/" data-id="cjo6wnvnp00byxnzyqls92xet" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/wiki/demo/hexo/hexo-chart/" data-id="cjo6x9xfy00c605zy9grb1hxo" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/plugin/">plugin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/时序图/">时序图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/流程图/">流程图</a></li></ul>
@@ -152,6 +152,21 @@ Cloudflare-->web服务器: 明文</textarea><textarea id="sequence-1-options" st
 </article>
 
 
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    jax: ["input/TeX", "output/HTML-CSS"],   # 可以更改mathjax的默认输出样式
+    tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    messageStyle: "none",
+    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 </section>
         
