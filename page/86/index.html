@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/86/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-ML/deep learning/model-basic/CNN/-AlexNet" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/ML/deep learning/model-basic/CNN/-AlexNet/" class="article-date">
+  <time datetime="2018-04-06T16:00:00.000Z" itemprop="datePublished">2018-04-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/ML/">ML</a>►<a class="article-category-link" href="/categories/ML/deep-learning/">deep learning</a>►<a class="article-category-link" href="/categories/ML/deep-learning/model-basic/">model-basic</a>►<a class="article-category-link" href="/categories/ML/deep-learning/model-basic/CNN/">CNN</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/ML/deep learning/model-basic/CNN/-AlexNet/">CNN模型之AlexNet</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Alex 2012使用了一些改良CNN方法去解决普适物体识别难题。<br>开创性地使用了CUDA来加速神经网络训练，并且开放了Cuda-Convnet和绝秘CNN结构，群众反响热烈。又名ConvNet、AlexNet。<br><!-- 论文中并没有给网络取名，这名字谁取的？ --></p>
+<h2 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h2><p><img title="AlexNet架构" src="/images/raw/NN - CNN - AlexNet - architecture.png"></p>
+<p>由于<strong>早期GPU显存的限制</strong>，最早的AlexNet包括了two stream的设计，以让网络中一半的节点能存入一个GPU。</p>
+<p>5层卷积层详情如下：(max pooling: kernel_size=3, stride=2)</p>
+<table>
+<thead>
+<tr>
+<th>层数</th>
+<th>input size</th>
+<th>kernel size</th>
+<th># kernels</th>
+<th>stride</th>
+<th>padding</th>
+<th>output size</th>
+<th>max pooling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>224×224×3</td>
+<td>11×11</td>
+<td>96</td>
+<td>4</td>
+<td>2</td>
+<td>55×55×96</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>2</td>
+<td>27×27×96</td>
+<td>5×5</td>
+<td>256</td>
+<td>1</td>
+<td>2</td>
+<td>27×27×256</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>3</td>
+<td>13×13×256</td>
+<td>3×3</td>
+<td>384</td>
+<td>1</td>
+<td>1</td>
+<td>13×13×384</td>
+<td>no</td>
+</tr>
+<tr>
+<td>4</td>
+<td>13×13×384</td>
+<td>3×3</td>
+<td>384</td>
+<td>1</td>
+<td>1</td>
+<td>13×13×384</td>
+<td>no</td>
+</tr>
+<tr>
+<td>5</td>
+<td>13×13×384</td>
+<td>3×3</td>
+<td>256</td>
+<td>1</td>
+<td>1</td>
+<td>13×13×256</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="AlexNet的pytorch实现"><a href="#AlexNet的pytorch实现" class="headerlink" title="AlexNet的pytorch实现"></a>AlexNet的pytorch实现</h2><p><a href="https://github.com/pytorch/vision/blob/master/torchvision/models/alexnet.py" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/pytorch/vision/blob/master/torchvision/models/alexnet.py</a></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>为什么跟 <a href="https://zhuanlan.zhihu.com/p/31717727" rel="external nofollow noopener noreferrer" target="_blank">https://zhuanlan.zhihu.com/p/31717727</a> 不同</p>
+<h2 id="多GPU训练"><a href="#多GPU训练" class="headerlink" title="多GPU训练"></a>多GPU训练</h2><p>由于早期GPU显存的限制，AlexNet使用了双数据流的设计，以让网络中一半的节点能存入一个GPU。这两个数据流，也就是说两个GPU只在一部分层进行通信，这样达到限制GPU同步时的额外开销的效果。有幸的是，GPU在过去几年得到了长足的发展，除了一些特殊的结构外，我们也就不再需要这样的特别设计了。</p>
+<h2 id="Overlapping-Pooling"><a href="#Overlapping-Pooling" class="headerlink" title="Overlapping Pooling"></a>Overlapping Pooling</h2><p>重叠的池化层</p>
+<p>池化操作提取的是一小部分的代表性特征，减少冗余信息。传统的卷积层中，相邻的池化单元是不重叠的。如果stride=kernel_size，我们得到不重叠的池化。如果stride&lt;kernel_size，我们得到重叠的池化。在AlexNet中使用了最大池，stride=2，kernel_size=3。</p>
+<p>论文指出，这种池化能“稍微”减轻过拟合。</p>
+<h2 id="ReLU"><a href="#ReLU" class="headerlink" title="ReLU"></a>ReLU</h2><p>见激活函数-ReLU</p>
+<h2 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h2><p>使用基于动量的梯度下降算法</p>
+<p>batch_size = 128</p>
+<p>momentum=0.9</p>
+<p>weight_decay=0.0005</p>
+<h1 id="code"><a href="#code" class="headerlink" title="code"></a>code</h1><p><a href="https://code.google.com/p/cuda-convnet/" rel="external nofollow noopener noreferrer" target="_blank">https://code.google.com/p/cuda-convnet/</a></p>
+<p>tensorflow中的tutorial/cnn也是AlexNet的实现</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li>参数量: <a href="https://zhuanlan.zhihu.com/p/40791280" rel="external nofollow noopener noreferrer" target="_blank">https://zhuanlan.zhihu.com/p/40791280</a></li>
+<li><a href="https://my.oschina.net/u/876354/blog/1633143" rel="external nofollow noopener noreferrer" target="_blank">https://my.oschina.net/u/876354/blog/1633143</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/ML/deep learning/model-basic/CNN/-AlexNet/" data-id="cjo6vcbc902e0kpzybep4ycyi" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CS/tools/同步与版本管理/rsync" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/tools/同步与版本管理/rsync/" class="article-date">
+  <time datetime="2018-04-04T16:00:00.000Z" itemprop="datePublished">2018-04-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/tools/">tools</a>►<a class="article-category-link" href="/categories/CS/tools/同步与版本管理/">同步与版本管理</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/CS/tools/同步与版本管理/rsync/">rsync 原理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>rsync是Unix下的一款应用软件，它能同步更新两处计算机的文件与目录，并适当<strong>利用差分编码以减少数据传输量</strong>。rsync中的一项同类软件不常见的重要特性是每个目标的镜像只需发送一次。rsync可以拷贝／显示目录内容，以及拷贝文件，并<strong>可选压缩</strong>以及递归拷贝。</p>
+<p>在常驻模式（daemon mode）下，rsync默认监听TCP端口873，以原生rsync传输协议或者通过远程shell如RSH或者SSH提供文件。SSH模式下，rsync客户端运行程序必须同时在本地和远程机器上安装。</p>
+<p>rsync使用所谓的“rsync算法”来使本地和远程两个主机之间的文件达到同步，这个算法<strong>只传送两个文件的不同部分</strong>，而不是每次都整份传送，因此速度相当快。</p>
+<h1 id="需要解决的问题"><a href="#需要解决的问题" class="headerlink" title="需要解决的问题"></a>需要解决的问题</h1><ol>
+<li>如何判断文件是否变更？</li>
+<li>如何找到变更的部分？</li>
+<li>对于二进制文件怎样处理？</li>
+<li>对于大文件怎样处理？</li>
+</ol>
+<h1 id="rsync算法"><a href="#rsync算法" class="headerlink" title="rsync算法"></a>rsync算法</h1><ol>
+<li>按固定大小将A分为多块，每块都计算出一个32位的滚动哈希值和一个128位的MD4（有些也用MD5），发给B一端。</li>
+<li>B一端从位置0开始按的同样块大小的滚动哈希值，查找看是否命中A给的某个滚动哈希值，若匹配，则表明B文件中的这块内容与对应的A中的那块内容很可能是一致的，但由于32位的哈希值强度不够，因此再计算MD4，若还是匹配，则确认是一致内容，这时B发给A端匹配的段号。对于那些不能匹配的内容，则发给A端原始内容。</li>
+<li>A端得到B端给的匹配信息，构造一个与B一致的复本，若是匹配的块，则拷贝原A文件中对应的块，若是不匹配内容则追加之。</li>
+</ol>
+<h2 id="分块Checksum算法"><a href="#分块Checksum算法" class="headerlink" title="分块Checksum算法"></a>分块Checksum算法</h2><p>首先，我们会把fileDst的文件平均切分成若干个小块，比如每块512个字节（最后一块会小于这个数），然后对每块计算两个checksum，</p>
+<ul>
+<li>一个叫rolling checksum，是弱checksum，32位的checksum，其使用的是Mark Adler发明的adler-32算法，</li>
+<li>另一个是强checksum，128位的，以前用md4，现在用md5 hash算法。</li>
+</ul>
+<p>为什么要这样？因为若干年前的硬件上跑md4的算法太慢了，所以，我们需要一个快算法来鉴别文件块的不同，但是弱的adler32算法碰撞概率太高了，所以我们还要引入强的checksum算法以保证两文件块是相同的。也就是说，弱的checksum是用来区别不同，而强的是用来确认相同。（checksum的具体公式可以参看这篇文章）</p>
+<h2 id="传输算法"><a href="#传输算法" class="headerlink" title="传输算法"></a>传输算法</h2><p>同步目标端会把fileDst的一个checksum列表传给同步源，这个列表里包括了三个东西，rolling checksum(32bits)，md5 checksume(128bits)，文件块编号。</p>
+<p>我估计你猜到了同步源机器拿到了这个列表后，会对fileSrc做同样的checksum，然后和fileDst的checksum做对比，这样就知道哪些文件块改变了。</p>
+<p>但是，聪明的你一定会有以下两个疑问：</p>
+<p>如果我fileSrc这边在文件中间加了一个字符，这样后面的文件块都会位移一个字符，这样就完全和fileDst这边的不一样了，但理论上来说，我应该只需要传一个字符就好了。这个怎么解决？<br>如果这个checksum列表特别长，而我的两边的相同的文件块可能并不是一样的顺序，那就需要查找，线性的查找起来应该特别慢吧。这个怎么解决？<br>很好，让我们来看一下同步源端的算法。</p>
+<h2 id="checksum查找算法"><a href="#checksum查找算法" class="headerlink" title="checksum查找算法"></a>checksum查找算法</h2><h2 id="比对算法"><a href="#比对算法" class="headerlink" title="比对算法"></a>比对算法</h2><h1 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h1><h1 id="基于rsync的应用"><a href="#基于rsync的应用" class="headerlink" title="基于rsync的应用"></a>基于rsync的应用</h1><ul>
+<li>Rclone</li>
+<li>Back In Time</li>
+</ul>
+<p>…</p>
+<p>都没听过</p>
+<h1 id="基于rsync的改进算法"><a href="#基于rsync的改进算法" class="headerlink" title="基于rsync的改进算法"></a>基于rsync的改进算法</h1><p>基于rsync的改进算法主要有多轮rsync和本地rsync两个。</p>
+<h1 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h1><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://zh.wikipedia.org/wiki/Rsync" rel="external nofollow noopener noreferrer" target="_blank">维基百科</a></li>
+<li><a href="https://coolshell.cn/articles/7425.html" rel="external nofollow noopener noreferrer" target="_blank">RSYNC 的核心算法 | 酷壳</a></li>
+<li><a href="http://wangyuanzju.blog.163.com/blog/static/130292010101252632998/" rel="external nofollow noopener noreferrer" target="_blank">Dropbox差异同步算法rsync及其改进算法原理  </a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/tools/同步与版本管理/rsync/" data-id="cjo6vc9ze00u3kpzybtkxne7y" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/checksum/">checksum</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/同步/">同步</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CS/programing/lan/array" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/programing/lan/array/" class="article-date">
+  <time datetime="2018-04-01T16:00:00.000Z" itemprop="datePublished">2018-04-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/programing/">programing</a>►<a class="article-category-link" href="/categories/CS/programing/lan/">lan</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/CS/programing/lan/array/">数组</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>数组 VS 列表</p>
+<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><p>优点</p>
+<ul>
+<li>代码优化：它使代码优化，可以轻松地检索或排序数据。</li>
+<li>随机访问：可以获取任何位于任何索引位置的数据。</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>大小限制：只能在数组中存储固定大小的元素。 它在运行时不会增长其大小。 为了解决这个问题，在Java中使用了集合框架。</li>
+</ul>
+<h2 id="不同语言的实现"><a href="#不同语言的实现" class="headerlink" title="不同语言的实现"></a>不同语言的实现</h2><h1 id="C"><a href="#C" class="headerlink" title="C"></a>C</h1><h1 id="C-1"><a href="#C-1" class="headerlink" title="C++"></a>C++</h1><h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><iframe width="800" height="500" frameborder="0" src="http://pythontutor.com/iframe-embed.html#code=public%20class%20YourClassNameHere%20%7B%0A%20%20%20%20public%20static%20void%20main%28String%5B%5D%20args%29%20%7B%0A%20%20%20%20%20%20int%5B%5D%20a%20%3D%20%7B1,2,1000%7D%3B%0A%20%20%20%20%20%20Integer%5B%5D%20b%20%3D%20%7B1,2,1000%7D%3B%0A%20%20%20%20%20%20Integer%5B%5D%20c%20%3D%20new%20Integer%5B5%5D%3B%0A%20%20%20%20%20%20c%5B0%5D%20%3D%201%3B%20%20//%20%E5%B8%B8%E9%87%8F%E6%B1%A0%E5%A4%8D%E7%94%A8%0A%20%20%20%20%20%20c%5B1%5D%20%3D%203%3B%0A%20%20%20%20%20%20c%5B3%5D%20%3D%201000%3B%0A%20%20%20%20%7D%0A%7D&codeDivHeight=400&codeDivWidth=350&cumulative=false&curInstr=0&heapPrimitives=true&origin=opt-frontend.js&py=java&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+
+
+<h2 id="Java数组在内存中如何储存的"><a href="#Java数组在内存中如何储存的" class="headerlink" title="Java数组在内存中如何储存的"></a>Java数组在内存中如何储存的</h2><p>Java的数组是存在函数栈中？还是存堆中？为什么这个图里，像是存在堆中？</p>
+<p>数组引用变量是存放在栈内存(stack)中，数组元素本质是一个对象，是存放在堆内存(heap)中。通过栈内存中的指针指向对应元素的在堆内存中的位置来实现访问。</p>
+<p><img src="http://www.dczou.com/ueditor/php/upload/image/20160826/1472219839938222.png"></p>
+<h3 id="基本数据类型的数组在内存分配情况"><a href="#基本数据类型的数组在内存分配情况" class="headerlink" title="基本数据类型的数组在内存分配情况"></a>基本数据类型的数组在内存分配情况</h3><p><img src="http://www.dczou.com/ueditor/php/upload/image/20160826/1472219888589429.png"></p>
+<p>从图中可看出数组元素直接存放在堆内存中，当操作数组元素时，实际上是操作基本类型的变量。</p>
+<h3 id="引用类型数组在内存中如何储存"><a href="#引用类型数组在内存中如何储存" class="headerlink" title="引用类型数组在内存中如何储存"></a>引用类型数组在内存中如何储存</h3><p>元素为引用类型的数组，在内存中的存储与基本类型完全不一样。</p>
+<p>此时数组元素存放引用，指向另一块内存，在其中存放有效的数据。如图：</p>
+<p><img src="http://www.dczou.com/ueditor/php/upload/image/20160826/1472219992551003.png"></p>
+<p>在数组参数传递的时候，数组是作为引用参数，传递的是数组的引用指针，将数组引用传递给另一数组引用，但仍然不能改变数组长度(仅仅只是调整数组引用指针的指向)。</p>
+<h3 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h3><ol>
+<li>Java在堆中分配数组，能否保证连续性？是等价于C++中的malloc分配数组吗？</li>
+<li>Java分配数组的源码在哪？</li>
+</ol>
+<h1 id="python"><a href="#python" class="headerlink" title="python"></a>python</h1><h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><p>C的数组存储在stack中，Java的数组是对象，存储在堆中。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="http://www.dczou.com/viemall/220.html" rel="external nofollow noopener noreferrer" target="_blank">http://www.dczou.com/viemall/220.html</a><br>-</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/array/" data-id="cjo6vc9yt00tekpzyv9awsw23" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-demo/hexo/hexo-auto-category" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/demo/hexo/hexo-auto-category/" class="article-date">
+  <time datetime="2018-03-31T16:00:00.000Z" itemprop="datePublished">2018-04-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/demo/">demo</a>►<a class="article-category-link" href="/categories/demo/hexo/">hexo</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/demo/hexo/hexo-auto-category/">【Hexo插件系列】日志的自动分类插件 hexo-auto-category</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><!--
+## pain point
+-->
+<p>Hexo写日志，通常我们都需要维护一个front-matter信息，包括<code>title</code>、<code>date</code>。博客多了，为了方便日志分类，一般还需要设置<code>categories</code>。<br>比如下面的例子：<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Hexo简介</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2008</span><span class="bullet">-08</span><span class="bullet">-08</span></span><br><span class="line"><span class="attr">categories:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">web开发</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">前端</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">博客框架</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure></p>
+<p>久而久之，就会发现很多问题：</p>
+<ul>
+<li><strong>工作繁琐</strong>：大量的category是重复性工作</li>
+<li><strong>容易出错</strong>：大小写和中英文目录有可能混杂。比如有个<code>web</code>目录，偶尔我们写成了<code>Web</code>，造成了目录树中冗余的节点。</li>
+<li><strong>可维护性差</strong>：如果要更改<code>目录树</code>中的节点，就要手动更改每个日志的<code>categories</code>变量。</li>
+</ul>
+<p>本文介绍一种<strong>自动生成categories</strong>的插件 <a href="https://github.com/xu-song/hexo-auto-category" rel="external nofollow noopener noreferrer" target="_blank">hexo-auto-category官方地址</a>。</p>
+<h1 id="自动生成-categories"><a href="#自动生成-categories" class="headerlink" title="自动生成 categories"></a>自动生成 <code>categories</code></h1><p>最常用的文件管理策略，就是利用文件系统目录结构(树形结构 directory-tree)。<br>同样，为了便于管理大量的日志文件，采用目录结构是一种简便可行的方案。<code>hexo-auto-category</code>根据日志文件(Markdown)所在文件目录自动分类，即自动生成<code>markdown</code>的front-matter中的<code>categories</code>变量。</p>
+<p><strong>示例</strong></p>
+<p>对于博客  <code>source/_post/web/framework/hexo.md</code>，该插件会自动生成以下<code>categories</code><br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">categories:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">web</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">framework</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-auto-category --save</span><br></pre></td></tr></table></figure>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p>在站点根目录下的<code>_config.yml</code>添加：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Generate categories from directory-tree</span></span><br><span class="line"><span class="comment"># Dependencies: https://github.com/xu-song/hexo-auto-category</span></span><br><span class="line"><span class="comment"># depth: the depth of directory-tree you want to generate, should &gt; 0</span></span><br><span class="line"><span class="attr">auto_category:</span></span><br><span class="line"><span class="attr"> enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr"> depth:</span></span><br></pre></td></tr></table></figure>
+<h1 id="编译-amp-部署"><a href="#编译-amp-部署" class="headerlink" title="编译 &amp; 部署"></a>编译 &amp; 部署</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+<h1 id="高级配置"><a href="#高级配置" class="headerlink" title="高级配置"></a>高级配置</h1><p>如果只想生成第一级目录分类，可以设置<code>depth</code>属性，比如：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">auto_category:</span></span><br><span class="line"><span class="attr"> enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr"> depth:</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>如有任何疑问，可在<a href="https://github.com/xu-song/hexo-auto-category/issues" rel="external nofollow noopener noreferrer" target="_blank">Github Issue</a>提出</p>
+<!--
+# 可行性分析
+- 结构通用：`categories`变量是树形结构，文件系统的目录也是树形结构。关于树形结构竟然也有[争议](https://github.com/hexojs/hexo/issues/848)
+
+# 疑问
+这是theme-level的，还是site-level的？
+
+# 疑似相关插件
+hexo-generator-category  这个插件是生成tag文件的，不是用来自动生成category的。
+-->
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/demo/hexo/hexo-auto-category/" data-id="cjo6vc9il00bxkpzyab4hh712" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/category/">category</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo-auto-category/">hexo-auto-category</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/plugin/">plugin</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CS/programing/lan/monkey-patching" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/programing/lan/monkey-patching/" class="article-date">
+  <time datetime="2018-03-31T16:00:00.000Z" itemprop="datePublished">2018-04-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/programing/">programing</a>►<a class="article-category-link" href="/categories/CS/programing/lan/">lan</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/CS/programing/lan/monkey-patching/">关于Monkey Patch猴子补丁</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>以下是维基百科对猴子补丁的定义</p>
+<blockquote>
+<p>The term monkey patch refers to dynamic modifications of a class or module at runtime, motivated by the intent to patch existing third-party code as a workaround to a bug or feature which does not act as desired.</p>
+</blockquote>
+<!-- 在动态语言中， -->
+<p>所谓的猴子补丁，是指在运行时修改类或模块，而不去改变源码，达到hot patch的目的。</p>
+<p>猴补丁（英语：Monkey patch）是一种很脏的编程技巧，用拼凑代码的方法修改程序逻辑。</p>
+<p>Monkey patching 只能在动态语言中实现。比如Python类的方法其实也只是一个属性，方便运行时修改，所以用Python做猴子补丁非常方便。</p>
+<p>Changing a method at runtime instead of updating the object definition is one example。</p>
+<h2 id="名字来源"><a href="#名字来源" class="headerlink" title="名字来源"></a>名字来源</h2><ol>
+<li>这个词原来为Guerrilla Patch，杂牌军、游击队，说明这部分不是原装的，在英文里guerilla发音和gorllia(猩猩)相似，再后来就写了monkey(猴子)。</li>
+<li>还有一种解释是说由于这种方式将原来的代码弄乱了(messing with it)，在英文里叫monkeying about(顽皮的)，所以叫做Monkey Patch。</li>
+</ol>
+<!-- Applications -->
+<h1 id="示例-应用场景"><a href="#示例-应用场景" class="headerlink" title="示例/应用场景"></a>示例/应用场景</h1><p>维基百科总结了4种应用场景</p>
+<ul>
+<li>Replace methods / attributes / functions at runtime, e.g. to stub out a function during testing;</li>
+<li>Modify/extend behaviour of a third-party product without maintaining a private copy of the source code;</li>
+<li>Apply a patch at runtime to the objects in memory, instead of the source code on disk;</li>
+<li>Distribute security or behavioural fixes that live alongside the original source code (an example of this would be distributing the fix as a plugin for the Ruby on Rails platform).</li>
+</ul>
+<h2 id="简单示例"><a href="#简单示例" class="headerlink" title="简单示例"></a>简单示例</h2><h3 id="对属性-打补丁"><a href="#对属性-打补丁" class="headerlink" title="对属性 打补丁"></a>对属性 打补丁</h3><p>以下来自wikpedia示例。<br>利用猴子补丁，动态修改math标准库中Pi的默认值。(这里仅修改了attributes，也可以对某些method进行重写)</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> math</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>math.pi</span><br><span class="line"><span class="number">3.141592653589793</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>math.pi = <span class="number">3</span>  <span class="comment"># 给标准库打补丁，即运行时修改math的pi属性</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>math.pi</span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>================================ RESTART ================================</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> math</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>math.pi</span><br><span class="line"><span class="number">3.141592653589793</span></span><br></pre></td></tr></table></figure>
+<h3 id="对方法-打补丁"><a href="#对方法-打补丁" class="headerlink" title="对方法 打补丁"></a>对方法 打补丁</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">bar</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">'Foo.bar'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bar</span><span class="params">(self)</span>:</span>  <span class="comment"># 这是补丁</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'Modified bar'</span></span><br><span class="line"></span><br><span class="line">Foo().bar()</span><br><span class="line">Foo.bar = bar  <span class="comment"># 给Foo的bar方法打补丁，即运行时修改类的方法</span></span><br><span class="line">Foo().bar()</span><br></pre></td></tr></table></figure>
+<p>由于Python中的名字空间是开放，通过dict来实现，所以很容易就可以达到patch的目的。</p>
+<h2 id="实际应用案例"><a href="#实际应用案例" class="headerlink" title="实际应用案例"></a>实际应用案例</h2><h3 id="socket的热补丁"><a href="#socket的热补丁" class="headerlink" title="socket的热补丁"></a>socket的热补丁</h3><p>用过gevent就会知道,会在最开头的地方gevent.monkey.patch_all();把标准库中的thread/socket等给替换掉.这样我们在后面使用socket的时候可以跟平常一样使用,无需修改任何代码,但是它变成非阻塞的了.</p>
+<h3 id="SQL注入攻击"><a href="#SQL注入攻击" class="headerlink" title="SQL注入攻击"></a>SQL注入攻击</h3><p>网页和数据库</p>
+<h3 id="Zope、Plone中的安全补丁"><a href="#Zope、Plone中的安全补丁" class="headerlink" title="Zope、Plone中的安全补丁"></a>Zope、Plone中的安全补丁</h3><blockquote>
+<p>In Zope and Plone, security patches are often delivered using dynamic class modification, but they are called hot fixes.<br>– wikipedia</p>
+</blockquote>
+<p>很多安全补丁也是一种猴子补丁，只不过叫法不同而已。</p>
+<h3 id="Eventlet-Patcher"><a href="#Eventlet-Patcher" class="headerlink" title="Eventlet Patcher"></a>Eventlet Patcher</h3><p>现在我们先来看一下eventlet中的Patcher的调用代码吧，这段代码对标准的ftplib做monkey patch，将eventlet的GreenSocket替换标准的socket。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> eventlet <span class="keyword">import</span> patcher  </span><br><span class="line"><span class="comment"># *<span class="doctag">NOTE:</span> there might be some funny business with the "SOCKS" module  </span></span><br><span class="line"><span class="comment"># if it even still exists  </span></span><br><span class="line"><span class="keyword">from</span> eventlet.green <span class="keyword">import</span> socket  </span><br><span class="line">patcher.inject(<span class="string">'ftplib'</span>, globals(), (<span class="string">'socket'</span>, socket))  </span><br><span class="line"><span class="keyword">del</span> patcher</span><br></pre></td></tr></table></figure>
+<p>Eventlet中大量使用了该技巧，以替换标准库中的组件，比如socket。</p>
+<p>未完待续，参考 <a href="https://blog.csdn.net/seizef/article/details/5732657" rel="external nofollow noopener noreferrer" target="_blank">https://blog.csdn.net/seizef/article/details/5732657</a></p>
+<h3 id="从Gevent学习猴子补丁的设计"><a href="#从Gevent学习猴子补丁的设计" class="headerlink" title="从Gevent学习猴子补丁的设计"></a>从Gevent学习猴子补丁的设计</h3><p>异步协程工具Gevent是python上面最有名也支持面最广通用性最好的协程工具,它底层基于greenlet,而且可以通过使用猴子补丁将标准库中的同步模块自动的转换成异步.同时他也提供了方便的并发模型和常用的web服务器工具.</p>
+<p>gevent能够 修改标准库里面大部分的阻塞式系统调用，包括socket、ssl、threading和 select等模块，而变为协作式运行。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> socket</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(socket.socket)     <span class="comment"># monkey patch前</span></span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">socket</span>.<span class="title">_socketobject</span>'&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">from</span> <span class="title">gevent</span> <span class="title">import</span> <span class="title">monkey</span> # <span class="title">monkey</span> <span class="title">patch</span>后</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">monkey</span>.<span class="title">patch_socket</span><span class="params">()</span></span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">print</span><span class="params">(socket.socket)</span></span></span><br><span class="line"><span class="class">&lt;<span class="title">class</span> '<span class="title">gevent</span>.<span class="title">_socket2</span>.<span class="title">socket</span>'&gt;  # 改变了标准<span class="title">socket</span>库</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">import</span> <span class="title">select</span>        # <span class="title">monkey</span> <span class="title">patch</span>前</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">print</span><span class="params">(select.select)</span>  #  <span class="title">select</span><span class="params">()</span>轮询的阻塞调用</span></span><br><span class="line"><span class="class">&lt;<span class="title">built</span>-<span class="title">in</span> <span class="title">function</span> <span class="title">select</span>&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">monkey</span>.<span class="title">patch_select</span><span class="params">()</span> # <span class="title">monkey</span> <span class="title">patch</span>后</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">print</span><span class="params">(select.select)</span> # <span class="title">select</span><span class="params">()</span>轮询的异步调用</span></span><br><span class="line"><span class="class">&lt;<span class="title">function</span> <span class="title">select</span> <span class="title">at</span> 0<span class="title">x7fb8a7239d70</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>例如，Redis的python绑定一般使用常规的tcp socket来与redis-server实例通信。 通过简单地调用gevent.monkey.patch_all()，可以使得redis的绑定协作式的调度 请求，与gevent栈的其它部分一起工作。</p>
+<p>这让我们可以将一般不能与gevent共同工作的库结合起来，而不用写哪怕一行代码。 虽然猴子补丁仍然是邪恶的(evil)，但在这种情况下它是“有用的邪恶(useful evil)”。</p>
+<h3 id="patch-all"><a href="#patch-all" class="headerlink" title="patch_all"></a>patch_all</h3><p>除了socket外,gevent还可以为其他的模块打补丁,一起打补丁可以使用<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">patch_all(socket=<span class="keyword">True</span>, dns=<span class="keyword">True</span>, time=<span class="keyword">True</span>, select=<span class="keyword">True</span>, thread=<span class="keyword">True</span>, os=<span class="keyword">True</span>, ssl=<span class="keyword">True</span>, httplib=<span class="keyword">False</span>,subprocess=<span class="keyword">True</span>, sys=<span class="keyword">False</span>, aggressive=<span class="keyword">True</span>, Event=<span class="keyword">False</span>, builtins=<span class="keyword">True</span>, signal=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure></p>
+<p>函数。</p>
+<p>我们可以看到像<code>socket</code>,<code>dns</code>,<code>time</code>,<code>selectthread</code>,<code>os</code>, <code>ssl</code>, <code>httplib</code>,<code>subprocess</code>, <code>sys</code>, <code>aggressive</code>, <code>Event</code>, <code>builtins</code>, <code>signal</code>模块都可以打上补丁,打上以后,他们就是非阻塞的了.</p>
+<h3 id="核心协程模块greenlet"><a href="#核心协程模块greenlet" class="headerlink" title="核心协程模块greenlet"></a>核心协程模块greenlet</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gevent</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'Running in foo'</span>)</span><br><span class="line">    gevent.sleep(<span class="number">0</span>)  <span class="comment"># 这行的作用是什么？</span></span><br><span class="line">    print(<span class="string">'Explicit context switch to foo again'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bar</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'Explicit context to bar'</span>)</span><br><span class="line">    gevent.sleep(<span class="number">0</span>)  <span class="comment">#</span></span><br><span class="line">    print(<span class="string">'Implicit context switch back to bar'</span>)</span><br><span class="line"></span><br><span class="line">gevent.joinall([</span><br><span class="line">    gevent.spawn(foo),</span><br><span class="line">    gevent.spawn(bar),</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+<p>输出<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Running <span class="keyword">in</span> foo</span><br><span class="line">Explicit context to bar</span><br><span class="line">Explicit context switch to foo again</span><br><span class="line">Implicit context switch back to bar</span><br><span class="line">[&lt;Greenlet at <span class="number">0x7fb8a72c3eb0</span>&gt;, &lt;Greenlet at <span class="number">0x7fb8a72c3a50</span>&gt;]</span><br></pre></td></tr></table></figure></p>
+<p>上述例子能看到，执行顺序是  <code>foo--&gt;bar--foo--bar</code>，来回切换。即gevent.sleep()并不会真正的阻塞整个线程，而是将cpu的控制权显式的交给未被gevent.sleep()阻塞的协程使用。</p>
+<p>协程是单线程程序（从上述例子来讲），如果我们使用time.sleep()，那么整个线程都会被阻塞。</p>
+<h3 id="gevent-sleep与time-sleep的区别"><a href="#gevent-sleep与time-sleep的区别" class="headerlink" title="gevent.sleep与time.sleep的区别"></a><code>gevent.sleep</code>与<code>time.sleep</code>的区别</h3><ul>
+<li><p>gevent is a cooperative analog to the threading module. When using gevent.sleep it you would never use time.sleep.  So no example is needed.</p>
+</li>
+<li><p>time.sleep would suspend the entire process, blocking all greenlet threads. <a href="https://mail.python.org/pipermail/python-list/2014-July/675726.html" rel="external nofollow noopener noreferrer" target="_blank">来源</a>。 以上说法针对的是协程(单线程程序)。而对于多线程，time.sleep仅仅阻塞当前线程，不阻塞其他线程，<a href="https://stackoverflow.com/questions/92928/time-sleep-sleeps-thread-or-process" rel="external nofollow noopener noreferrer" target="_blank">来源</a>。</p>
+</li>
+</ul>
+<h3 id="猴子补丁-与-SocketIO"><a href="#猴子补丁-与-SocketIO" class="headerlink" title="猴子补丁 与 SocketIO"></a>猴子补丁 与 SocketIO</h3><p>用过gevent就会知道,会在最开头的地方gevent.monkey.patch_all();把标准库中的thread/socket等给替换掉.这样我们在后面使用socket的时候可以跟平常一样使用,无需修改任何代码,但是它变成非阻塞的了.</p>
+<p>我看到猴子补丁，是从Gevent中看到的。SocketIO服务器发送数据，浏览器端并非实时接收，而是批量接收 (跟过马路有点像，凑够一波发送一次)。</p>
+<p>这里涉及到buffer和flush。</p>
+<ul>
+<li><a href="https://github.com/miguelgrinberg/Flask-SocketIO/issues/106" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/miguelgrinberg/Flask-SocketIO/issues/106</a></li>
+<li><a href="https://github.com/miguelgrinberg/Flask-SocketIO/issues/141" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/miguelgrinberg/Flask-SocketIO/issues/141</a></li>
+</ul>
+<p>没看懂的部分，后面再看。</p>
+<blockquote>
+<p> That is really the only way to make this work when you use gevent, threading is cooperative so you have to release the CPU so that other tasks associated with the server get a chance to run and flush the messages. Any chance you haven’t monkey patched the standard library?<br>— Flask-SocketIO的作者miguelgrinberg link</p>
+</blockquote>
+<p>这里说的意思是，<code>socketio.emit(message)</code> 默认会加缓存(buffer)。需要主动flush才能立即发送。而<code>gevent.sleep(</code>是flush的一种方式，因为它会  将cpu的控制权显式的交给未被gevent.sleep()阻塞的协程使用，切换之前会先flush一下。</p>
+<p>socketio.emit默认会有个buffer（为了高效），为什么gevent.sleep会flush这个buffer？让我们重新梳理一下思路：</p>
+<ol>
+<li><code>gevent.sleep</code>会<code>释放cpu控制权</code>，即<code>切换协程</code>，从而不阻塞其他协程运行。 <a href="https://github.com/gevent/gevent/search?utf8=%E2%9C%93&amp;q=switch&amp;type=" rel="external nofollow noopener noreferrer" target="_blank">gevent切换协程的源码</a></li>
+<li>gevent进行<code>协程切换</code>前，需要<code>flush当前协程</code>。 <a href="https://github.com/gevent/gevent/search?utf8=%E2%9C%93&amp;q=flush&amp;type=" rel="external nofollow noopener noreferrer" target="_blank">gevent进行flush的源码</a></li>
+<li><code>flush当前协程</code>导致socket.emit中的缓存立即发送</li>
+</ol>
+<h3 id="猴子补丁与-import-json"><a href="#猴子补丁与-import-json" class="headerlink" title="猴子补丁与 import json,"></a>猴子补丁与 import json,</h3><p>之前做的一个游戏服务器,很多地方用的import json,后来发现ujson比自带json快了N倍,于是问题来了,难道几十个文件要一个个把import json改成import ujson as json吗?<br>其实只需要在进程startup的地方monkey patch就行了.是影响整个进程空间的.<br>同一进程空间中一个module只会被运行一次.</p>
+<h1 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h1><h2 id="猴子补丁是动态语言的专利么？"><a href="#猴子补丁是动态语言的专利么？" class="headerlink" title="猴子补丁是动态语言的专利么？"></a>猴子补丁是动态语言的专利么？</h2><p>使用猴子补丁的条件主要是可以打开类、可以重定义现有属性、方法。修改类方法的指针，或者属性</p>
+<h3 id="C"><a href="#C" class="headerlink" title="C"></a>C</h3><h3 id="C-1"><a href="#C-1" class="headerlink" title="C++"></a>C++</h3><p>C++ 类有哪个方法是编译时确定好的, 没法打开类, 对象属于哪个类是 new 对象的代码确定好的, 既然 new 的代码在编译时确定了, 再载入补丁库也修改不了 (除非搞缓冲区溢出攻击…)</p>
+<p>比如python中可以math.Pi=3。</p>
+<h3 id="java"><a href="#java" class="headerlink" title="java"></a>java</h3><p>java强大的反射，即使<code>属性</code>或<code>方法</code>被设置为了<code>private final</code>也可以动态更改。讲道理也可以动态补丁。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>不是脚本语言的专利……是语言设计留不留口的问题？</p>
+<h2 id="猴子补丁的坑"><a href="#猴子补丁的坑" class="headerlink" title="猴子补丁的坑"></a>猴子补丁的坑</h2><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://en.wikipedia.org/wiki/Monkey_patch" rel="external nofollow noopener noreferrer" target="_blank">Monkey patch | wikipedia</a></li>
+<li><a href="https://stackoverflow.com/questions/5626193/what-is-monkey-patching" rel="external nofollow noopener noreferrer" target="_blank">what-is-monkey-patching | StackOverflow</a></li>
+<li>待看 《松本行弘的程序世界》专门有一章讲了猴子补丁的设计</li>
+<li><a href="https://ruby-china.org/topics/17619" rel="external nofollow noopener noreferrer" target="_blank">猴子补丁是动态语言的专利么？ | ruby-china</a></li>
+<li><a href="http://blog.hszofficial.site/TutorialForPython/%E5%85%83%E7%BC%96%E7%A8%8B/%E7%8C%B4%E5%AD%90%E8%A1%A5%E4%B8%81%E5%92%8C%E7%83%AD%E6%9B%B4%E6%96%B0.html" rel="external nofollow noopener noreferrer" target="_blank">猴子补丁和热更新 | 网络博客</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/programing/lan/monkey-patching/" data-id="cjo6vcam301plkpzyrxzlds3r" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CS/web/front-end/framework/Angular/angular2-quickstart" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/web/front-end/framework/Angular/angular2-quickstart/" class="article-date">
+  <time datetime="2018-03-27T16:00:00.000Z" itemprop="datePublished">2018-03-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/web/">web</a>►<a class="article-category-link" href="/categories/CS/web/front-end/">front-end</a>►<a class="article-category-link" href="/categories/CS/web/front-end/framework/">framework</a>►<a class="article-category-link" href="/categories/CS/web/front-end/framework/Angular/">Angular</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/CS/web/front-end/framework/Angular/angular2-quickstart/">【Angular系列】 Angular 2 入门</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://www.runoob.com/angularjs2/angularjs2-javascript-setup.html" rel="external nofollow noopener noreferrer" target="_blank">runoob教程链接</a></p>
+<p>首先是不掺杂typescript，更能熟悉angular其工作原理。</p>
+<h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><ol>
+<li>下载源码</li>
+<li>npm install</li>
+<li>双击html即可。无须借助node server，更容易理解前端框架</li>
+</ol>
+<h2 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h2><ol>
+<li>npm start启动lite-server，默认加载index.html。或直接双击index.html</li>
+<li>浏览器加载index.html</li>
+<li>浏览器依次加载并执行 app.component.js、app.module.js、main.js<ol>
+<li>执行app.component.js，将app.component匿名函数加入到window.app中。并未调用constructor</li>
+<li>执行app.module.js，将app.module匿名函数加入到window.app中</li>
+<li>执行main.js，</li>
+</ol>
+</li>
+<li>main.js调用app.AppModule，即调用app.module匿名函数。其中会调用constructor</li>
+<li>app.module调用app.AppComponent，即调用app.component匿名函数，返回template</li>
+</ol>
+<h1 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h1><h2 id="index-html"><a href="#index-html" class="headerlink" title="index.html"></a>index.html</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Angular 2 实例 - 菜鸟教程(runoob.com)<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"styles.css"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 1. 载入库 --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- IE 需要 polyfill --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"node_modules/core-js/client/shim.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"node_modules/zone.js/dist/zone.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"node_modules/reflect-metadata/Reflect.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"node_modules/rxjs/bundles/Rx.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"node_modules/@angular/core/bundles/core.umd.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"node_modules/@angular/common/bundles/common.umd.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"node_modules/@angular/compiler/bundles/compiler.umd.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"node_modules/@angular/platform-browser/bundles/platform-browser.umd.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 2. 载入 'modules'</span></span><br><span class="line"><span class="comment">   顺序不能乱，因为main.js依赖app.module.js，app.module.js依赖app.component.js --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">'app/app.component.js'</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">'app/app.module.js'</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">'app/main.js'</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- 3. 显示应用 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">my-app</span>&gt;</span>Loading...<span class="tag">&lt;/<span class="name">my-app</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="main-js"><a href="#main-js" class="headerlink" title="main.js"></a>main.js</h2><p>定义了一个匿名函数，参数为<code>app</code></p>
+<p>第二个括号用于调用该匿名函数，并传入参数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">app</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">document</span>.addEventListener(<span class="string">'DOMContentLoaded'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    ng.platformBrowserDynamic</span><br><span class="line">      .platformBrowserDynamic()</span><br><span class="line">      .bootstrapModule(app.AppModule);  <span class="comment">// 依赖AppModule类</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;)(<span class="built_in">window</span>.app || (<span class="built_in">window</span>.app = &#123;&#125;));</span><br></pre></td></tr></table></figure>
+<h2 id="app-module-js"><a href="#app-module-js" class="headerlink" title="app.module.js"></a>app.module.js</h2><p>定义了一个匿名函数，参数为<code>app</code>。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">app</span>) </span>&#123;</span><br><span class="line">  app.AppModule =  <span class="comment">// // 创建一个Angular Module对象，并赋值给对app</span></span><br><span class="line">    ng.core.NgModule(&#123;</span><br><span class="line">      imports: [ ng.platformBrowser.BrowserModule ],</span><br><span class="line">      declarations: [ app.AppComponent ],</span><br><span class="line">      bootstrap: [ app.AppComponent ]</span><br><span class="line">    &#125;)</span><br><span class="line">    .Class(&#123;</span><br><span class="line">      <span class="keyword">constructor</span>: function() &#123;&#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)(<span class="built_in">window</span>.app || (<span class="built_in">window</span>.app = &#123;&#125;));</span><br></pre></td></tr></table></figure></p>
+<h2 id="app-component-js"><a href="#app-component-js" class="headerlink" title="app.component.js"></a>app.component.js</h2><p>定义了一个匿名函数，参数为<code>app</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">app</span>) </span>&#123;</span><br><span class="line">  app.AppComponent =  <span class="comment">// 创建一个Angular Component对象</span></span><br><span class="line">    ng.core.Component(&#123;</span><br><span class="line">      selector: <span class="string">'my-app'</span>,</span><br><span class="line">      template: <span class="string">'&lt;h1&gt;我的第一个 Angular 应用&lt;/h1&gt;'</span></span><br><span class="line">    &#125;)</span><br><span class="line">    .Class(&#123;</span><br><span class="line">      <span class="keyword">constructor</span>: function() &#123;&#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)(<span class="built_in">window</span>.app || (<span class="built_in">window</span>.app = &#123;&#125;));</span><br></pre></td></tr></table></figure>
+<h2 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h2><p>用于npm install的依赖和npm start的脚本。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"angular2-quickstart"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"start"</span>: <span class="string">"npm run lite"</span>,</span><br><span class="line">    <span class="attr">"lite"</span>: <span class="string">"lite-server"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"license"</span>: <span class="string">"ISC"</span>,</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"@angular/common"</span>: <span class="string">"2.0.0"</span>,</span><br><span class="line">    <span class="attr">"@angular/compiler"</span>: <span class="string">"2.0.0"</span>,</span><br><span class="line">    <span class="attr">"@angular/core"</span>: <span class="string">"2.0.0"</span>,</span><br><span class="line">    <span class="attr">"@angular/forms"</span>: <span class="string">"2.0.0"</span>,</span><br><span class="line">    <span class="attr">"@angular/http"</span>: <span class="string">"2.0.0"</span>,</span><br><span class="line">    <span class="attr">"@angular/platform-browser"</span>: <span class="string">"2.0.0"</span>,</span><br><span class="line">    <span class="attr">"@angular/platform-browser-dynamic"</span>: <span class="string">"2.0.0"</span>,</span><br><span class="line">    <span class="attr">"@angular/router"</span>: <span class="string">"3.0.0"</span>,</span><br><span class="line">    <span class="attr">"@angular/upgrade"</span>: <span class="string">"2.0.0"</span>,</span><br><span class="line"></span><br><span class="line">    <span class="attr">"core-js"</span>: <span class="string">"^2.4.1"</span>,</span><br><span class="line">    <span class="attr">"reflect-metadata"</span>: <span class="string">"^0.1.3"</span>,</span><br><span class="line">    <span class="attr">"rxjs"</span>: <span class="string">"5.0.0-beta.12"</span>,</span><br><span class="line">    <span class="attr">"zone.js"</span>: <span class="string">"^0.6.23"</span>,</span><br><span class="line"></span><br><span class="line">    <span class="attr">"angular2-in-memory-web-api"</span>: <span class="string">"0.0.20"</span>,</span><br><span class="line">    <span class="attr">"bootstrap"</span>: <span class="string">"^3.3.6"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"devDependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"concurrently"</span>: <span class="string">"^2.0.0"</span>,</span><br><span class="line">    <span class="attr">"lite-server"</span>: <span class="string">"^2.2.0"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/web/front-end/framework/Angular/angular2-quickstart/" data-id="cjo6vcd2g03cikpzycg64g9t0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CS/web/front-end/SPA-单页应用" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/web/front-end/SPA-单页应用/" class="article-date">
+  <time datetime="2018-03-26T16:00:00.000Z" itemprop="datePublished">2018-03-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/web/">web</a>►<a class="article-category-link" href="/categories/CS/web/front-end/">front-end</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/CS/web/front-end/SPA-单页应用/">单页应用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>单页应用（英语：single-page application，缩写SPA）是一种网络应用程序或网站的模型，它通过动态重写当前页面来与用户交互，而非<code>传统的从服务器重新加载整个新页面</code>。这种方法避免了页面之间切换打断用户体验，使应用程序更像一个桌面应用程序。在单页应用中，所有必要的代码（HTML、JavaScript和CSS）都通过单个页面的加载而检索，或者根据需要（通常是为响应用户操作）<code>动态装载适当的资源并添加到页面</code>。尽管可以用位置散列或HTML5历史API来提供应用程序中单独逻辑页面的感知和导航能力，但页面在过程中的任何时间点都不会重新加载，也不会将控制转移到其他页面。[2]与单页应用的交互通常涉及到与网页服务器后端的动态通信。<br>– wikipedia</p>
+</blockquote>
+<p>就是基于ajax技术交互的动态页面呗。</p>
+<blockquote>
+<p>诸如AngularJS、Ember.js、Meteor.js、ExtJS和React等面向网页浏览器的JavaScript框架采纳了单页应用（SPA）原则。</p>
+</blockquote>
+<p>这句话怎么理解？这些框架是为了单页应用设计的？为什么这么说？</p>
+<h1 id="汇总"><a href="#汇总" class="headerlink" title="汇总"></a>汇总</h1><p>参考自掘金 <a href="https://juejin.im/post/5a0ea4ec6fb9a0450407725c" rel="external nofollow noopener noreferrer" target="_blank">https://juejin.im/post/5a0ea4ec6fb9a0450407725c</a></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>单页面应用（SPA）</th>
+<th>多页面应用（MPA）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>组成</td>
+<td>一个外壳页面和多个页面片段组成</td>
+<td>多个完整页面构成</td>
+</tr>
+<tr>
+<td>资源共用(css,js)</td>
+<td>共用，只需在外壳部分加载</td>
+<td>不共用，每个页面都需要加载</td>
+</tr>
+<tr>
+<td>刷新方式</td>
+<td>页面局部刷新或更改</td>
+<td>整页刷新</td>
+</tr>
+<tr>
+<td>url 模式</td>
+<td>a.com/#/pageone</td>
+<td>a.com/pageone.html</td>
+</tr>
+<tr>
+<td>用户体验</td>
+<td>页面片段间的切换快，用户体验良好</td>
+<td>页面切换加载缓慢，流畅度不够，用户体验比较差</td>
+</tr>
+<tr>
+<td>转场动画</td>
+<td>容易实现</td>
+<td>无法实现</td>
+</tr>
+<tr>
+<td>数据传递</td>
+<td>容易</td>
+<td>依赖 url传参、或者cookie 、localStorage等</td>
+</tr>
+<tr>
+<td>搜索引擎优化(SEO)</td>
+<td>需要单独方案、实现较为困难、不利于SEO检索 可利用服务器端渲染(SSR)优化</td>
+<td>实现方法简易</td>
+</tr>
+<tr>
+<td>试用范围</td>
+<td>高要求的体验度、追求界面流畅的应用</td>
+<td>适用于追求高度支持搜索引擎的应用</td>
+</tr>
+<tr>
+<td>开发成本</td>
+<td>较高，常需借助专业的框架</td>
+<td>较低 ，但页面重复代码多</td>
+</tr>
+<tr>
+<td>维护成本</td>
+<td>相对容易</td>
+<td>相对复杂</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h1><p>为什么SPA不利于SEO？<br>单页页面，数据在前端渲染。爬虫一般只抓取静态页面，不会调用js来动态生成新页面。</p>
+<p>为什么SPA要首次加载大量资源？<br>前端渲染，肯定前端需要很多js。SPA一定要前端渲染吗，后端可以渲染好html部分元素返回前台吧？</p>
+<p>SPA首次加载大量的静态资源，是前端渲染任务重造成的？</p>
+<h2 id="加载顺序"><a href="#加载顺序" class="headerlink" title="加载顺序"></a>加载顺序</h2><p>首屏渲染速度除了受js文件大小的影响，还有HTML的解析时机。为了提早加载完document，最好将没有用到的其他文件的下载往后推或者异步下载（不要让他阻塞document的加载）。这里给这些js文件添加了 defer属性。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://zh.wikipedia.org/wiki/%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8" rel="external nofollow noopener noreferrer" target="_blank">单页应用 | wikipedia</a></li>
+<li><a href="https://www.zhihu.com/question/20792064" rel="external nofollow noopener noreferrer" target="_blank">单页应用有那些优缺点？ | 知乎</a></li>
+<li><a href="http://tinyambition.com/Single-Page-App-Break/%E7%AC%AC01%E7%AB%A0%20%E4%BD%95%E4%B8%BA%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8.html" rel="external nofollow noopener noreferrer" target="_blank">单页应用开发基础</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/web/front-end/SPA-单页应用/" data-id="cjo6vca0z00w3kpzyognabpam" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ajax/">ajax</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/单页应用/">单页应用</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ML/app/vision/app/OCR/OCR" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/ML/app/vision/app/OCR/OCR/" class="article-date">
+  <time datetime="2018-03-26T16:00:00.000Z" itemprop="datePublished">2018-03-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/ML/">ML</a>►<a class="article-category-link" href="/categories/ML/app/">app</a>►<a class="article-category-link" href="/categories/ML/app/vision/">vision</a>►<a class="article-category-link" href="/categories/ML/app/vision/app/">app</a>►<a class="article-category-link" href="/categories/ML/app/vision/app/OCR/">OCR</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/ML/app/vision/app/OCR/OCR/">OCR</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://www.zhihu.com/question/20191727" rel="external nofollow noopener noreferrer" target="_blank">OCR文字识别用的是什么算法？–知乎</a></p>
+<h1 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h1><p>General OCR一般包含:</p>
+<ol>
+<li>detection–&gt;找到包含文字的区域(proposal);<ol>
+<li>接着利用radon hough变换 等方法 进行文本校正。</li>
+<li>通过投影直方图分割出单行的文本的图片。</li>
+</ol>
+</li>
+<li>classification–&gt;识别区域中的文字。</li>
+</ol>
+<p>framework是: CNN + LSTM + CTC。这个framework加上residue network + stn可以把通用的数据集刷的非常高。</p>
+<h2 id="detection"><a href="#detection" class="headerlink" title="detection"></a>detection</h2><p>先说detection models, 近两年比较热门的object detection model有 faster-rcnn(<a href="https://arxiv.org/pdf/1506.01497.pdf" rel="external nofollow noopener noreferrer" target="_blank">https://arxiv.org/pdf/1506.01497.pdf</a>) 和 yolo(<a href="http://pjreddie.com/media/files/papers/yolo.pdf)" rel="external nofollow noopener noreferrer" target="_blank">http://pjreddie.com/media/files/papers/yolo.pdf)</a>, 两个模型都是基于CNN给出proposed regions 同时对object region进行分类。 其中yolo比faster-rcnn的速度更快，但是在accuracy上有些损失。</p>
+<p>比较著名的是Ian goodfellow在13年提出的multi-digit number classification</p>
+<p>另一类比较常用的方法是RNN/LSTM/GRU + CTC,</p>
+<h1 id="开源工具-amp-代码"><a href="#开源工具-amp-代码" class="headerlink" title="开源工具&amp;代码"></a>开源工具&amp;代码</h1><p><a href="https://github.com/tesseract4java/jtesseract" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/tesseract4java/jtesseract</a></p>
+<p>开源包: <a href="https://github.com/tesseract-ocr/tesseract" rel="external nofollow noopener noreferrer" target="_blank">tesseract 很赞</a></p>
+<p>最好的模型，竟然是lstm？<a href="https://github.com/tesseract-ocr/tessdata_best" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/tesseract-ocr/tessdata_best</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/ML/app/vision/app/OCR/OCR/" data-id="cjo6vcd0j03bdkpzyvcz7nvni" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OCR/">OCR</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CS/tools/文件管理/everything/everything" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/tools/文件管理/everything/everything/" class="article-date">
+  <time datetime="2018-03-25T16:00:00.000Z" itemprop="datePublished">2018-03-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/tools/">tools</a>►<a class="article-category-link" href="/categories/CS/tools/文件管理/">文件管理</a>►<a class="article-category-link" href="/categories/CS/tools/文件管理/everything/">everything</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/CS/tools/文件管理/everything/everything/">文件管理工具 - Everthing原理 之 还没看懂</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>Everything is an Awesome Utility that Locates Files and Folders Instantly in Windows</p>
+<p><code>Everything</code>仅支持windows系统的NTFS硬盘格式(不支持FAT、FAT32)。<code>Everything</code>默认对文件名、文件大小、日期以及其它某些meta data建索引，可<a href="https://www.voidtools.com/support/everything/indexes/#optimizing_for_smallest_memory_foot_print" rel="external nofollow noopener noreferrer" target="_blank">关闭某些字段索引来加速</a>。</p>
+<ol>
+<li>建索引很快<ul>
+<li>数据库文件 Everything.db。 这是什么类型的数据库？自定义的吗？</li>
+</ul>
+</li>
+<li>搜索超快<ul>
+<li>怎样建的索引？咋这么快？建了个hash索引？倒排索引？</li>
+</ul>
+</li>
+<li>实时性好<ul>
+<li>怎样获取的新文件列表？大量的临时文件要不要索引？</li>
+</ul>
+</li>
+</ol>
+<p><code>Everything</code>功能如此强大，让人不禁对其工作原理产生强烈的好奇心。<br>但是，<code>Everthing</code>官方<strong>未开源</strong>，这对想学习其工作原理的程序员来说是个bad news。官方提供<a href="http://www.voidtools.com/support/everything/sdk/" rel="external nofollow noopener noreferrer" target="_blank">SDK</a>不知能否看出一些原理逻辑。待看</p>
+<h2 id="啊哈，有相关开源项目"><a href="#啊哈，有相关开源项目" class="headerlink" title="啊哈，有相关开源项目"></a>啊哈，有相关开源项目</h2><p>微软某成员(疑似轮子哥)在codeplex开源了一个类似everything的个人项目<a href="https://archive.codeplex.com/?p=everythingsz" rel="external nofollow noopener noreferrer" target="_blank"><code>everythingSZ</code></a>。以下介绍EverythingSZ的原理。</p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>Everything搜索文件很快，是利用的NTFS分区的USN功能.</p>
+<p>原理：</p>
+<ul>
+<li>读取NTFS下的USN日志文件<ul>
+<li><a href="https://github.com/BitMindLab/everything/blob/master/UsnOperation/UsnOperator.cs" rel="external nofollow noopener noreferrer" target="_blank">UsnOperator类源码</a></li>
+</ul>
+</li>
+<li>根据USN继续查询；</li>
+<li>根据文件编号继续查询；</li>
+<li>创建USN（激活USN状态）；</li>
+<li>NTFS的Change Journal（更改日志）的方法实现监控功能</li>
+</ul>
+<blockquote>
+<p>未采用 FileSystemWatcher 监听文件变化。(everthing不是采用的这个window api)</p>
+</blockquote>
+<h2 id="如何建索引"><a href="#如何建索引" class="headerlink" title="如何建索引"></a>如何建索引</h2><h2 id="如何监听文件变化"><a href="#如何监听文件变化" class="headerlink" title="如何监听文件变化"></a>如何监听文件变化</h2><p>这属于操作系统 &amp; 文件系统的范畴。</p>
+<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>即利用windows api。</p>
+<p>以下几种方式：</p>
+<ol>
+<li>FindFirstChangeNotification<ul>
+<li>无法获取是哪一个文件发生了改变。</li>
+</ul>
+</li>
+<li>ReadDirectoryChangesW<ul>
+<li>据说变化量大又密集时，丢失通知现象很严重</li>
+</ul>
+</li>
+<li>FileSystemWatcher<ul>
+<li>貌似是对ReadDirectoryChangesW的封装</li>
+</ul>
+</li>
+<li>NTFS的Change Journal（更改日志）<ul>
+<li>Change Journal是标卷上一个特殊的文件，系统将其隐藏，所以用资源管理器或者CMD Shell都看不到，当文件系统中的文件或者目录发生改变时，就会向日志中追加记录。<a href="https://blog.csdn.net/arrowzz/article/details/75304091" rel="external nofollow noopener noreferrer" target="_blank">参考</a></li>
+<li>通过读取和监控USN（后面会讲）而不是扫描文件来构建索引，所以搜索速度飞快</li>
+</ul>
+</li>
+</ol>
+<p>Everything采用了第四种方式，即利用了NTFS系统的Change Journal特性。</p>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><ul>
+<li><code>inotify</code> 命令<ul>
+<li>是Linux自带的监控<code>inode</code>变动的函数</li>
+<li>文档 <code>man 7 inotify</code></li>
+</ul>
+</li>
+</ul>
+<h1 id="其它疑问"><a href="#其它疑问" class="headerlink" title="其它疑问"></a>其它疑问</h1><h2 id="linux下有没有类似的工具"><a href="#linux下有没有类似的工具" class="headerlink" title="linux下有没有类似的工具"></a>linux下有没有类似的工具</h2><p>比linux下的find命令快，比locate命令实时性好。</p>
+<ul>
+<li><a href="https://unix.stackexchange.com/questions/31063/is-there-a-file-search-engine-like-everything-in-linux" rel="external nofollow noopener noreferrer" target="_blank">见stackexchange</a></li>
+</ul>
+<h1 id="参考-amp-待看"><a href="#参考-amp-待看" class="headerlink" title="参考 &amp; 待看"></a>参考 &amp; 待看</h1><ul>
+<li><a href="https://github.com/BitMindLab/everything" rel="external nofollow noopener noreferrer" target="_blank">EverythingSZ源码 - 轮子哥推荐 | Github C#</a></li>
+<li><a href="https://github.com/yuzhengyang/Everything" rel="external nofollow noopener noreferrer" target="_blank">探索Everything背后的技术（USN和MFT）| Github</a></li>
+<li><a href="https://blog.csdn.net/column/details/16576.html" rel="external nofollow noopener noreferrer" target="_blank">NTFS系列</a></li>
+<li><a href="https://blog.csdn.net/xexiyong/article/details/17200827" rel="external nofollow noopener noreferrer" target="_blank">密切关注你的NTFS驱动器 | CSDN</a><br>-</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/tools/文件管理/everything/everything/" data-id="cjo6vcaxa01yukpzyu7z3hzb8" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Everthing/">Everthing</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/文件管理/">文件管理</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CS/web/front-end/framework/Angular/angular-debug" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/web/front-end/framework/Angular/angular-debug/" class="article-date">
+  <time datetime="2018-03-25T16:00:00.000Z" itemprop="datePublished">2018-03-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/web/">web</a>►<a class="article-category-link" href="/categories/CS/web/front-end/">front-end</a>►<a class="article-category-link" href="/categories/CS/web/front-end/framework/">framework</a>►<a class="article-category-link" href="/categories/CS/web/front-end/framework/Angular/">Angular</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/CS/web/front-end/framework/Angular/angular-debug/">如何debug typescript</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Debugging-TypeScript-in-Visual-Studio"><a href="#Debugging-TypeScript-in-Visual-Studio" class="headerlink" title="Debugging TypeScript in Visual Studio"></a>Debugging TypeScript in Visual Studio</h1><h1 id="Debugging-TypeScript-in-Firefox-or-Chrome"><a href="#Debugging-TypeScript-in-Firefox-or-Chrome" class="headerlink" title="Debugging TypeScript in Firefox or Chrome"></a>Debugging TypeScript in Firefox or Chrome</h1><p>在ts中写个console.info(“ds”)<br>然后浏览器</p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>浏览器默认是不认识typescript的，如何做到在浏览器debug typescript的呢？</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://blogs.msdn.microsoft.com/jtarquino/2016/01/24/debugging-typescript-in-visual-studio-code-and-chrome/" rel="external nofollow noopener noreferrer" target="_blank">https://blogs.msdn.microsoft.com/jtarquino/2016/01/24/debugging-typescript-in-visual-studio-code-and-chrome/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/web/front-end/framework/Angular/angular-debug/" data-id="cjo6vccy203a7kpzy8hk51lar" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/85/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/84/">84</a><a class="page-number" href="/page/85/">85</a><span class="page-number current">86</span><a class="page-number" href="/page/87/">87</a><a class="page-number" href="/page/88/">88</a><span class="space">&hellip;</span><a class="page-number" href="/page/95/">95</a><a class="extend next" rel="next" href="/page/87/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/">CS</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/database/">-database</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/database/mongodb/">mongodb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/database/solr/">solr</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/database/solr/SolrClient/">SolrClient</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/database/solr/SolrServer/">SolrServer</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/distributed-system/">-distributed-system</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/distributed-system/Consensus一致性/">Consensus一致性</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/量子计算/">-量子计算</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/OS/">OS</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/OS/linux/">-linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/OS/linux/linux-kenel/">linux kenel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/OS/linux/linux-kenel/1-内核引导/">1.内核引导</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/OS/linux/linux-kenel/文件系统/">文件系统</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/OS/linux/linux-kenel/文件系统/src/">src</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/OS/linux/linux-kenel/文件系统/系统文件/">系统文件</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/OS/linux/linux-kenel/进程管理/">进程管理</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/OS/mac/">-mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/cloud/">cloud</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/cloud/google/">google</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/">network</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/tools/">tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/tools/BT-p2p/">BT-p2p</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/tools/wireshark/">wireshark</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/tools/wireshark/抓包实例分析-协议/">抓包实例分析--协议</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/tools/wireshark/抓包实例分析-网站/">抓包实例分析--网站</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/爬虫/">爬虫</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络协议-OSI七层模型/">网络协议-OSI七层模型</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络协议-OSI七层模型/1-第七层-应用层/">1. 第七层 应用层</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络协议-OSI七层模型/1-第七层-应用层/DNS/">DNS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络协议-OSI七层模型/1-第七层-应用层/HTTP/">HTTP</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络协议-OSI七层模型/4-第四层-传输层/">4. 第四层 传输层</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络协议-OSI七层模型/5-第三层-网络层/">5. 第三层 网络层</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络协议-OSI七层模型/6-第二层-链路层/">6. 第二层 链路层</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络工作方式-非协议-可以采用不同的通信协议/">网络工作方式-非协议-可以采用不同的通信协议</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络工作方式-非协议-可以采用不同的通信协议/p2p/">p2p</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络工作方式-非协议-可以采用不同的通信协议/proxy/">proxy</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络工作方式-非协议-可以采用不同的通信协议/proxy/ss/">ss</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络工作方式-非协议-可以采用不同的通信协议/proxy/ssr/">ssr</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络工作方式-非协议-可以采用不同的通信协议/vpn/">vpn</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络编程-socket编程/">网络编程-socket编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络诊断/">网络诊断</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/parallel-computing-高性能计算/">parallel computing-高性能计算</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/parallel-computing-高性能计算/cuda/">-cuda</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/parallel-computing-高性能计算/线性代数-blas-lapack-numpy/">线性代数-blas-lapack-numpy</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/parallel-computing-高性能计算/线性代数-blas-lapack-numpy/0-矩阵计算/">0. 矩阵计算</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/parallel-computing-高性能计算/线性代数-blas-lapack-numpy/0-矩阵计算/Eigen/">-Eigen</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/parallel-computing-高性能计算/线性代数-blas-lapack-numpy/1-科学计算/">1. 科学计算</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/parallel-computing-高性能计算/线性代数-blas-lapack-numpy/2-dnn库/">2. dnn库</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/">programing</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/algorithm-数据结构与算法/">algorithm-数据结构与算法</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/algorithm-数据结构与算法/1-sorting-排序/">-1.sorting-排序</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/algorithm-数据结构与算法/2-searching-查找/">-2.searching-查找</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/algorithm-数据结构与算法/2-searching-查找/hash/">hash</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/algorithm-数据结构与算法/2-searching-查找/hash/应用/">应用</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/">lan</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/C/">C++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/java/">java</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/java/tools/">-tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/java/jdk/">jdk</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/java/jdk/jvm/">jvm</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/java/jdk/jvm/HotSpot/">HotSpot</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/java/jdk/rt/">rt</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/java/jdk/rt/lang/">-lang</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/java/jdk/rt/system/">system</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/java/jdk/rt/util/">util</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/java/关键字/">关键字</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/python/">python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/python/python面向对象/">-python面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/python/src-cpython/">-src-cpython</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/python/src-cpython/Objects/">Objects</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/python/python3/">python3</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/python/动态加载/">动态加载</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/python/标准库/">标准库</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/python/标准库/collection/">collection</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/python/编码/">编码</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/python/装饰器/">装饰器</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/编程思想-设计模式/">编程思想 - 设计模式</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/security/">security</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/security/密码学/">密码学</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/security/密码学/前端加密类，单方加密/">前端加密类，单方加密</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/security/密码学/远程加密类，两方加密/">远程加密类，两方加密</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/security/密码学/非对称加密/">非对称加密</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/">tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/CI-持续集成/">CI-持续集成</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/CI-持续集成/Travis-CI/">Travis CI</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/build/">build</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/build/bazel/">-bazel</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/build/make/">-make</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/formatting/">formatting</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/formatting/tex/">-tex</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/formatting/gitbook/">gitbook</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/formatting/html-富文本编辑器/">html-富文本编辑器</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/formatting/markdown/">markdown</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/同步与版本管理/">同步与版本管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/同步与版本管理/git/">git</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/同步与版本管理/git/github/">github</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/同步与版本管理/云存储-dropbox/">云存储-dropbox</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/密码管理/">密码管理</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/文件管理/">文件管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/文件管理/云盘/">-云盘</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/文件管理/everything/">everything</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/绘图工具/">绘图工具</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/">web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/back-end/">-back-end</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/back-end/node/">node</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/back-end/node/lib/">lib</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/back-end/tomcat/">tomcat</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/back-end/后端框架/">后端框架</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/cluster-集群要解决的问题/">-cluster 集群要解决的问题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/web安全-非网络安全/">-web安全 非网络安全</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/网站示例/">-网站示例</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/blog-framework/">blog-framework</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/blog-framework/go-hugo/">go-hugo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/blog-framework/nodejs-hexo/">nodejs-hexo</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/blog-framework/nodejs-hexo/plugin/">plugin</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/blog-framework/nodejs-hexo/plugin/1/">1</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/blog-framework/nodejs-hexo/plugin/2/">2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/blog-framework/nodejs-hexo/plugin/console/">console</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/blog-framework/nodejs-hexo/plugin/theme-level/">theme-level</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/blog-framework/nodejs-hexo/src/">src</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/blog-framework/nodejs-hexo/theme/">theme</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/front-end/">front-end</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/front-end/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/front-end/example/">example</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/front-end/example/youdao/">youdao</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/front-end/framework/">framework</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/front-end/framework/Angular/">Angular</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/front-end/html5/">html5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/front-end/js/">js</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/front-end/typescript/">typescript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/front-end/前端构建工具/">前端构建工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/front-end/前端构建工具/webpack/">webpack</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/建站/">建站</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/建站/CDN与加速/">CDN与加速</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/建站/SSL证书/">SSL证书</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/建站/host/">host</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/建站/host/coding-pages/">coding-pages</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/建站/host/github-pages/">github-pages</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/建站/plugin-for-static-site/">plugin-for-static-site</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/建站/seo/">seo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/建站/推广/">推广</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/服务器推送/">服务器推送</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/服务器推送/非websocket的例子/">非websocket的例子</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/">ML</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/PGM/">PGM</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/PGM/bayesian-inference/">-bayesian-inference</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/PGM/LDA/">LDA</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/PGM/nonparametric/">nonparametric</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/">app</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/IR/">IR</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/Reinforcement-Learning/">Reinforcement Learning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/">nlp</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/web-service/">-web_service</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/">app</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/0-NLU/">-0 NLU</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/text-vector/">-text-vector</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/text-vector/vsm-tfidf/">vsm_tfidf</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/text-match/">-text_match</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/conversation/">conversation</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/conversation/系统/">系统</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/entailment/">entailment</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/entailment/dataset/">dataset</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/text-classification/">text_classification</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/text-classification/datasets/">datasets</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/text-classification/datasets/aspect/">aspect</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/text-retrieval/">text_retrieval</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/word-vector/">word-vector</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/word-vector/model/">model</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/word-vector/model/ELMo/">-ELMo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/word-vector/model/fastText/">-fastText</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/word-vector/model/glove/">-glove</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/word-vector/model/subword/">-subword</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/word-vector/model/word2vec/">word2vec</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/分词/">分词</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/分词/监督/">监督</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/新词发现/">新词发现</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/阅读理解/">阅读理解</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/阅读理解/dataset/">-dataset</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/trick/">trick</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/trick/trick-lm/">trick-lm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/trick/trick-nlp/">trick-nlp</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/trick/trick-数值计算/">trick-数值计算</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/框架-综述/">框架-综述</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/vision/">vision</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/vision/tools/">-tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/vision/app/">app</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/vision/app/OCR/">OCR</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/vision/app/OCR/Tesseract-OCR/">Tesseract-OCR</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/vision/app/Object-Recognition/">Object Recognition</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/vision/app/Object-Recognition/object-detection/">-object-detection</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/vision/app/Object-Recognition/image-classification/">image-classification</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/vision/app/style-transfer/">style-transfer</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/vision/dataset/">dataset</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/">deep learning</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/model-basic/">model-basic</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/model-basic/NN/">-NN</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/model-basic/CNN/">CNN</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/model-basic/GAN/">GAN</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/model-basic/RNN/">RNN</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/model-basic/生成模型/">生成模型</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/next/">next</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/toolbox/">toolbox</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/toolbox/pytorch/">-pytorch</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/toolbox/静态图-动态图/">-静态图-动态图</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/toolbox/tensorflow/">tensorflow</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/toolbox/tensorflow/上层包/">-上层包</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/toolbox/tensorflow/上层包/tensor2tensor/">tensor2tensor</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/toolbox/tensorflow/工业化/">-工业化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/toolbox/tensorflow/high-level-api/">high-level-api</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/toolbox/tensorflow/high-level-api/estimator/">estimator</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/toolbox/tensorflow/low-level-api/">low-level-api</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/优化-学习-训练/">优化-学习-训练</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/加速-分布式集群/">加速 分布式集群</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/可视化/">可视化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/存在的问题/">存在的问题</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/ml-传统方法/">ml 传统方法</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/ml-传统方法/loss-function/">loss function</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/ml-传统方法/supervised/">supervised</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/ml-传统方法/supervised/SVM/">SVM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/ml-传统方法/supervised/广义线性模型/">广义线性模型</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/ml-传统方法/supervised/广义线性模型/对数线性模型/">对数线性模型</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/ml-传统方法/降维/">降维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/quantize/">quantize</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/recommender-system/">recommender-system</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/recommender-system/model/">model</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/recommender-system/竞赛/">竞赛</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/retrieval/">retrieval</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/retrieval/倒排索引/">倒排索引</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/trick/">trick</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/trick/数值计算/">-数值计算</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/trick/optimizer/">optimizer</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/竞赛/">竞赛</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/竞赛/kaggle/">kaggle</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/竞赛/kaggle/入门/">入门</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/通用/">通用</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/">Math</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/optimization/">-optimization</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/代数/">-代数</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/信号处理/">-信号处理</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/几何/">-几何</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/几何/欧式几何/">欧式几何</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/数学八卦-数学史-数学家/">-数学八卦-数学史-数学家</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/数学分析-微积分/">-数学分析(微积分)</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/数学分析-微积分/解析延拓/">-解析延拓</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/数学分析-微积分/1-数列极限、函数极限、连续函数/">1. 数列极限、函数极限、连续函数</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/数学分析-微积分/微分学/">微分学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/数学分析-微积分/积分学/">积分学</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/概率论与数理统计/">-概率论与数理统计</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/概率论与数理统计/统计推断/">统计推断</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/概率论与数理统计/统计推断/1-参数估计/">1 参数估计</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/概率论与数理统计/统计推断/1-参数估计/区间估计/">区间估计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/概率论与数理统计/统计推断/1-参数估计/点估计/">点估计</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/计算数学/">-计算数学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/运筹学-动态规划/">-运筹学-动态规划</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/运筹学-动态规划/启发式算法/">启发式算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/运筹学-动态规划/常见问题/">常见问题</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/交叉领域/">交叉领域</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/实分析-复分析/">实分析 复分析</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/实分析-复分析/实分析/">实分析</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/数论/">数论</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/数论/常量/">-常量</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/数论/素数/">素数</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/数论/随机数/">随机数</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/audio/">audio</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/audio/ASR/">ASR</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/audio/ASR/api/">api</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/audio/ASR/api/xunfei/">xunfei</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/audio/ASR/声学模型/">声学模型</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/audio/TTS/">TTS</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/audio/TTS/model/">model</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/audio/dataset/">dataset</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/audio/toolbox/">toolbox</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/audio/toolbox/kaldi/">kaldi</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/audio/toolbox/kaldi/thchs30/">thchs30</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/audio/前端信号处理/">前端信号处理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/audio/前端信号处理/特征/">特征</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/audio/基础知识/">基础知识</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/audio/基础知识/打包类型/">打包类型</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/audio/基础知识/特征/">特征</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/audio/基础知识/编码/">编码</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/audio/声纹识别/">声纹识别</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/block-chain/">block-chain</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/block-chain/区块链/">区块链</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/block-chain/虚拟货币/">虚拟货币</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/block-chain/虚拟货币/币种/">币种</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/block-chain/虚拟货币/币种/以太币-ETH/">-以太币-ETH</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/block-chain/虚拟货币/币种/比特币-BTC/">比特币-BTC</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/block-chain/虚拟货币/币种/比特币-BTC/挖矿/">-挖矿</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/block-chain/虚拟货币/币种/比特币-BTC/源码/">源码</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/block-chain/虚拟货币/币种/比特币-BTC/源码/基本的数据结构/">基本的数据结构</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/block-chain/虚拟货币/币种/比特币-BTC/源码/基本的数据结构/primitive/">primitive</a></li></ul></li></ul></li></ul></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/demo/">demo</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/demo/hexo/">hexo</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/docker/advanced/">advanced</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/tutorial/">tutorial</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/docker/tutorial/images/">images</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/hardware/">hardware</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/hardware/嵌入式设备/">-嵌入式设备</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/hardware/嵌入式设备/对讲机/">对讲机</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/language-model/">language_model</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/language-model/evaluation/">evaluation</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/language-model/model/">model</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/language-model/model/nnlm/">nnlm</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/language-model/model/nnlm/trick/">trick</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/machine-translation/">machine translation</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/machine-translation/0-related-work-survey/">-0. related-work survey</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/machine-translation/5-前沿-idea-冷门-专利-灌水/">-5. 前沿-idea-冷门-专利-灌水</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/machine-translation/5-前沿-idea-冷门-专利-灌水/无监督/">无监督</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/machine-translation/2-主流model-研究现状/">2. 主流model-研究现状</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/machine-translation/2-主流model-研究现状/0-基于规则的机器翻译/">0. 基于规则的机器翻译</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/machine-translation/2-主流model-研究现状/1-SMT/">1. SMT</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/machine-translation/2-主流model-研究现状/2-NMT/">2. NMT</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/machine-translation/evaluation/">evaluation</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/machine-translation/竞赛-业界/">竞赛 & 业界</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/">others</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/物理学/">-物理学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/足球/">-足球</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/足球/世界杯/">世界杯</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/足球/世界杯/2018世界杯/">2018世界杯</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/足球/球星/">球星</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/防忽悠系列/">-防忽悠系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/economy/">economy</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/economy/泡沫/">-泡沫</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/economy/AI-金融/">AI-金融</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/economy/体制/">体制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/economy/时代的风口/">时代的风口</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/economy/经济学原理/">经济学原理</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/economy/赋税/">赋税</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/">politics</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/american/">-american</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/俄罗斯/">-俄罗斯</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/南斯拉夫/">-南斯拉夫</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/朝鲜/">-朝鲜</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/苏联/">-苏联</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/china/">china</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/china/八卦/">-八卦</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/china/人物/">人物</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/china/党的机构/">党的机构</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/china/党的机构/中央书记处/">中央书记处</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/china/国家机构/">国家机构</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/china/国家机构/国家监察机关/">国家监察机关</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/china/国家领袖/">国家领袖</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/china/国家领袖/国家主席/">国家主席</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/医疗/">医疗</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/历史/">历史</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/思想-哲学/">思想 哲学</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/思想-哲学/意识形态/">-意识形态</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/思想-哲学/意识形态/马克思主义/">马克思主义</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/机器人/">机器人</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/机器人/Nao/">Nao</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/通信/">通信</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/电子/">电子</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/电子/芯片/">芯片</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/电子/芯片/芯片架构/">-芯片架构</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/电子/芯片/厂商/">厂商</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/电子/芯片/基础知识/">基础知识</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/电子/芯片/芯片类型/">芯片类型</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/电子/芯片/芯片类型/CPU/">CPU</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/电子/芯片/芯片类型/GPU/">GPU</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/电子/芯片/芯片类型/TPU/">TPU</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/通信/">通信</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/通信/信号处理/">信号处理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/通信/信号处理/信号与系统-奥本海姆/">-信号与系统-奥本海姆</a></li></ul></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Everthing/">Everthing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GPU/">GPU</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OCR/">OCR</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SEO/">SEO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SNLI/">SNLI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SNN/">SNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SemEval/">SemEval</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tesseract/">Tesseract</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ajax/">ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/attention/">attention</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/baidu/">baidu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/category/">category</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/checksum/">checksum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/class/">class</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cnn/">cnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/collection/">collection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/computer-engine/">computer engine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cv/">cv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dataset/">dataset</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/deep-learning/">deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dns/">dns</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/domain/">domain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/entailment/">entailment</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/framework/">framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/front-end/">front-end</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitbook/">gitbook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradient-vanish/">gradient vanish</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gru/">gru</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hash/">hash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-abbrlink/">hexo-abbrlink</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-auto-category/">hexo-auto-category</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hierarchical-softmax/">hierarchical softmax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hmm/">hmm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hotspot/">hotspot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/image-classification/">image classification</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/instant-message/">instant-message</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java源码/">java源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keras/">keras</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lstm/">lstm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/map/">map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathjax/">mathjax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mxnet/">mxnet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/negative-sampling/">negative sampling</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nn/">nn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pages/">pages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/plugin/">plugin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pytorch/">pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/random/">random</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/render/">render</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rnn/">rnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/robots协议/">robots协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/robot协议/">robot协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rule/">rule</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/seq2seq/">seq2seq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spiking-neural-network/">spiking neural network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sru/">sru</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ss/">ss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/string/">string</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorflow/">tensorflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tex/">tex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/theano/">theano</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/travis/">travis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/travis-ci/">travis-ci</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/viterbi/">viterbi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websocket/">websocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/word2vec/">word2vec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/两会/">两会</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/公式/">公式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/写时拷贝/">写时拷贝</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/军委主席/">军委主席</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端架构/">前端架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端渲染/">前端渲染</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态服务/">动态服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单播/">单播</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单页应用/">单页应用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/卷积/">卷积</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原理/">原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反卷积/">反卷积</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同步/">同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/国务院/">国务院</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/国家主席/">国家主席</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/国家元首/">国家元首</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/国家机构/">国家机构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/国家机构改革/">国家机构改革</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/国家监察委员会/">国家监察委员会</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/国家领导/">国家领导</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/域名/">域名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/官员级别/">官员级别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/宪法/">宪法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/对话系统/">对话系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/建站/">建站</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/总书记/">总书记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/持续集成/">持续集成</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/推荐系统/">推荐系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/推送/">推送</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/插件/">插件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/搜索引擎/">搜索引擎</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据分析/">数据分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件管理/">文件管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文本分类/">文本分类</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/时序图/">时序图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器翻译/">机器翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/构建工具/">构建工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式/">正则表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流程图/">流程图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/矢量图/">矢量图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/聊天机器人/">聊天机器人</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自动化部署/">自动化部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自然语言推理/">自然语言推理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/阅读理解/">阅读理解</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随机数/">随机数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态网站/">静态网站</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CNN/" style="font-size: 12.86px;">CNN</a> <a href="/tags/DNS/" style="font-size: 11.43px;">DNS</a> <a href="/tags/Everthing/" style="font-size: 10px;">Everthing</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/OCR/" style="font-size: 11.43px;">OCR</a> <a href="/tags/RNN/" style="font-size: 12.86px;">RNN</a> <a href="/tags/SEO/" style="font-size: 11.43px;">SEO</a> <a href="/tags/SNLI/" style="font-size: 10px;">SNLI</a> <a href="/tags/SNN/" style="font-size: 10px;">SNN</a> <a href="/tags/SemEval/" style="font-size: 10px;">SemEval</a> <a href="/tags/Tesseract/" style="font-size: 10px;">Tesseract</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/angular/" style="font-size: 12.86px;">angular</a> <a href="/tags/attention/" style="font-size: 12.86px;">attention</a> <a href="/tags/baidu/" style="font-size: 10px;">baidu</a> <a href="/tags/blog/" style="font-size: 18.57px;">blog</a> <a href="/tags/category/" style="font-size: 10px;">category</a> <a href="/tags/checksum/" style="font-size: 10px;">checksum</a> <a href="/tags/class/" style="font-size: 10px;">class</a> <a href="/tags/cloud/" style="font-size: 14.29px;">cloud</a> <a href="/tags/cnn/" style="font-size: 10px;">cnn</a> <a href="/tags/collection/" style="font-size: 11.43px;">collection</a> <a href="/tags/computer-engine/" style="font-size: 10px;">computer engine</a> <a href="/tags/cv/" style="font-size: 11.43px;">cv</a> <a href="/tags/dataset/" style="font-size: 15.71px;">dataset</a> <a href="/tags/deep-learning/" style="font-size: 15.71px;">deep learning</a> <a href="/tags/dns/" style="font-size: 12.86px;">dns</a> <a href="/tags/docker/" style="font-size: 12.86px;">docker</a> <a href="/tags/domain/" style="font-size: 15.71px;">domain</a> <a href="/tags/entailment/" style="font-size: 10px;">entailment</a> <a href="/tags/framework/" style="font-size: 10px;">framework</a> <a href="/tags/front-end/" style="font-size: 11.43px;">front-end</a> <a href="/tags/git/" style="font-size: 11.43px;">git</a> <a href="/tags/gitbook/" style="font-size: 11.43px;">gitbook</a> <a href="/tags/github/" style="font-size: 12.86px;">github</a> <a href="/tags/google/" style="font-size: 10px;">google</a> <a href="/tags/gradient-vanish/" style="font-size: 11.43px;">gradient vanish</a> <a href="/tags/gru/" style="font-size: 10px;">gru</a> <a href="/tags/hash/" style="font-size: 10px;">hash</a> <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/hexo-abbrlink/" style="font-size: 10px;">hexo-abbrlink</a> <a href="/tags/hexo-auto-category/" style="font-size: 10px;">hexo-auto-category</a> <a href="/tags/hierarchical-softmax/" style="font-size: 10px;">hierarchical softmax</a> <a href="/tags/hmm/" style="font-size: 11.43px;">hmm</a> <a href="/tags/hotspot/" style="font-size: 10px;">hotspot</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/image-classification/" style="font-size: 10px;">image classification</a> <a href="/tags/instant-message/" style="font-size: 10px;">instant-message</a> <a href="/tags/java/" style="font-size: 14.29px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/java源码/" style="font-size: 17.14px;">java源码</a> <a href="/tags/keras/" style="font-size: 10px;">keras</a> <a href="/tags/lstm/" style="font-size: 10px;">lstm</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/markdown/" style="font-size: 11.43px;">markdown</a> <a href="/tags/mathjax/" style="font-size: 10px;">mathjax</a> <a href="/tags/mxnet/" style="font-size: 10px;">mxnet</a> <a href="/tags/negative-sampling/" style="font-size: 10px;">negative sampling</a> <a href="/tags/network/" style="font-size: 18.57px;">network</a> <a href="/tags/nlp/" style="font-size: 11.43px;">nlp</a> <a href="/tags/nn/" style="font-size: 10px;">nn</a> <a href="/tags/pages/" style="font-size: 14.29px;">pages</a> <a href="/tags/plugin/" style="font-size: 14.29px;">plugin</a> <a href="/tags/pytorch/" style="font-size: 10px;">pytorch</a> <a href="/tags/random/" style="font-size: 10px;">random</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/render/" style="font-size: 10px;">render</a> <a href="/tags/rnn/" style="font-size: 12.86px;">rnn</a> <a href="/tags/robots协议/" style="font-size: 10px;">robots协议</a> <a href="/tags/robot协议/" style="font-size: 10px;">robot协议</a> <a href="/tags/rule/" style="font-size: 11.43px;">rule</a> <a href="/tags/seq2seq/" style="font-size: 18.57px;">seq2seq</a> <a href="/tags/spiking-neural-network/" style="font-size: 10px;">spiking neural network</a> <a href="/tags/sru/" style="font-size: 10px;">sru</a> <a href="/tags/ss/" style="font-size: 10px;">ss</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/tensorflow/" style="font-size: 10px;">tensorflow</a> <a href="/tags/tex/" style="font-size: 11.43px;">tex</a> <a href="/tags/theano/" style="font-size: 10px;">theano</a> <a href="/tags/travis/" style="font-size: 10px;">travis</a> <a href="/tags/travis-ci/" style="font-size: 10px;">travis-ci</a> <a href="/tags/viterbi/" style="font-size: 12.86px;">viterbi</a> <a href="/tags/web/" style="font-size: 12.86px;">web</a> <a href="/tags/webpack/" style="font-size: 11.43px;">webpack</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/word2vec/" style="font-size: 10px;">word2vec</a> <a href="/tags/两会/" style="font-size: 10px;">两会</a> <a href="/tags/公式/" style="font-size: 10px;">公式</a> <a href="/tags/写时拷贝/" style="font-size: 10px;">写时拷贝</a> <a href="/tags/军委主席/" style="font-size: 10px;">军委主席</a> <a href="/tags/前端架构/" style="font-size: 11.43px;">前端架构</a> <a href="/tags/前端渲染/" style="font-size: 10px;">前端渲染</a> <a href="/tags/动态服务/" style="font-size: 10px;">动态服务</a> <a href="/tags/动态规划/" style="font-size: 14.29px;">动态规划</a> <a href="/tags/单播/" style="font-size: 10px;">单播</a> <a href="/tags/单页应用/" style="font-size: 10px;">单页应用</a> <a href="/tags/卷积/" style="font-size: 10px;">卷积</a> <a href="/tags/原理/" style="font-size: 11.43px;">原理</a> <a href="/tags/反卷积/" style="font-size: 10px;">反卷积</a> <a href="/tags/同步/" style="font-size: 11.43px;">同步</a> <a href="/tags/国务院/" style="font-size: 10px;">国务院</a> <a href="/tags/国家主席/" style="font-size: 10px;">国家主席</a> <a href="/tags/国家元首/" style="font-size: 10px;">国家元首</a> <a href="/tags/国家机构/" style="font-size: 11.43px;">国家机构</a> <a href="/tags/国家机构改革/" style="font-size: 12.86px;">国家机构改革</a> <a href="/tags/国家监察委员会/" style="font-size: 11.43px;">国家监察委员会</a> <a href="/tags/国家领导/" style="font-size: 14.29px;">国家领导</a> <a href="/tags/域名/" style="font-size: 10px;">域名</a> <a href="/tags/官员级别/" style="font-size: 10px;">官员级别</a> <a href="/tags/宪法/" style="font-size: 11.43px;">宪法</a> <a href="/tags/对话系统/" style="font-size: 10px;">对话系统</a> <a href="/tags/建站/" style="font-size: 15.71px;">建站</a> <a href="/tags/总书记/" style="font-size: 11.43px;">总书记</a> <a href="/tags/持续集成/" style="font-size: 11.43px;">持续集成</a> <a href="/tags/推荐系统/" style="font-size: 10px;">推荐系统</a> <a href="/tags/推送/" style="font-size: 10px;">推送</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/搜索引擎/" style="font-size: 11.43px;">搜索引擎</a> <a href="/tags/数据分析/" style="font-size: 14.29px;">数据分析</a> <a href="/tags/文件管理/" style="font-size: 10px;">文件管理</a> <a href="/tags/文本分类/" style="font-size: 10px;">文本分类</a> <a href="/tags/时序图/" style="font-size: 10px;">时序图</a> <a href="/tags/机器翻译/" style="font-size: 18.57px;">机器翻译</a> <a href="/tags/构建工具/" style="font-size: 11.43px;">构建工具</a> <a href="/tags/架构/" style="font-size: 10px;">架构</a> <a href="/tags/正则表达式/" style="font-size: 11.43px;">正则表达式</a> <a href="/tags/流程图/" style="font-size: 10px;">流程图</a> <a href="/tags/源码/" style="font-size: 11.43px;">源码</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/矢量图/" style="font-size: 10px;">矢量图</a> <a href="/tags/聊天机器人/" style="font-size: 10px;">聊天机器人</a> <a href="/tags/自动化部署/" style="font-size: 11.43px;">自动化部署</a> <a href="/tags/自然语言推理/" style="font-size: 10px;">自然语言推理</a> <a href="/tags/阅读理解/" style="font-size: 11.43px;">阅读理解</a> <a href="/tags/随机数/" style="font-size: 10px;">随机数</a> <a href="/tags/静态网站/" style="font-size: 10px;">静态网站</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2000/01/">January 2000</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/wiki/Math/-optimization/adam/">adam</a>
+          </li>
+        
+          <li>
+            <a href="/wiki/Math/-optimization/weight-decay/">weight decay</a>
+          </li>
+        
+          <li>
+            <a href="/wiki/Math/-optimization/summary/">优化方法，汇总</a>
+          </li>
+        
+          <li>
+            <a href="/wiki/通信/信号处理/-信号与系统-奥本海姆/平稳信号/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/wiki/CS/tools/文件管理/-云盘/google云盘/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>

@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/91/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-CS/network/网络协议-OSI七层模型/1. 第七层 应用层/DNS/DNS解析实例-baidu" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/network/网络协议-OSI七层模型/1. 第七层 应用层/DNS/DNS解析实例-baidu/" class="article-date">
+  <time datetime="2018-02-08T16:00:00.000Z" itemprop="datePublished">2018-02-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/network/">network</a>►<a class="article-category-link" href="/categories/CS/network/网络协议-OSI七层模型/">网络协议-OSI七层模型</a>►<a class="article-category-link" href="/categories/CS/network/网络协议-OSI七层模型/1-第七层-应用层/">1. 第七层 应用层</a>►<a class="article-category-link" href="/categories/CS/network/网络协议-OSI七层模型/1-第七层-应用层/DNS/">DNS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/CS/network/网络协议-OSI七层模型/1. 第七层 应用层/DNS/DNS解析实例-baidu/">反演 百度DNS解析规则</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!--
+反函数：inverse function (or anti-function[1]) is a function that "reverses" another function
+反编译：
+
+DNS解析：host--ip，，DNS的逆应该是ip--host.
+ARP（地址解析协议） RARP（逆地址解析协议），DNS中是不是也有逆？
+
+正向 ：DNS解析规则 -- 解析结果。逆向：解析结果--解析规则
+-->
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>域名系统（DNS）是一种用于 TCP/IP应用程序的分布式数据库，它提供主机名字和IP地址之间的转换及有关电子邮件的选路信息。</p>
+<p>通常情况下，我们是先设定DNS解析规则，然后ISP(供应商)依据指定的解析规则进行DNS解析。同样，我们通过测试解析结果，也可以反推DNS解析规则。本文以百度首页为例，分析其DNS解析规则。</p>
+<p>DNS地址解析器的核心功能能</p>
+<ul>
+<li>gethostbyname  主机名–&gt;ip   </li>
+<li>gethostbyaddr  ip–主机名</li>
+</ul>
+<p><strong>分析方式一：</strong><br>通过抓包，分析DNS查询和响应报文。每个响应报文对应一条DNS解析规则，通过一条或者多条记录才能完成DNS解析。</p>
+<p><strong>分析方式二：</strong><br>一堆命令，见参考博客。</p>
+<p>参考 <a href="https://aslibra.com/blog/post/use_dig_dns_check.php" rel="external nofollow noopener noreferrer" target="_blank">https://aslibra.com/blog/post/use_dig_dns_check.php</a><br><a href="https://www.jianshu.com/p/71f61652ec23" rel="external nofollow noopener noreferrer" target="_blank">通过dig命令理解DNS</a><br><a href="http://roclinux.cn/?p=2449" rel="external nofollow noopener noreferrer" target="_blank">dig挖出DNS的秘密</a></p>
+<h2 id="百度DNS解析规则"><a href="#百度DNS解析规则" class="headerlink" title="百度DNS解析规则"></a>百度DNS解析规则</h2><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>主机记录</th>
+<th>记录类型</th>
+<th>解析线路(isp)</th>
+<th>记录值</th>
+<th>TTL值(不定)</th>
+<th>备注</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><a href="http://www.baidu.com" rel="external nofollow noopener noreferrer" target="_blank">www.baidu.com</a></td>
+<td>CNAME</td>
+<td>–</td>
+<td><a href="http://www.a.shifen.com" rel="external nofollow noopener noreferrer" target="_blank">www.a.shifen.com</a></td>
+<td>268</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td><a href="http://www.a.shifen.com" rel="external nofollow noopener noreferrer" target="_blank">www.a.shifen.com</a></td>
+<td>CNAME</td>
+<td>–</td>
+<td><a href="http://www.wshifen.com" rel="external nofollow noopener noreferrer" target="_blank">www.wshifen.com</a></td>
+<td>271</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td><a href="http://www.wshifen.com" rel="external nofollow noopener noreferrer" target="_blank">www.wshifen.com</a></td>
+<td>A</td>
+<td>新加坡 百度</td>
+<td>45.113.192.101</td>
+<td>160</td>
+<td>“1-2-[3</td>
+<td>4]”</td>
+</tr>
+<tr>
+<td>4</td>
+<td><a href="http://www.wshifen.com" rel="external nofollow noopener noreferrer" target="_blank">www.wshifen.com</a></td>
+<td>A</td>
+<td>北京电信</td>
+<td>220.181.111.188</td>
+<td>160</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>wshifen.com</td>
+<td>NS</td>
+<td>–</td>
+<td>ns1.wshifen.com</td>
+<td>163</td>
+<td>很多name server</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>baidu.com</td>
+<td>A</td>
+<td>北京移动</td>
+<td>111.13.101.208</td>
+<td></td>
+<td>见解析方式二</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>baidu.com</td>
+<td>A</td>
+<td>北京联通…</td>
+<td>123.125.114.144</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>baidu.com</td>
+<td>SOA</td>
+<td>–</td>
+<td>dns.baidu.com</td>
+<td>900</td>
+<td>见解析方式四</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>baidu.com</td>
+<td>NS</td>
+<td>–</td>
+<td>ns1.baidu.com</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>baidu.com</td>
+<td>NS</td>
+<td>–</td>
+<td>ns2.baidu.com</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>dns.baidu.com</td>
+<td>A</td>
+<td></td>
+<td>202.108.22.220</td>
+<td>67498</td>
+<td>这里只有一个A记录吗？为什么TTL这么高？</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>ns1.baidu.com</td>
+<td>A</td>
+<td></td>
+<td>202.108.22.220</td>
+<td>27780</td>
+<td>为什么和上个记录同IP？</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>ns2.baidu.com</td>
+<td>A</td>
+<td></td>
+<td>61.135.165.235</td>
+<td>86400</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>shifen.com.</td>
+<td>NS</td>
+<td></td>
+<td>ns1.baidu.com</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>shifen.com.</td>
+<td>A</td>
+<td></td>
+<td>202.108.250.218</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>shifen.com</td>
+<td>SOA</td>
+<td></td>
+<td>dns.shifen.com</td>
+<td></td>
+<td>dig shifen.com soa</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>dns.shifen.com</td>
+<td>A</td>
+<td></td>
+<td>202.108.250.228</td>
+<td></td>
+<td>dig dns.shifen.com</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>a.shifen.com</td>
+<td>NS</td>
+<td>–</td>
+<td>ns1.a.shifen.com</td>
+<td>397</td>
+<td>见解析方式五</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>ns1.a.shifen.com</td>
+<td>A</td>
+<td></td>
+<td>61.135.165.224</td>
+<td>600</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>注：所有解析路线由ip.cn提供。</p>
+</blockquote>
+<p><a href="http://www.wshifen.com" rel="external nofollow noopener noreferrer" target="_blank">www.wshifen.com</a>  没有NS记录，没有SOA记录。<br><code>dig www.wshifen.com ns</code>。没有answer，即没有ns记录<br><code>dig wshifen.com ns</code>，有answer</p>
+<p>解析方式一: 1–&gt;2 （<a href="http://www.baidu.com，查询类型A，即查询IPv4地址）" rel="external nofollow noopener noreferrer" target="_blank">www.baidu.com，查询类型A，即查询IPv4地址）</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一会功夫变成102了</span></span><br><span class="line"><span class="comment"># DNS响应一般为多个ip，后续连接只用一个ip</span></span><br><span class="line">$ ping www.baidu.com</span><br><span class="line">PING www.wshifen.com (45.113.192.102) 56(84) bytes of data.</span><br><span class="line">64 bytes from 45.113.192.102: icmp_seq=1 ttl=43 time=87.3 ms</span><br><span class="line"></span><br><span class="line">$ wget www.baidu.com</span><br><span class="line">--2018-03-08 11:30:32--  http://www.baidu.com/</span><br><span class="line">Resolving www.baidu.com (www.baidu.com)... 45.113.192.102, 45.113.192.101</span><br><span class="line">Connecting to www.baidu.com (www.baidu.com)|45.113.192.102|:80... connected.</span><br><span class="line">HTTP request sent, awaiting response... 200 OK</span><br><span class="line"></span><br><span class="line">$ dig www.baidu.com</span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;www.baidu.com.                 IN      A</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">www.baidu.com.          337     IN      CNAME   www.a.shifen.com.</span><br><span class="line">www.a.shifen.com.       191     IN      CNAME   www.wshifen.com.</span><br><span class="line">www.wshifen.com.        110     IN      A       45.113.192.102</span><br><span class="line">www.wshifen.com.        110     IN      A       45.113.192.101</span><br></pre></td></tr></table></figure></p>
+<p>解析方式二：9  （baidu.com，查询类型A）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这种域名一般情况下是不能做cname解析的，只能用A记录</span></span><br><span class="line">$ ping baidu.com</span><br><span class="line">PING baidu.com (111.13.101.208) 56(84) bytes of data.</span><br><span class="line">64 bytes from 111.13.101.208: icmp_seq=1 ttl=45 time=13.8 ms</span><br><span class="line"></span><br><span class="line"><span class="comment"># DNS中没有对baidu.com做CNAME记录，貌似。</span></span><br><span class="line"><span class="comment"># 为什么浏览器重定向到http://www.baidu.com/？ 后面章节会介绍</span></span><br><span class="line">$ wget baidu.com</span><br><span class="line">--2018-03-08 11:32:10--  http://baidu.com/</span><br><span class="line">Resolving baidu.com (baidu.com)... 111.13.101.208, 220.181.57.216</span><br><span class="line">Connecting to baidu.com (baidu.com)|111.13.101.208|:80... connected.</span><br><span class="line">HTTP request sent, awaiting response... 200 OK</span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">$ dig baidu.com</span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;baidu.com.                     IN      A</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">baidu.com.              345     IN      A       111.13.101.208</span><br><span class="line">baidu.com.              345     IN      A       220.181.57.216</span><br></pre></td></tr></table></figure>
+<p>解析方式三: 1–&gt;5–&gt;8  （<a href="http://www.baidu.com，查询类型AAAA，即查询IPv6地址）" rel="external nofollow noopener noreferrer" target="_blank">www.baidu.com，查询类型AAAA，即查询IPv6地址）</a></p>
+<p>请求路线：</p>
+<ul>
+<li><a href="http://www.baidu.com" rel="external nofollow noopener noreferrer" target="_blank">www.baidu.com</a> 未找到AAAA记录，走CNAME记录1</li>
+<li><a href="http://www.a.shifen.com" rel="external nofollow noopener noreferrer" target="_blank">www.a.shifen.com</a> 未找到AAAA记录，走CNAME记录5</li>
+<li><a href="http://www.wshifen.com" rel="external nofollow noopener noreferrer" target="_blank">www.wshifen.com</a> 找到NS记录，返回</li>
+</ul>
+<p>抓包内容<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 目前使用IPv6的还是极少数，所以得不到AAAA记录的。</span></span><br><span class="line"><span class="comment"># DNS响应报文中的资源记录部分：回答字段、授权字段和附加信息字段，均采用一种称为资源记录RR（ Resource Record）的相同格式。</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="string">Domain</span> <span class="string">Name</span> <span class="string">System</span> <span class="string">(response)</span></span><br><span class="line"><span class="attr">    Questions:</span> <span class="number">1</span></span><br><span class="line">    <span class="string">Answer</span> <span class="attr">RRs:</span> <span class="number">2</span></span><br><span class="line">    <span class="string">Authority</span> <span class="attr">RRs:</span> <span class="number">1</span></span><br><span class="line">    <span class="string">Additional</span> <span class="attr">RRs:</span> <span class="number">0</span></span><br><span class="line">    <span class="string">Queries</span></span><br><span class="line">        <span class="string">www.baidu.com:</span> <span class="string">type</span> <span class="string">AAAA,</span> <span class="string">class</span> <span class="string">IN</span></span><br><span class="line">    <span class="string">Answers</span> <span class="comment"># 回答字段</span></span><br><span class="line">        <span class="string">www.baidu.com:</span> <span class="string">type</span> <span class="string">CNAME,</span> <span class="string">class</span> <span class="string">IN,</span> <span class="string">cname</span> <span class="string">www.a.shifen.com</span></span><br><span class="line"><span class="attr">            Name:</span> <span class="string">www.baidu.com</span></span><br><span class="line"><span class="attr">            Type:</span> <span class="string">CNAME</span> <span class="string">(Canonical</span> <span class="string">NAME</span> <span class="string">for</span> <span class="string">an</span> <span class="string">alias)</span> <span class="string">(5)</span></span><br><span class="line"><span class="attr">            CNAME:</span> <span class="string">www.a.shifen.com</span></span><br><span class="line">        <span class="string">www.a.shifen.com:</span> <span class="string">type</span> <span class="string">CNAME,</span> <span class="string">class</span> <span class="string">IN,</span> <span class="string">cname</span> <span class="string">www.wshifen.com</span></span><br><span class="line"><span class="attr">            Name:</span> <span class="string">www.a.shifen.com</span></span><br><span class="line"><span class="attr">            Type:</span> <span class="string">CNAME</span> <span class="string">(Canonical</span> <span class="string">NAME</span> <span class="string">for</span> <span class="string">an</span> <span class="string">alias)</span> <span class="string">(5)</span></span><br><span class="line"><span class="attr">            Class:</span> <span class="string">IN</span> <span class="string">(0x0001)</span></span><br><span class="line">            <span class="string">Time</span> <span class="string">to</span> <span class="attr">live:</span> <span class="number">271</span></span><br><span class="line">            <span class="string">Data</span> <span class="attr">length:</span> <span class="number">14</span></span><br><span class="line"><span class="attr">            CNAME:</span> <span class="string">www.wshifen.com</span></span><br><span class="line">    <span class="string">Authoritative</span> <span class="string">nameservers</span>  <span class="comment"># 授权字段</span></span><br><span class="line">        <span class="string">wshifen.com:</span> <span class="string">type</span> <span class="string">SOA,</span> <span class="string">class</span> <span class="string">IN,</span> <span class="string">mname</span> <span class="string">ns1.wshifen.com</span></span><br><span class="line"><span class="attr">            Name:</span> <span class="string">wshifen.com</span></span><br><span class="line"><span class="attr">            Type:</span> <span class="string">SOA</span> <span class="string">(Start</span> <span class="string">Of</span> <span class="string">a</span> <span class="string">zone</span> <span class="string">of</span> <span class="string">Authority)</span> <span class="string">(6)</span></span><br><span class="line">            <span class="string">Primary</span> <span class="string">name</span> <span class="attr">server:</span> <span class="string">ns1.wshifen.com</span> <span class="string">baidu_dns_master.baidu.com</span></span><br></pre></td></tr></table></figure></p>
+<p>dig 内容<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ dig www.baidu.com AAAA</span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;www.baidu.com.                 IN      AAAA</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">www.baidu.com.          4       IN      CNAME   www.a.shifen.com.</span><br><span class="line">www.a.shifen.com.       174     IN      CNAME   www.wshifen.com.</span><br><span class="line"></span><br><span class="line">;; AUTHORITY SECTION:</span><br><span class="line">wshifen.com.            250     IN      SOA     ns1.wshifen.com. baidu_dns_master.baidu.com. 1803080001 60 30 2592000 3600</span><br></pre></td></tr></table></figure></p>
+<p>解析方式四：11  （baidu.com，查询类型AAAA）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Domain Name System (response)</span><br><span class="line">    Questions: 1</span><br><span class="line">    Answer RRs: 0</span><br><span class="line">    Authority RRs: 1</span><br><span class="line">    Queries</span><br><span class="line">        baidu.com: <span class="built_in">type</span> AAAA, class IN</span><br><span class="line">    Authoritative nameservers</span><br><span class="line">        baidu.com: <span class="built_in">type</span> SOA, class IN, mname dns.baidu.com</span><br><span class="line">            Name: baidu.com</span><br><span class="line">            Type: SOA (Start Of a zone of Authority) (6)</span><br><span class="line">            Primary name server: dns.baidu.com</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ dig baidu.com AAAA</span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;baidu.com.                     IN      AAAA</span><br><span class="line"></span><br><span class="line">;; AUTHORITY SECTION:</span><br><span class="line">baidu.com.              4581    IN      SOA     dns.baidu.com. sa.baidu.com. 2012138564 300 300 2592000 7200</span><br></pre></td></tr></table></figure>
+<p>解析方式五: 12  （<a href="http://www.a.shifen.com，查询类型AAAA）" rel="external nofollow noopener noreferrer" target="_blank">www.a.shifen.com，查询类型AAAA）</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ dig www.a.shifen.com AAAA</span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;www.a.shifen.com.              IN      AAAA</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">www.a.shifen.com.       34      IN      CNAME   www.wshifen.com.</span><br><span class="line"></span><br><span class="line">;; AUTHORITY SECTION:</span><br><span class="line">wshifen.com.            235     IN      SOA     ns1.wshifen.com. baidu_dns_master.baidu.com. 1803080001 60 30 2592000 3600</span><br></pre></td></tr></table></figure></p>
+<h2 id="疑问-amp-剖析"><a href="#疑问-amp-剖析" class="headerlink" title="疑问 &amp; 剖析"></a>疑问 &amp; 剖析</h2><h3 id="编号1中，别名www-a-shifen-com的作用"><a href="#编号1中，别名www-a-shifen-com的作用" class="headerlink" title="编号1中，别名www.a.shifen.com的作用"></a>编号1中，别名<a href="http://www.a.shifen.com的作用" rel="external nofollow noopener noreferrer" target="_blank">www.a.shifen.com的作用</a></h3><p>觉得没啥用啊。看看网上的说法：</p>
+<ul>
+<li>使用CNAME有个好处就是，我IP地址去做改动的时候不需要去DNS运营商上面做改动，只需要自己的服务器做改动就好，方便自己的域名与实际IP地址做对应。    –觉得没什么道理啊</li>
+</ul>
+<ul>
+<li>百度弄的一个域名保护壳。？</li>
+<li>CDN加速节点？</li>
+</ul>
+<p>逆向思维吧。如果没什么用，为什么要保留呢？是不是还有点作用？</p>
+<h3 id="编号2-3中，多条A记录的作用"><a href="#编号2-3中，多条A记录的作用" class="headerlink" title="编号2,3中，多条A记录的作用"></a>编号2,3中，多条A记录的作用</h3><ul>
+<li>可用于多线智能解析，为了每条线路（电信、联通/网通、移动等）上的用户都能最快访问站点</li>
+<li>可用于简单的<a href="https://cloud.tencent.com/document/product/302/9069" rel="external nofollow noopener noreferrer" target="_blank">负载均衡</a>(dns轮询)</li>
+<li>可HA(高可用)</li>
+</ul>
+<h3 id="关于返回主机-IP-的策略"><a href="#关于返回主机-IP-的策略" class="headerlink" title="关于返回主机(IP)的策略"></a>关于返回主机(IP)的策略</h3><p>考虑的因素有：</p>
+<ul>
+<li><a href="https://cloud.tencent.com/document/product/302/8643" rel="external nofollow noopener noreferrer" target="_blank">智能解析线路</a> 用户所在网络的网络运行商类型、区域</li>
+<li>距离–跳数</li>
+</ul>
+<p>当我一个IP到DNS上面请求DNS域名解析的时候，DNS系统会根据你的IP地址所到达的域名对应的IP地址中路由跳数最小的那个IP地址作为访问的IP地址，具体你可以用LINUX的NSLOOKUP来查看域名所对应的IP地址，然后用PC的TRACERT的功能把所有DNS解析出来的IP地址进行跳数记录，然后在访问该域名，查看具体是哪个地址解析给你的PC。</p>
+<h3 id="为什么无法直接访问www-a-shifen-com"><a href="#为什么无法直接访问www-a-shifen-com" class="headerlink" title="为什么无法直接访问www.a.shifen.com"></a>为什么无法直接访问<a href="http://www.a.shifen.com" rel="external nofollow noopener noreferrer" target="_blank">www.a.shifen.com</a></h3><image src="/images/raw/HTTP%20-%20Wireshark%20-%20www.a.shifen.com.png">
+
+<p>流程：</p>
+<ul>
+<li style="list-style: none"><input type="checkbox" checked> [1,2,3,4] - DNS解析</li>
+<li style="list-style: none"><input type="checkbox" checked> [5,6,7] - 三次握手，建立TCP连接</li>
+<li style="list-style: none"><input type="checkbox" checked> [8] - 发送HTTP Get请求</li>
+<li style="list-style: none"><input type="checkbox"> [9] - 服务器返回RST复位信号，强制关闭TCP连接</li>
+</ul>
+<p>服务器成功收到了HTTP Get请求，后台逻辑认为这个连接不符合规范()。所谓baidu定义的规范那应该就是服务器检查host，非<code>baidu.com</code>或<code>s</code>就拒绝访问。</p>
+<h3 id="抓包貌似看不到整个路由，是吗？如何分析整个路由？"><a href="#抓包貌似看不到整个路由，是吗？如何分析整个路由？" class="headerlink" title="抓包貌似看不到整个路由，是吗？如何分析整个路由？"></a>抓包貌似看不到整个路由，是吗？如何分析整个路由？</h3><p>。。</p>
+<h3 id="为什么访问-baidu-com-会跳转到-www-baidu-com-？"><a href="#为什么访问-baidu-com-会跳转到-www-baidu-com-？" class="headerlink" title="为什么访问 baidu.com 会跳转到 www.baidu.com ？"></a>为什么访问 baidu.com 会跳转到 <a href="http://www.baidu.com" rel="external nofollow noopener noreferrer" target="_blank">www.baidu.com</a> ？</h3><p><code>baidu.com</code>返回的页面如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"refresh"</span> <span class="attr">content</span>=<span class="string">"0;url=http://www.baidu.com/"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>表示0秒之后跳转到<code>www.baidu.com</code>主页。这种叫做<code>HTML redirections</code>。并非30X 重定向。<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Redirections" rel="external nofollow noopener noreferrer" target="_blank">参考</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.zhihu.com/question/36891472/answer/69455356" rel="external nofollow noopener noreferrer" target="_blank">https://www.zhihu.com/question/36891472/answer/69455356</a></p>
+<p><a href="http://skyrover.me/2017/02/19/BAIDU%E7%9A%84DNS%E8%A7%A3%E6%9E%90/" rel="external nofollow noopener noreferrer" target="_blank">http://skyrover.me/2017/02/19/BAIDU%E7%9A%84DNS%E8%A7%A3%E6%9E%90/</a></p>
+</image>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/network/网络协议-OSI七层模型/1. 第七层 应用层/DNS/DNS解析实例-baidu/" data-id="cjo6vccuj038zkpzytpjfbzin" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dns/">dns</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CS/tools/绘图工具/矢量图制作" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/tools/绘图工具/矢量图制作/" class="article-date">
+  <time datetime="2018-02-06T13:08:53.000Z" itemprop="datePublished">2018-02-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/tools/">tools</a>►<a class="article-category-link" href="/categories/CS/tools/绘图工具/">绘图工具</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/CS/tools/绘图工具/矢量图制作/">矢量图的制作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="矢量图制作"><a href="#矢量图制作" class="headerlink" title="矢量图制作"></a>矢量图制作</h2><p>入门级(并不低级)：</p>
+<ul>
+<li>powerpoint: 首先group元素，然后save as png/emf。如需要svg，可再用Inkscape转化。</li>
+<li>visio:</li>
+<li>Inkscape 功能貌似很强大，但我用过它的格式转化功能。<a href="https://colah.github.io/posts/2015-08-Understanding-LSTMs/" rel="external nofollow noopener noreferrer" target="_blank">实例图片</a></li>
+</ul>
+<p>专业级：</p>
+<ul>
+<li>Adobe Illustrator</li>
+<li>Corel Draw</li>
+<li><a href="http://www.texample.net/tikz/" rel="external nofollow noopener noreferrer" target="_blank">TeX and PGF/TikZ</a> <a href="https://github.com/MarkLodato/visual-git-guide" rel="external nofollow noopener noreferrer" target="_blank">示例</a></li>
+</ul>
+<h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h3><p>visio<br>iGrafx（流程图）</p>
+<p>online工具:</p>
+<ul>
+<li><a href="http://picresize.com/" rel="external nofollow noopener noreferrer" target="_blank">http://picresize.com/</a></li>
+<li>Google Drawings  – web-based diagramming</li>
+<li><a href="https://tool.lu/favicon/" rel="external nofollow noopener noreferrer" target="_blank">https://tool.lu/favicon/</a>  16<em>16 32</em>32 转化</li>
+</ul>
+<h2 id="ico制作"><a href="#ico制作" class="headerlink" title="ico制作"></a>ico制作</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/tools/绘图工具/矢量图制作/" data-id="cjo6vca0000utkpzy5q88amss" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/矢量图/">矢量图</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ML/deep learning/next/-DL Next" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/ML/deep learning/next/-DL Next/" class="article-date">
+  <time datetime="2018-02-06T13:08:53.000Z" itemprop="datePublished">2018-02-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/ML/">ML</a>►<a class="article-category-link" href="/categories/ML/deep-learning/">deep learning</a>►<a class="article-category-link" href="/categories/ML/deep-learning/next/">next</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/ML/deep learning/next/-DL Next/">DL next</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="DL-future"><a href="#DL-future" class="headerlink" title="DL future"></a>DL future</h1><h2 id="底层-nvidia-cda-AMD-microsoft"><a href="#底层-nvidia-cda-AMD-microsoft" class="headerlink" title="底层 nvidia-cda AMD microsoft"></a>底层 nvidia-cda AMD microsoft</h2><h2 id="中层"><a href="#中层" class="headerlink" title="中层"></a>中层</h2><h2 id="高层"><a href="#高层" class="headerlink" title="高层"></a>高层</h2><p> google带记忆的网络 新思路   发现复用的pattern，  第四种分形复用，   deep-fusion-network</p>
+<ul>
+<li>通用人工智能</li>
+</ul>
+<p>超大网络，大部分神经元休眠。！！！！！！！！<br>未来神经网络是可演化，优胜劣汰，遗传变异。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/ML/deep learning/next/-DL Next/" data-id="cjo6vca3100ynkpzydt1ffnuq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ML/deep learning/next/-very-deep" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/ML/deep learning/next/-very-deep/" class="article-date">
+  <time datetime="2018-02-06T13:08:53.000Z" itemprop="datePublished">2018-02-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/ML/">ML</a>►<a class="article-category-link" href="/categories/ML/deep-learning/">deep learning</a>►<a class="article-category-link" href="/categories/ML/deep-learning/next/">next</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/ML/deep learning/next/-very-deep/">【神经网络] Going Deeper</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="residual-amp-highway-发展历程"><a href="#residual-amp-highway-发展历程" class="headerlink" title="residual &amp; highway 发展历程"></a>residual &amp; highway 发展历程</h2><h3 id="Highway-Networks"><a href="#Highway-Networks" class="headerlink" title="Highway Networks"></a>Highway Networks</h3><p>既然LSTM gate 也是为了解决 Information flow，有没有其他方式去解决？更直观一点的，不通过 gradient 的？既然 information 像被阻隔了一样，我们就“暴力”让它通过一下，给它们来个特权——在某些 gate 上，你就不用接受“审查”（transform）了，直接通过吧。这像高速公路一样——于是就有了这个名字，Highway Networks（HW-Nets）。  （gate直接等于1吗？）</p>
+<h3 id="Deep-Residual-Learning-for-Image-Recognition"><a href="#Deep-Residual-Learning-for-Image-Recognition" class="headerlink" title="Deep Residual Learning for Image Recognition"></a>Deep Residual Learning for Image Recognition</h3><h3 id="Identity-Mappings-in-Deep-Residual-Networks"><a href="#Identity-Mappings-in-Deep-Residual-Networks" class="headerlink" title="Identity Mappings in Deep Residual Networks"></a>Identity Mappings in Deep Residual Networks</h3><p>分析了 ResNet 中 Identity mapping 为什么比较好，为何能让梯度在网络中顺畅的传递而不会爆炸或消失</p>
+<p>Residual Net 核心思想是，去拟合残差函数 F （F = y - h（x）），选 h(x)=x 时效果最好。</p>
+<h3 id="code"><a href="#code" class="headerlink" title="code"></a>code</h3><ul>
+<li>torch (lua)<ul>
+<li><a href="https://github.com/KaimingHe/resnet-1k-layers" rel="external nofollow noopener noreferrer" target="_blank">resnet-1k-layers</a> by Kaiming He</li>
+<li><a href="https://github.com/facebook/fb.resnet.torch" rel="external nofollow noopener noreferrer" target="_blank">fb.resnet.torch</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="待看blog"><a href="#待看blog" class="headerlink" title="待看blog"></a>待看blog</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/ML/deep learning/next/-very-deep/" data-id="cjo6vca3500ytkpzyuj6y1uh4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ML/deep learning/model-basic/RNN/-lightRNN-GRU" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/ML/deep learning/model-basic/RNN/-lightRNN-GRU/" class="article-date">
+  <time datetime="2018-02-06T11:08:53.000Z" itemprop="datePublished">2018-02-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/ML/">ML</a>►<a class="article-category-link" href="/categories/ML/deep-learning/">deep learning</a>►<a class="article-category-link" href="/categories/ML/deep-learning/model-basic/">model-basic</a>►<a class="article-category-link" href="/categories/ML/deep-learning/model-basic/RNN/">RNN</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/ML/deep learning/model-basic/RNN/-lightRNN-GRU/">【深度学习-RNN系列】GRU简介 &amp; 源码实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p> LSTM 计算较为复杂，参数也非常多，难以训练。GRU（Gated Recurrent Units）应运而生。</p>
+<image title="LSTM的结构: c用来状态保持，h作为output" src="/images/raw/NN - LSTM - tensorflow with Equation - colah.png">
+
+<p>在 GRU 中，大幅简化了 LSTM 结构</p>
+<p><img title="GRU的结构: 1. 新增重置门r; 2. i与f合并为z; 3. c与h合并，即c=h=output; 4. 去掉了输出门" src="/images/raw/NN - LSTM var - GRU with Equation - colah.png"></p>
+<h1 id="背后的逻辑"><a href="#背后的逻辑" class="headerlink" title="背后的逻辑"></a>背后的逻辑</h1><ol>
+<li>新增 reset gate，即图中的 r 开关；</li>
+<li>将输入门和遗忘门合并为“update gate”，即图中的 z 开关；</li>
+<li>将细胞状态 C 和隐藏状态 m 合并为 h；</li>
+<li>省掉了输出门；</li>
+</ol>
+<h1 id="应用实例"><a href="#应用实例" class="headerlink" title="应用实例"></a>应用实例</h1><ul>
+<li>百度的Deep speech2</li>
+</ul>
+<h1 id="GRU的实现源码"><a href="#GRU的实现源码" class="headerlink" title="GRU的实现源码"></a>GRU的实现源码</h1><h2 id="GRU-tensorflow"><a href="#GRU-tensorflow" class="headerlink" title="GRU-tensorflow"></a>GRU-tensorflow</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">call</span><span class="params">(self, inputs, state)</span>:</span></span><br><span class="line">  <span class="string">"""Gated recurrent unit (GRU) with nunits cells."""</span></span><br><span class="line"></span><br><span class="line">  gate_inputs = math_ops.matmul(</span><br><span class="line">      array_ops.concat([inputs, state], <span class="number">1</span>), self._gate_kernel)</span><br><span class="line">  gate_inputs = nn_ops.bias_add(gate_inputs, self._gate_bias)</span><br><span class="line"></span><br><span class="line">  value = math_ops.sigmoid(gate_inputs)</span><br><span class="line">  r, u = array_ops.split(value=value, num_or_size_splits=<span class="number">2</span>, axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">  r_state = r * state</span><br><span class="line"></span><br><span class="line">  candidate = math_ops.matmul(</span><br><span class="line">      array_ops.concat([inputs, r_state], <span class="number">1</span>), self._candidate_kernel)</span><br><span class="line">  candidate = nn_ops.bias_add(candidate, self._candidate_bias)</span><br><span class="line"></span><br><span class="line">  c = self._activation(candidate)</span><br><span class="line">  new_h = u * state + (<span class="number">1</span> - u) * c</span><br><span class="line">  <span class="keyword">return</span> new_h, new_h</span><br></pre></td></tr></table></figure>
+<h2 id="pytorch"><a href="#pytorch" class="headerlink" title="pytorch"></a>pytorch</h2><h1 id="缺陷"><a href="#缺陷" class="headerlink" title="缺陷"></a>缺陷</h1><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/" rel="external nofollow noopener noreferrer" target="_blank">Understanding LSTM Networks | colah</a></li>
+<li><a href="https://arxiv.org/abs/1412.3555" rel="external nofollow noopener noreferrer" target="_blank">Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling</a></li>
+<li><a href="https://towardsdatascience.com/lecture-evolution-from-vanilla-rnn-to-gru-lstms-58688f1da83a" rel="external nofollow noopener noreferrer" target="_blank">Evolution: from vanilla RNN to GRU &amp; LSTMs</a></li>
+</ul>
+</image>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/ML/deep learning/model-basic/RNN/-lightRNN-GRU/" data-id="cjo6vcbe302f2kpzyecvnvjvk" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/deep-learning/">deep learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gru/">gru</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rnn/">rnn</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ML/deep learning/model-basic/RNN/0. RNN-basic" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/ML/deep learning/model-basic/RNN/0. RNN-basic/" class="article-date">
+  <time datetime="2018-02-06T11:08:53.000Z" itemprop="datePublished">2018-02-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/ML/">ML</a>►<a class="article-category-link" href="/categories/ML/deep-learning/">deep learning</a>►<a class="article-category-link" href="/categories/ML/deep-learning/model-basic/">model-basic</a>►<a class="article-category-link" href="/categories/ML/deep-learning/model-basic/RNN/">RNN</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/ML/deep learning/model-basic/RNN/0. RNN-basic/">【深度学习-RNN系列】递归神经网络 RNN (从HMM到RNN)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><blockquote>
+<p>递归神经网络（RNN）是两种人工神经网络的总称。一种是时间递归神经网络（recurrent neural network），另一种是结构递归神经网络（recursive neural network）。<br>时间递归神经网络的神经元间连接构成矩阵，而结构递归神经网络利用相似的神经网络结构递归构造更为复杂的深度网络。RNN一般指代时间递归神经网络。单纯递归神经网络因为无法处理随着递归，权重指数级爆炸或消失的问题（Vanishing gradient problem），难以捕捉长期时间关联；而结合不同的LSTM可以很好解决这个问题。<br>—— 维基百科</p>
+</blockquote>
+<p>其他翻译</p>
+<ul>
+<li>recurrent：“循环神经网络”</li>
+<li>recursive 递归神经网络</li>
+<li>feedforward</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>RNN解决了HMM的</li>
+<li>双向RNN解决了上下文依赖问题</li>
+<li>LSTM解决了RNN训练中梯度消失和梯度爆炸的问题</li>
+<li>GRU取消了LSTM中的cell，结构上更加简单，在性能上，训练时间更短，epoch更小的情况下可以收敛。</li>
+</ul>
+<h2 id="序列建模的发展史"><a href="#序列建模的发展史" class="headerlink" title="序列建模的发展史"></a>序列建模的发展史</h2><ul>
+<li>Memoryless models for sequences</li>
+<li>Markov:  bi-gram, tri-gram, n-gram<ul>
+<li>严格的独立性假设条件，<strong>无法建模任意长度的上下文信息</strong>。</li>
+<li>n-gram矩阵太大，太稀疏，(2-gram也很大很稀疏)。怎样解决？词典大小$V$，</li>
+<li>详见HMM博客</li>
+</ul>
+</li>
+<li>HMM</li>
+<li>RNN<ul>
+<li>HMM转移概率矩阵太大，这里可以认为是对其降维。</li>
+</ul>
+</li>
+<li>LSTM</li>
+</ul>
+<p><strong>RNN与HMM</strong></p>
+<p>基本结构上是挺像的，都是通过hidden state 的演化来刻画 序列间的依赖关系</p>
+<p>RNN与HMM的本质区别是RNN没有马尔科夫假设，可以考虑很长的历史信息。</p>
+<ol>
+<li>隐状态的表示: hmm是onehot, RNN是分布表示，RNN的表示能力强很多，或者说在面对高维度时，表示效率更高。类似nlp里，对单个token的表示，一种是onehot, 一种是word vector 。</li>
+<li>隐状态的演化方式: hmm是线性的，RNN是高度非线性。</li>
+<li>在垂直方向上，实际中的lstm还会增加depth, 来增加不同层面的抽象表示，也会使得表示能力指数增加，随着depth 增加。</li>
+</ol>
+<p>RNN也是基于马尔可夫假设的，当前的隐状态仅依赖前一个时刻的隐状态。在有马尔可夫假设的模型中，不代表距离超过1的两个状态是无依赖的。</p>
+<p>印象中有paper证明， 在HMM中两个状态的依赖关系随距离指数衰减，而在RNN中是power law decay.  也就是大家通常说的 rnn可以略好的刻画 long term dependency.</p>
+<p>另，SLAM中还有种算法跟hmm类似，kalman filter.</p>
+<p><a href="https://www.zhihu.com/question/57396443/answer/263019702" rel="external nofollow noopener noreferrer" target="_blank">https://www.zhihu.com/question/57396443/answer/263019702</a></p>
+<h2 id="RNN-Overview"><a href="#RNN-Overview" class="headerlink" title="RNN Overview"></a>RNN Overview</h2><ul>
+<li>狭义上的RNN，指vanilla RNN。</li>
+<li>广义上的RNN，lstm gru等都属于RNN框架。</li>
+</ul>
+<p>该文章针对广义上的RNN。</p>
+<p>RNN的核心思想就是利用当前时刻的输入$X_t$和上一时刻的隐状态$h_{t-1}$来计算$h_t$:<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">out, hidden = lstm(input, hidden)  <span class="comment"># 来自pytorch的抽象</span></span><br></pre></td></tr></table></figure></p>
+<p>$$ h_t = f(x_t, h_{t-1}) $$</p>
+<p>针对不同的任务又有不同的RNN形式</p>
+<image title="RNN的不同展开形式" src="/images/raw/NN - RNN - overview.png">
+
+<p>大部分应用都可归入该框架。具体的应用可参考<a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/" rel="external nofollow noopener noreferrer" target="_blank">karpathy</a><br><!-- 框架之外的模型: attention --></p>
+<p>名词解释:</p>
+<ul>
+<li>hidden 也叫cell, hidden_state, cell_state。它是forget的关键</li>
+<li>out 也叫 output，</li>
+<li>hidden</li>
+<li>cell</li>
+<li>output在stack RNN中也叫hidden</li>
+</ul>
+<p>output = new_state =</p>
+<p>Most basic RNN:<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">output = new_state = act(W * input + U * state + B)</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://www.quora.com/How-is-the-hidden-state-h-different-from-the-memory-c-in-an-LSTM-cell" rel="external nofollow noopener noreferrer" target="_blank">https://www.quora.com/How-is-the-hidden-state-h-different-from-the-memory-c-in-an-LSTM-cell</a></p>
+<p>vanilla RNN中没有cell，所以hidden=cell=out<br>LSTM中</p>
+<h2 id="RNN的高层抽象"><a href="#RNN的高层抽象" class="headerlink" title="RNN的高层抽象"></a>RNN的高层抽象</h2><blockquote>
+<p>抽象不是实现，是API。由整体到局部，可把RNN当做一个黑盒子，有需求的情况下再细看其具体实现。</p>
+</blockquote>
+<h3 id="keras的RNN抽象"><a href="#keras的RNN抽象" class="headerlink" title="keras的RNN抽象"></a>keras的RNN抽象</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">keras.layers.RNN(cell, return_sequences=<span class="keyword">False</span>, return_state=<span class="keyword">False</span>, go_backwards=<span class="keyword">False</span>, stateful=<span class="keyword">False</span>, unroll=<span class="keyword">False</span>)</span><br><span class="line"><span class="comment"># return_sequences: 是否返回整个序列out</span></span><br><span class="line"><span class="comment"># return_state: 是否返回整个序列的hidden</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/keras-team/keras/blob/master/examples/imdb_lstm.py#L41" rel="external nofollow noopener noreferrer" target="_blank">应用示例–lstm用于二分类</a>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">model = Sequential()</span><br><span class="line">model.add(Embedding(num_words, <span class="number">128</span>))  <span class="comment"># 输入整个sequence</span></span><br><span class="line">model.add(LSTM(<span class="number">128</span>, dropout=<span class="number">0.2</span>, recurrent_dropout=<span class="number">0.2</span>)) <span class="comment"># 输出最后一个cell的output</span></span><br><span class="line">model.add(Dense(<span class="number">1</span>, activation=<span class="string">'sigmoid'</span>)) <span class="comment"># 二分类</span></span><br></pre></td></tr></table></figure>
+<p>这是上图中的<code>many to one</code>模式。</p>
+<ul>
+<li>关于</li>
+<li>关于静态图：sequence的数目固定为80</li>
+</ul>
+<details><br>  <summary><a href="https://github.com/keras-team/keras/blob/master/examples/lstm_seq2seq.py" rel="external nofollow noopener noreferrer" target="_blank">应用示例–基于lstm的seq2seq</a></summary><br>  <div><br>  <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define an input sequence and process it.</span></span><br><span class="line">encoder_inputs = Input(shape=(<span class="keyword">None</span>, num_encoder_tokens))</span><br><span class="line">encoder = LSTM(latent_dim, return_state=<span class="keyword">True</span>)</span><br><span class="line">encoder_outputs, state_h, state_c = encoder(encoder_inputs)</span><br><span class="line"><span class="comment"># We discard `encoder_outputs` and only keep the states.</span></span><br><span class="line">encoder_states = [state_h, state_c]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set up the decoder, using `encoder_states` as initial state.</span></span><br><span class="line">decoder_inputs = Input(shape=(<span class="keyword">None</span>, num_decoder_tokens))</span><br><span class="line"><span class="comment"># We set up our decoder to return full output sequences,</span></span><br><span class="line"><span class="comment"># and to return internal states as well. We don't use the</span></span><br><span class="line"><span class="comment"># return states in the training model, but we will use them in inference.</span></span><br><span class="line">decoder_lstm = LSTM(latent_dim, return_sequences=<span class="keyword">True</span>, return_state=<span class="keyword">True</span>)</span><br><span class="line">decoder_outputs, _, _ = decoder_lstm(decoder_inputs,</span><br><span class="line">                                     initial_state=encoder_states)</span><br><span class="line">decoder_dense = Dense(num_decoder_tokens, activation=<span class="string">'softmax'</span>)</span><br><span class="line">decoder_outputs = decoder_dense(decoder_outputs)</span><br></pre></td></tr></table></figure><br><br>  <div><br></div></div></details>
+
+<details><br>  <summary><a href="https://github.com/keras-team/keras/blob/master/examples/lstm_seq2seq.py" rel="external nofollow noopener noreferrer" target="_blank">应用示例–基于lstm的attention-seq2seq</a></summary><br>  <p><code><br>  </code></p><br></details>
+
+
+<p>keras是对整个sequence做的抽象。因为keras是面向tensorflow和theano的静态图做的封装。</p>
+<h3 id="pytorch的RNN抽象"><a href="#pytorch的RNN抽象" class="headerlink" title="pytorch的RNN抽象"></a>pytorch的RNN抽象</h3><p>应用示例–基于lstm的<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># for a sequence inputs</span></span><br><span class="line"><span class="keyword">for</span> input <span class="keyword">in</span> inputs:</span><br><span class="line">  <span class="comment"># Step through the sequence one element at a time</span></span><br><span class="line">  out, hidden = lstm(input, hidden)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">output, (h_n, c_n) = lstm(input, (h_0, c_0))</span><br></pre></td></tr></table></figure>
+<p>pytorch是动态图，会随着inputsequence</p>
+<p><a href="https://github.com/pytorch/pytorch/blob/master/torch/nn/modules/rnn.py#L346" rel="external nofollow noopener noreferrer" target="_blank">源码实现</a></p>
+<h2 id="tensorflow的抽象"><a href="#tensorflow的抽象" class="headerlink" title="tensorflow的抽象"></a>tensorflow的抽象</h2><p><a href="https://www.tensorflow.org/tutorials/recurrent" rel="external nofollow noopener noreferrer" target="_blank">示例–基于lstm的语言模型</a></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lstm = tf.contrib.rnn.BasicLSTMCell(lstm_size)</span><br><span class="line">output, state = lstm(words, state) <span class="comment"># 这里的输入和输出都是符号，类型是tf.placeholder，lstm参数是tf.variable</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/ops/rnn_cell_impl.py#L476" rel="external nofollow noopener noreferrer" target="_blank">BasicLSTMCell源码</a></p>
+<h2 id="基于RNN的变形（mainstream-variation）"><a href="#基于RNN的变形（mainstream-variation）" class="headerlink" title="基于RNN的变形（mainstream variation）"></a>基于RNN的变形（mainstream variation）</h2><h3 id="cell"><a href="#cell" class="headerlink" title="cell"></a>cell</h3><h3 id="cascade-rnn"><a href="#cascade-rnn" class="headerlink" title="cascade rnn"></a>cascade rnn</h3><p>char-rnn + word rnn (Finding Function in Form: Compositional Character Models for Open Vocabulary Word Representation)<br>char-cnn + word rnn (Exploring the Limits of Language Modeling)</p>
+<h2 id="sequence-labeling"><a href="#sequence-labeling" class="headerlink" title="sequence labeling"></a>sequence labeling</h2><p>Part-of-speech Tagging</p>
+<h2 id="attention"><a href="#attention" class="headerlink" title="attention"></a>attention</h2><h2 id="rnn-new-trends"><a href="#rnn-new-trends" class="headerlink" title="rnn new trends"></a>rnn new trends</h2><h2 id="未分类"><a href="#未分类" class="headerlink" title="未分类"></a>未分类</h2><p>recurrent highway network</p>
+<h1 id="框架-总结"><a href="#框架-总结" class="headerlink" title="框架 总结"></a>框架 总结</h1><p><code>Sequence Modeling</code>按照架构一般分为：</p>
+<ol>
+<li>Encoder 架构<ul>
+<li>Sequence Classification</li>
+<li>Sequence Labeling/Prediction</li>
+</ul>
+</li>
+<li>Deep Encoder 架构</li>
+<li>Encoder – Decoder 架构<br><br>其中input和output都是sequence的架构，又叫<code>seq2seq</code><ul>
+<li><strong>encoder</strong>:<ul>
+<li>CNN：图片一般采用CNN，文本也可以采用CNN</li>
+<li>RNN:</li>
+</ul>
+</li>
+<li><strong>decoder</strong>:<ul>
+<li><strong>simple decoder</strong>: 通常是LSTM作为解码器[^seq2seq-NN][^seq2seq-MT][^seq2seq-Conversation]. encodes the “meaning” of the input sequence into a single vector of a fixed dimensionality. Then another deep LSTM to decode the target sequence from the vector. (only last output of the encoder. This last output is sometimes called the <code>context vector</code> as it encodes context from the entire sequence.<br>map the input sequence)<br><br><strong>缺陷</strong>：只用了一个vector(<code>context vector</code>)表征输入序列压力太大(it carries the burden of encoding the entire sentence).<br><br><strong>解决</strong>: 整个序列都用<br><br> 1. 一个简单的方式是<a href="http://deeplearning.net/tutorial/lstm.html" rel="external nofollow noopener noreferrer" target="_blank">对序列vector取均值</a>，高大上点叫<code>mean pooling</code><br><br> 2. 对序列vector线性加权。难点：加权系数怎么来？因为这是不定长序列，不能像DNN那样放一个全连接参数W让模型去学。于是就出现了attention，以及self-attention。</li>
+<li><strong>attention decoder</strong>: LSTM+attention<br><br> The decoder decides parts of the source sentence to pay attention to.<br><br> It relieves the encoder from the burden of having to encode all information in the source sentence into a fixedlength vector.<br><br><br>Attention allows the decoder network to “focus” on a different part of the encoder’s outputs for every step of the decoder’s own outputs. First we calculate a set of <code>attention weights</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>列个表，input和output</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[^RNN]: <a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/" rel="external nofollow noopener noreferrer" target="_blank">The Unreasonable Effectiveness of Recurrent Neural Networks</a><br>[^seq2seq-NN]: <a href="http://papers.nips.cc/paper/5346-sequence-to-sequence-learning-with-neural-networks.pdf" rel="external nofollow noopener noreferrer" target="_blank">Sequence to Sequence Learning with Neural Networks | nips 2014</a><br>[^seq2seq-MT]: <a href="https://arxiv.org/abs/1406.1078" rel="external nofollow noopener noreferrer" target="_blank">Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation | EMNLP 2014</a><br>[^seq2seq-Conversation]: <a href="https://arxiv.org/abs/1506.05869" rel="external nofollow noopener noreferrer" target="_blank">A Neural Conversational Model</a><br>[]: <a href="http://mp.weixin.qq.com/s?__biz=MzIwOTc2MTUyMg==&amp;mid=2247484029&amp;idx=1&amp;sn=c93b5eddec33dc29dc172a5ea0d76822&amp;chksm=976fa7e0a0182ef61e36d1c32aa0706c4e81e1762a7ee2554165beecde929b72cf026c5b7a64&amp;mpshare=1&amp;scene=23&amp;srcid=0503qzbJeq0QB0eiZo0vAnMr#rd" rel="external nofollow noopener noreferrer" target="_blank">吴恩达《序列模型》精炼笔记 – 循环神经网络（RNN）</a></p>
+</image>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/ML/deep learning/model-basic/RNN/0. RNN-basic/" data-id="cjo6vcc7702v3kpzys2s5ehk7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/deep-learning/">deep learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rnn/">rnn</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ML/deep learning/model-basic/RNN/LSTM" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/ML/deep learning/model-basic/RNN/LSTM/" class="article-date">
+  <time datetime="2018-02-06T11:08:53.000Z" itemprop="datePublished">2018-02-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/ML/">ML</a>►<a class="article-category-link" href="/categories/ML/deep-learning/">deep learning</a>►<a class="article-category-link" href="/categories/ML/deep-learning/model-basic/">model-basic</a>►<a class="article-category-link" href="/categories/ML/deep-learning/model-basic/RNN/">RNN</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/ML/deep learning/model-basic/RNN/LSTM/">【深度学习-RNN系列】长短期记忆 LSTM （从RNN到LSTM）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- the implementation of LSTM -->
+<h1 id="传统方法-History"><a href="#传统方法-History" class="headerlink" title="传统方法 History"></a>传统方法 History</h1><p>error signals “flowing backwards in time” tend to either <code>blow up</code> or <code>vanish</code>。</p>
+<p><a href="https://www.zhihu.com/question/49812013" rel="external nofollow noopener noreferrer" target="_blank">bp算法中为什么会产生梯度消失？ | 知乎</a></p>
+<h1 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h1><p>LSTM网络是RNN的一种，专门设计用于解决long-term dependency/memory问题，1997年由 Hochreiter &amp; Schmidhuber提出。<br>由于独特的设计结构，LSTM适合于处理和预测时间序列中间隔和延迟非常长的重要事件。<br><!-- Long Short Term Memory networks – usually just called “LSTMs” – are a special kind of RNN, capable of learning long-term dependencies.  --></p>
+<p>名字：long short-term memory<br>意思是vanilla RNN是short-term memory，sequence太长，</p>
+<ul>
+<li><strong>LSTM只能避免RNN的梯度消失</strong>（<code>gradient vanishing</code>）；</li>
+<li>梯度膨胀(<code>gradient explosion</code>)不是个严重的问题，一般靠裁剪后的优化算法即可解决，比如<code>gradient clipping</code>（如果梯度的范数大于某个给定值，将梯度同比收缩）。下面简单说说LSTM如何避免梯度消失.</li>
+<li>梯度弥散是什么鬼？</li>
+</ul>
+<p>cell: memory_cell</p>
+<h2 id="关于梯度消失问题"><a href="#关于梯度消失问题" class="headerlink" title="关于梯度消失问题"></a>关于梯度消失问题</h2><h3 id="梯度消失问题–直观解释"><a href="#梯度消失问题–直观解释" class="headerlink" title="梯度消失问题–直观解释"></a>梯度消失问题–直观解释</h3><!-- In theory, RNNs are absolutely capable of handling “long-term dependencies.” -->
+<image title="传统RNN的梯度消失问题" src="/images/raw/NN - RNN - vanish gradient problem - alex.png" width="70%">
+
+<p>传统RNN中存在的梯度消失。<br><!-- conventional RNN: 1. The sensitivity of the input valus decays overtime 2. The network forgets the previous input--></p>
+<h3 id="梯度消失-–-产生的原因"><a href="#梯度消失-–-产生的原因" class="headerlink" title="梯度消失 – 产生的原因"></a>梯度消失 – 产生的原因</h3><p>本质原因就是因为<strong>矩阵高次幂</strong>导致的</p>
+<p>在多层网络中，影响梯度大小的因素主要有两个：权重和激活函数的偏导。</p>
+<p>深层的梯度是<strong>多个激活函数偏导乘积</strong>的形式来计算，如果这些激活函数的偏导比较小（小于1）或者为0，那么梯度随时间很容易vanishing；相反，如果这些激活函数的偏导比较大（大于1），那么梯度很有可能就会exploding。因而，梯度的计算和更新非常困难。</p>
+<p><a href="https://www.zhihu.com/question/34878706" rel="external nofollow noopener noreferrer" target="_blank">https://www.zhihu.com/question/34878706</a></p>
+<p>参考:</p>
+<ul>
+<li><a href="http://www.wildml.com/2015/10/recurrent-neural-networks-tutorial-part-3-backpropagation-through-time-and-vanishing-gradients/" rel="external nofollow noopener noreferrer" target="_blank">BP Through Time and Vanishing Gradients</a></li>
+<li><a href="https://www.cs.toronto.edu/~graves/phd.pdf#page=45" rel="external nofollow noopener noreferrer" target="_blank">Chapter 4: LSTM | Supervised Sequence Labelling with Recurrent Neural Networks</a></li>
+<li><a href="https://medium.com/mlreview/understanding-lstm-and-its-diagrams-37e2f46f1714" rel="external nofollow noopener noreferrer" target="_blank">关于valve的比喻</a></li>
+</ul>
+<!-- we fist introduce the interface, then the implementation  -->
+<h2 id="梯度消失问题-–-解决方案"><a href="#梯度消失问题-–-解决方案" class="headerlink" title="梯度消失问题 – 解决方案"></a>梯度消失问题 – 解决方案</h2><p>见后续的gate</p>
+<h2 id="梯度消失问题-–-LSTM是如何避免的"><a href="#梯度消失问题-–-LSTM是如何避免的" class="headerlink" title="梯度消失问题 – LSTM是如何避免的"></a>梯度消失问题 – LSTM是如何避免的</h2><p>1、当gate是关闭的，那么就会阻止对当前信息的改变，这样以前的依赖信息就会被学到。2、当gate是打开的时候，并不是完全替换之前的信息，而是在之前信息和现在信息之间做加权平均。所以，无论网络的深度有多深，输入序列有多长，只要gate是打开的，网络都会记住这些信息。</p>
+<!-- https://www.cc.gatech.edu/~san37/img/dl/grad_lstm.png -->
+<p><image title="the preservation over time of gradient information by LSTM" width="70%" src="/images/raw/NN - LSTM - preservation of gradient - alex.png"><br><!-- LSTM: 1. The cell remember the input as long as it wants 2. The output can be used anytime it wants--></image></p>
+<p>上面这个例子中，数据从实心1向后传递。通过gate的配合，成功在节点4和6输出该数据。<strong>数据流(梯度)不会因long-term传输而消失</strong>，有效解决RNN的梯度消失问题。即<strong>梯度保持</strong></p>
+<p>用数学来表达，就是f=1,i=0，那么就状态保持(完整)。f=0，i=1就状态遗忘(后面也LSTM的变种，采用i=1-f)。</p>
+<ul>
+<li>当gate是关闭的，那么就会阻止对当前信息的改变，这样以前的依赖信息就会被学到。</li>
+<li>当gate是打开的时候，并不是完全替换之前的信息，而是在之前信息和现在信息之间做加权平均。所以，无论网络的深度有多深，输入序列有多长，只要gate是打开的，网络都会记住这些信息。</li>
+</ul>
+<p><strong>参考</strong></p>
+<ul>
+<li><a href="http://www.bioinf.jku.at/publications/older/2604.pdf#page=5" rel="external nofollow noopener noreferrer" target="_blank">LSTM | Sepp Hochreiter 1997</a></li>
+</ul>
+<h1 id="LSTM的设计思想"><a href="#LSTM的设计思想" class="headerlink" title="LSTM的设计思想"></a>LSTM的设计思想</h1><p>LSTM的核心：cell + gate。<br>用于解决传统RNN中的梯度消失问题 (Gradient Vanish)</p>
+<h2 id="关于gate"><a href="#关于gate" class="headerlink" title="关于gate"></a>关于gate</h2><!-- 备用图片 http://www.solidswiki.com/images/3/34/Gate_valves.gif -->
+<table border="1"><colgroup><col width="30%"><col width="70%"></colgroup><tbody><tr><td><img src="/images/raw/NN - LSTM gate - colah.png"></td><td><img src="https://i.makeagif.com/media/7-27-2015/OLkiOf.gif"></td></tr></tbody></table>
+
+
+
+<p>gate，即阀门、开关。取值范围[0,1]，0表示关闭，1表示通行</p>
+<p>使用一个合适激活函数，它的梯度在一个合理的范围。LSTM使用gate function，有选择的让一部分信息通过。gate是由一个sigmoid单元和一个逐点乘积操作组成，sigmoid单元输出1或0，用来判断通过还是阻止，然后训练这些gate的组合。所以，<strong>当gate是打开的（梯度接近于1），梯度就不会vanish。并且sigmoid不超过1，那么梯度也不会explode</strong>。</p>
+<p><strong>LSTM信息流</strong><br><img title="" src="/images/raw/NN - LSTM - cell forget - colah.png"></p>
+<!-- vanishing gradient over time,或者 The Problem of Long-Term Dependencies-->
+<p>包括：input gate, output gate, forget gate</p>
+<blockquote>
+<p>Gates are a way to optionally let information through.</p>
+</blockquote>
+<p>待看</p>
+<ul>
+<li>An Empirical Exploration of Recurrent Network Architectures.</li>
+<li>Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling.</li>
+</ul>
+<h2 id="关于cell的设计"><a href="#关于cell的设计" class="headerlink" title="关于cell的设计"></a>关于cell的设计</h2><p>$h_t$在RNN中承担两个角色:</p>
+<ul>
+<li>作为当前时刻的<code>output</code>，用于prediction</li>
+<li>作为当前时刻的<code>hidden state</code>，用于时序信息的传递</li>
+</ul>
+<p>LSTM将这两个角色拆分为 $h_t$和$C$，这样LSTM中的隐状态实际上就是$C$了，$h_t$作为<code>output</code>。通过这样的设计，输出层只利用$h_t$的信息，而不直接利用内部cell的值 $C$。</p>
+<p><img width="50%" src="https://jhui.github.io/assets/rnn/lstm.png"></p>
+<p>x和h_t-1做一个拼接，过sigmoide得到forget-gate。<br>forget-gate作用在c_t-1上。</p>
+<p><strong>为什么要设计cell？这样抽象的意义？</strong></p>
+<p>LSTM中c和h的区别: 仅仅是一个输出门的区别(c没过输出门，h_t-1作为上一时刻的输出，要过输出门)。</p>
+<ul>
+<li>c与x拼接送入forget gate呢？</li>
+<li>forget作用在h上呢？</li>
+</ul>
+<p><a href="https://zhuanlan.zhihu.com/p/28919765" rel="external nofollow noopener noreferrer" target="_blank">https://zhuanlan.zhihu.com/p/28919765</a></p>
+<p><strong>GRU中合并了cell state和和hidden state</strong></p>
+<h2 id="关于激活函数"><a href="#关于激活函数" class="headerlink" title="关于激活函数"></a>关于激活函数</h2><h3 id="sigmoid"><a href="#sigmoid" class="headerlink" title="sigmoid"></a>sigmoid</h3><p>sigmoid之类的大量用在rnn的门也并非是概率解释的问题。而是理想门函数是阶跃函数，但其本身不可导，所以soft成sigmoid是一种折中。而且rnn中sigmoid陷入饱和区本身也是一件无所谓的事儿，因为门的作用本身就是通过与不通过，他希望的就是激活值大量集中在0/1附近而不是其他的连续值。</p>
+<p>为什么rnn中sigmoid陷入饱和区本身也是一件无所谓的事儿？不影响梯度消失？</p>
+<h3 id="tanh"><a href="#tanh" class="headerlink" title="tanh"></a>tanh</h3><p>为什么用tanh不用ReLU？</p>
+<p>在CNN等结构中将原先的sigmoid、tanh换成ReLU可以取得比较好的效果。<br>为什么在RNN中，将tanh换成ReLU不能取得类似的效果？</p>
+<p>从信号处理的方式说，要保证系统稳定。类似线性系统极点要在单位圆里，非线性直接加个激活卡住。所以简而言之：Relu不行，越界了；sigmoid差一半平面；只有tanh刚好。tanh还有个好处是零点梯度为1，这个性质比sigmoid好，relu在右半平面也是1，但越界不稳定，然并卵了。</p>
+<p>参考：<a href="https://www.zhihu.com/question/61265076/answer/239987704" rel="external nofollow noopener noreferrer" target="_blank">https://www.zhihu.com/question/61265076/answer/239987704</a></p>
+<h2 id="接口设计"><a href="#接口设计" class="headerlink" title="接口设计"></a>接口设计</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">output, (h_n, c_n) = lstm(input, (h_0, c_0))  <span class="comment"># pytorch的接口</span></span><br><span class="line">new_h, (new_c, new_h) = lstm(inputs, (c, h))  <span class="comment"># tensorflow的接口，其中state=(c, h)</span></span><br></pre></td></tr></table></figure>
+<p>LSTM可以看做有两个隐状态h和c，对应的隐层就是一个Tuple。<br>这里可以对比RNN的接口。</p>
+<p>在RNN中 $output = c_t = h_t$，即$h$既是<code>hidden state</code>又是<code>output</code></p>
+<p><strong>为什么lstm代码里和有些图里，习惯吧output称作h(hidden)？</strong> 前面已经解释了</p>
+<p><strong>这里为什么要用 tuple 呢？直接把它们拼成一个 Tensor 不行吗，tuple 还得一个一个遍历，这多麻烦？</strong></p>
+<p>不行。因为多层 RNN 并不需要每一层都一样大，例如有可能最底层维度比较高，隐层单元数较大，越往上则隐层维度越小。这样一来，每一层的状态维度都不一样，没法 concat 成一个 Tensor 啊！）；而这个大的 RNN 单元的输出则只有原先的最上层 RNN 的输出，即整体的</p>
+<p>接口(对LSTM的封装)要具有良好的扩展性(水平扩展-sequence，垂直扩展-stack)。<br>在stack lstm中，下一层的out对接上一层的input，在深度模型的概念里这就是隐含层hidden的作用，所以命名为hidden。</p>
+<p>但是呢，作为一个cell，我还是觉得叫output比较好。追根溯源，谁第一个采用hidden命名的？</p>
+<p><strong>为什么lstm代码里要把(c, h)封装成一个tuple？</strong></p>
+<ol>
+<li>为什么不拼成一个tensor？</li>
+<li>为什么不用2个独立元素？</li>
+</ol>
+<p>这样设计的目的是为了兼容RNN的接口(毕竟LSTM属于RNN的一种)。另外</p>
+<ul>
+<li><a href="https://github.com/pytorch/pytorch/blob/master/torch/nn/modules/rnn.py#L346" rel="external nofollow noopener noreferrer" target="_blank">pytorch 源码 - LSTM</a></li>
+<li><a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/ops/rnn_cell_impl.py#L553" rel="external nofollow noopener noreferrer" target="_blank">tensorflow源码 - BasicLSTMCell</a></li>
+</ul>
+<h2 id="example-应用示例"><a href="#example-应用示例" class="headerlink" title="example 应用示例"></a>example 应用示例</h2><p><a href="https://www.tensorflow.org/tutorials/recurrent" rel="external nofollow noopener noreferrer" target="_blank">应用示例–基于lstm的语言模型</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">lstm = tf.contrib.rnn.BasicLSTMCell(lstm_size)</span><br><span class="line"><span class="comment"># current_batch_of_words不是sequence，只是</span></span><br><span class="line"><span class="keyword">for</span> current_batch_of_words <span class="keyword">in</span> words:  </span><br><span class="line">  <span class="comment"># 这里的输入和输出都是符号，类型是tf.placeholder，lstm参数是tf.variable</span></span><br><span class="line">  output, state = lstm(current_batch_of_words, state)</span><br></pre></td></tr></table></figure>
+<h1 id="LSTM-实现"><a href="#LSTM-实现" class="headerlink" title="LSTM: 实现"></a>LSTM: 实现</h1><p>In order to make the learning process tractable, it is common practice to create an “unrolled” version of the network, which contains a <strong>fixed number (num_steps) of LSTM inputs and outputs</strong>. The model is then trained on this finite approximation of the RNN. This can be implemented by feeding inputs of length num_steps at a time and performing a backward pass after each such input block.</p>
+<p>为什么要限定长度?<br>对于任意长度的序列，BP算法计算复杂，因此采用固定长度的序列。</p>
+<h2 id="LSTM-tensorflow实现"><a href="#LSTM-tensorflow实现" class="headerlink" title="LSTM: tensorflow实现"></a>LSTM: tensorflow实现</h2><image src="/images/raw/NN - LSTM - tensorflow with Equation - colah.png">
+
+
+<p>tensorflow源码 - <a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/ops/rnn_cell_impl.py#L553" rel="external nofollow noopener noreferrer" target="_blank">BasicLSTMCell</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 源码精简版</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">call</span><span class="params">(self, inputs, state)</span>:</span></span><br><span class="line">  <span class="string">"""Run one step of LSTM.</span></span><br><span class="line"><span class="string">  Args:</span></span><br><span class="line"><span class="string">    inputs: `2-D` tensor with shape `[batch_size, input_size]`. 是单个时间节点的batch样本</span></span><br><span class="line"><span class="string">    state:</span></span><br><span class="line"><span class="string">  Returns:</span></span><br><span class="line"><span class="string">    hidden state, new state ().</span></span><br><span class="line"><span class="string">  """</span></span><br><span class="line">  c, h = state</span><br><span class="line">  gate_inputs = math_ops.matmul(</span><br><span class="line">      array_ops.concat([inputs, h], <span class="number">1</span>), self._kernel)</span><br><span class="line">  gate_inputs = nn_ops.bias_add(gate_inputs, self._bias)</span><br><span class="line">  <span class="comment"># i = input_gate, j = new_input, f = forget_gate, o = output_gate</span></span><br><span class="line">  i, j, f, o = array_ops.split(</span><br><span class="line">      value=gate_inputs, num_or_size_splits=<span class="number">4</span>, axis=one)</span><br><span class="line"></span><br><span class="line">  forget_bias_tensor = constant_op.constant(self._forget_bias, dtype=f.dtype)</span><br><span class="line"></span><br><span class="line">  <span class="comment"># update</span></span><br><span class="line">  new_c = add(multiply(c, sigmoid(add(f, forget_bias_tensor))),</span><br><span class="line">              multiply(sigmoid(i), self._activation(j)))</span><br><span class="line">  new_h = multiply(self._activation(new_c), sigmoid(o))</span><br><span class="line">  new_state = LSTMStateTuple(new_c, new_h)</span><br><span class="line">  <span class="keyword">return</span> new_h, new_state</span><br></pre></td></tr></table></figure>
+<h2 id="pytorch"><a href="#pytorch" class="headerlink" title="pytorch"></a>pytorch</h2><p>包装的好复杂，参考 <a href="https://blog.ddlee.cn/2017/05/29/LSTM-Pytorch%E5%AE%9E%E7%8E%B0/" rel="external nofollow noopener noreferrer" target="_blank">https://blog.ddlee.cn/2017/05/29/LSTM-Pytorch%E5%AE%9E%E7%8E%B0/</a></p>
+<h1 id="缺陷"><a href="#缺陷" class="headerlink" title="缺陷"></a>缺陷</h1><ul>
+<li>难并行</li>
+<li>计算量大<ul>
+<li>low rank approximation之类的参数控制，运算量会是对应RNN的四倍以上。所以Gating其实是一种代价很高的方法。</li>
+</ul>
+</li>
+</ul>
+<h1 id="FAQ-汇总"><a href="#FAQ-汇总" class="headerlink" title="FAQ 汇总"></a>FAQ 汇总</h1><p>关于静态图和动态图？</p>
+<ul>
+<li>LSTM为什么要设置cell？ cell state 和 hidden state的关系、区别？为什么lstm代码里和有些图里，习惯吧output称作h(hidden)？</li>
+<li>为什么要引入gate？</li>
+<li>gate是点，还是向量？<ul>
+<li>向量， decides what parts of the cell state we’re going to output</li>
+</ul>
+</li>
+<li>LSTM为什么不用ReLU？</li>
+</ul>
+<h2 id="其他参考"><a href="#其他参考" class="headerlink" title="其他参考"></a>其他参考</h2><ul>
+<li><a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/" rel="external nofollow noopener noreferrer" target="_blank">通俗经典之作–Understanding LSTM Networks</a></li>
+<li><a href="http://arxiv.org/abs/1409.2329" rel="external nofollow noopener noreferrer" target="_blank">BasicLSTMCell对应的paper–Recurrent Neural Network Regularization</a></li>
+<li><a href="https://www.cs.toronto.edu/~graves/phd.pdf" rel="external nofollow noopener noreferrer" target="_blank">Supervised Sequence Labelling with Recurrent Neural Networks</a></li>
+<li><a href="https://www.jiqizhixin.com/articles/2017-01-16-6" rel="external nofollow noopener noreferrer" target="_blank">地平线语音战略与研究</a></li>
+</ul>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>黄畅：我补充一点。关于 LSTM，不管你是单向的、双向的、摞一起的、不摞一起的，其实都有一个问题：<strong>信息传导的约束很强</strong>。换句话说，不管是做前向预测还是后向 BP（反向传播），一个信息从左边到右边，或者从开始到结束，都要经过很长的路径。而且在<strong>整个过程中，会有很多非线性的变化</strong>，尤其是 LSTM 这种典型的、很容易进入自我限制状态的模型。经过很多次这样的事情，就导致整个<strong>优化变得异常困难</strong>。这个结构天生就使得优化变得非常困难。</p>
+<p>这是 LSTM 的弊病，它的结构设计有很大限制性。你可以类比一些其他结构，比如 ResNet，它通过建立 free-way 的方式，人为地架了很多 <strong>short-pass</strong>（短路径），使得本来在网络上距离很远的两个单元之间建立一些高速的快速通道。直观的理解就是可以让它们之间的信息沟通更加顺畅，减轻我前面说的那个问题。</p>
+<p>更进一步，你会发现在语音识别中有人用<strong>完整的 CNN 替代 LSTM</strong>，包括讯飞、微软、百度。刚开始的时候 CNN 用得很浅，只是作为基本的局部表达，后来发现可以用 <strong>CNN 不断堆积</strong>，而且堆的很有技巧。在计算量不显著增加的情况下，这样就可以<strong>用 CNN 覆盖很大的语境</strong>。</p>
+<p>就是说优化算法本身也许没有很好的进步，但是通过网络结构的设计可以规避目前主要基于 SGD 的优化算法难以解决的 LSTM 问题，直接构造一个更适合目前优化算法去优化的网络结构。所以本质上很难说哪个结构更好，你只能说这个结构更适合现在主流的这种优化方法。</p>
+<p>其实论文出来时我稍微看了一点，它本质上好像和 attention model 很像。attention model 的概念是不管语境是怎么传过来的，总是有选择的看所有东西，做决策（比如生成一个词）的时候有选择的去做。这时候会产生一个 attention mask，这可以理解成一个 gate，封住一些不想看的东西，保留想看的。</p>
+<p>这个在图像和 NLP 里面已经得到很好的验证。NLP、语音、图像其实都是相通的，你会发现很多思想、结构、设计理念会越来越相似。这也给了我们信心，让我们可以实现语音图像识别一体化交互，用一套统一的专用架构去做解决各种各样的问题。</p>
+<h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1></image></image>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/ML/deep learning/model-basic/RNN/LSTM/" data-id="cjo6vcc7e02v7kpzyv8wjlxw9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gradient-vanish/">gradient vanish</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lstm/">lstm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rnn/">rnn</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CS/web/服务器推送/websocket" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/web/服务器推送/websocket/" class="article-date">
+  <time datetime="2018-02-05T11:08:53.000Z" itemprop="datePublished">2018-02-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/web/">web</a>►<a class="article-category-link" href="/categories/CS/web/服务器推送/">服务器推送</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/CS/web/服务器推送/websocket/">关于websocket</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>websocket属于服务器推送技术的一种。<br>HTML5定义了 WebSocket 协议，以及相关的编程API，能更好的实现双向通信且节省服务器资源和带宽。</p>
+<blockquote>
+<p> WebSocket 实际上指的是一种协议，与我们熟知的 Http 协议是同等的一个网络协议。用网络模型结构来解释的话， WebSocket 和 Http 协议都属于 应用层协议，两者都基于传输层协议 TCP。</p>
+</blockquote>
+<p>http协议  <code>http://</code><br>ftp协议   <code>ftp://</code><br>websocket协议 <code>ws://</code></p>
+<p>Websocket是基于HTTP协议的，或者说借用了HTTP的协议来完成一部分握手。<br>在握手阶段是一样的</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>以前的网站为了实现推送功能，使用的方法都是轮询。所谓的轮询就是在特定的时间间隔（例如1秒），由浏览器向服务器发出一个 Http request，然后服务器返回最新的数据给客户端浏览器，从而给出一种服务端实时推送的假象。由于Http Request的Header（请求头）很长,而传输的数据可能很短就只占一点点，每次请求消耗的带宽大部分都消耗在 Header上。从网上资料得知后来还有改进的轮询方法叫做 Comet，使用 Ajax。但这种技术虽然可达到双向通信，但依然需要发出请求，而且在Comet中，普遍采用了长链接，这也会大量消耗服务器带宽和资源。</p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ol>
+<li>首先WebSocket 服务器启动，并监听端口</li>
+<li>客户端new websocket(dfd)，建立连接</li>
+</ol>
+<h2 id="客户端的API-js"><a href="#客户端的API-js" class="headerlink" title="客户端的API (js)"></a>客户端的API (js)</h2><p>不同浏览器有不同的实现，但都提供的javascript API，所以客户端API都类似，或者可以统一API。</p>
+<h2 id="服务端的实现"><a href="#服务端的实现" class="headerlink" title="服务端的实现"></a>服务端的实现</h2><p>websocket服务器则因语言不同而提供不同的调用方式。</p>
+<p>是叫实现，还是应该叫封装？</p>
+<ul>
+<li>基于java的实现<ul>
+<li><a href="https://github.com/BitMindLab/tomcat-example/tree/master/WEB-INF/classes/websocket/" rel="external nofollow noopener noreferrer" target="_blank">tomcat的websocket实现</a></li>
+<li><a href="">jetty的websocket实现</a></li>
+</ul>
+</li>
+<li>基于nodejs的实现<ul>
+<li>服务器端的socket.io，搭配客户端js库<code>socket.io-client</code></li>
+</ul>
+</li>
+<li>基于python的实现</li>
+<li>基于shell的实现<ul>
+<li>WebSocketd</li>
+</ul>
+</li>
+</ul>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET /chat HTTP/1.1</span><br><span class="line">Host: server.example.com</span><br><span class="line">Upgrade: websocket      <span class="comment">## 这个就是Websocket的核心了，告诉Apache、Nginx等服务器：注意啦，窝发起的是Websocket协议，快点帮我找到对应的助理处理~不是那个老土的HTTP。</span></span><br><span class="line">Connection: Upgrade    <span class="comment">##</span></span><br><span class="line">Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==</span><br><span class="line">Sec-WebSocket-Protocol: chat, superchat</span><br><span class="line">Sec-WebSocket-Version: 13</span><br><span class="line">Origin: http://example.com</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://www.ruanyifeng.com/blog/2017/05/websocket.html" rel="external nofollow noopener noreferrer" target="_blank">http://www.ruanyifeng.com/blog/2017/05/websocket.html</a></li>
+<li><p><a href="https://en.wikipedia.org/wiki/Comparison_of_WebSocket_implementations" rel="external nofollow noopener noreferrer" target="_blank">https://en.wikipedia.org/wiki/Comparison_of_WebSocket_implementations</a></p>
+</li>
+<li><p><a href="https://github.com/abbshr/abbshr.github.io/issues/22" rel="external nofollow noopener noreferrer" target="_blank">学习WebSocket协议—从顶层到底层的实现原理</a></p>
+</li>
+<li><p><a href="https://www.zhihu.com/question/20215561" rel="external nofollow noopener noreferrer" target="_blank">WebSocket 是什么原理？为什么可以实现持久连接？</a>  —很赞</p>
+</li>
+<li><p><a href="https://juejin.im/entry/5a5c559c518825734859ee5e" rel="external nofollow noopener noreferrer" target="_blank">理论联系实际：从零理解WebSocket的通信原理、协议格式、安全性</a></p>
+</li>
+</ul>
+<h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2><ul>
+<li>websocket是依赖TCP吗？</li>
+</ul>
+<h4 id="如何debug-websocket？"><a href="#如何debug-websocket？" class="headerlink" title="如何debug websocket？"></a>如何debug websocket？</h4><p><strong>方式一：在chrome inspect中查看websocket连接</strong></p>
+<p>network下的WS选项可以查看websocket连接。<br>能看到Request连接:wss://echo.websocket.org/<br>在frame中能看到明文数据，wss竟然也是明文传输</p>
+<p><a href="https://kaazing.com/inspecting-websocket-traffic-with-chrome-developer-tools/" rel="external nofollow noopener noreferrer" target="_blank">超详细教程</a></p>
+<p><strong>方式二：通过chrome console中命令查看</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var webSocket = new WebSocket(&apos;ws://address:port&apos;);</span><br><span class="line">webSocket.onmessage = function(data) &#123; console.log(data); &#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>方式三：在chrome internal里查看</strong></p>
+<p>chrome://net-internals/#sockets</p>
+<p><strong>方式四：通过抓包查看</strong></p>
+<p>见network/tools/wireshark/抓包</p>
+<h4 id="如何查看websocket发送的数据？"><a href="#如何查看websocket发送的数据？" class="headerlink" title="如何查看websocket发送的数据？"></a>如何查看websocket发送的数据？</h4><p>浏览器inspect能看到websocket连接，为什么没看到发送的数据包？<br>那么通过抓包总能够看到吧。</p>
+<ul>
+<li>websocket的实现原理是什么？在TCP的基础上做了什么？加了header？</li>
+</ul>
+<h2 id="online-demo"><a href="#online-demo" class="headerlink" title="online demo"></a>online demo</h2><ul>
+<li><a href="https://socket.io/demos/chat/" rel="external nofollow noopener noreferrer" target="_blank">socket.io的在线聊天室</a></li>
+<li><a href="http://www.websocket.org/echo.html" rel="external nofollow noopener noreferrer" target="_blank">webSocket.org Echo demo</a></li>
+</ul>
+<p>##</p>
+<p>##</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/web/服务器推送/websocket/" data-id="cjo6vca1600wbkpzy6ydkc6gm" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/websocket/">websocket</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CS/web/服务器推送/非websocket的例子/微信网页版--聊天原理" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/web/服务器推送/非websocket的例子/微信网页版--聊天原理/" class="article-date">
+  <time datetime="2018-02-05T11:08:53.000Z" itemprop="datePublished">2018-02-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/web/">web</a>►<a class="article-category-link" href="/categories/CS/web/服务器推送/">服务器推送</a>►<a class="article-category-link" href="/categories/CS/web/服务器推送/非websocket的例子/">非websocket的例子</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/CS/web/服务器推送/非websocket的例子/微信网页版--聊天原理/">微信网页版 聊天原理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>微信网页版聊天，未采用websocket，而是基于long polling(长轮询)。</p>
+<h2 id="客户端消息发送"><a href="#客户端消息发送" class="headerlink" title="客户端消息发送"></a>客户端消息发送</h2><h2 id="客户端消息接收（伪服务端推送）"><a href="#客户端消息接收（伪服务端推送）" class="headerlink" title="客户端消息接收（伪服务端推送）"></a>客户端消息接收（伪服务端推送）</h2><ol>
+<li>客户端间隔性发送http请求sync（每隔）<a href="https://res.wx.qq.com/a/wx_fed/webwx/res/static/js/index_ca360ff.js" rel="external nofollow noopener noreferrer" target="_blank">源码</a>; <a href="https://github.com/BitMindLab/wx.qq.com/blob/master/res.wx.qq.com/a/wx_fed/webwx/res/static/js/index_ca360ff.js" rel="external nofollow noopener noreferrer" target="_blank">beauty后的源码</a></li>
+<li>服务端对该请求延时返回，强制建立长连接</li>
+<li>当服务端有需要推送的消息，即时在已建立的长连接中返回http response</li>
+<li>客户端收到response后，立即发送一个新的http request</li>
+<li>goto 2</li>
+</ol>
+<h3 id="客户端发送http-request"><a href="#客户端发送http-request" class="headerlink" title="客户端发送http request"></a>客户端发送http request</h3><p>客户端间隔性发送ajax请求</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">Request</span> <span class="attr">URL:</span> <span class="attr">https://webpush.wx.qq.com/cgi-bin/mmwebwx-bin/synccheck?</span></span><br><span class="line"><span class="string">Referrer</span> <span class="attr">Policy:</span> <span class="literal">no</span><span class="bullet">-referrer-when-downgrade</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Query String Parameters</span></span><br><span class="line"><span class="attr">r:</span> <span class="number">151</span><span class="string">**</span></span><br><span class="line"><span class="attr">skey:</span> <span class="string">@crypt_d8e**</span></span><br><span class="line"><span class="attr">sid:</span> <span class="string">a5ne**</span></span><br><span class="line"><span class="attr">uin:</span> <span class="number">1709</span><span class="string">**</span></span><br><span class="line"><span class="attr">deviceid:</span> <span class="string">e2387***</span></span><br><span class="line"><span class="attr">synckey:</span> <span class="number">1</span><span class="string">_677803136|2_677803**</span></span><br><span class="line"><span class="attr">_:</span> <span class="number">1517</span><span class="string">**</span></span><br></pre></td></tr></table></figure>
+<p>这是一个服务器端强制保持的长连接。</p>
+<h2 id="待看"><a href="#待看" class="headerlink" title="待看"></a>待看</h2><ul>
+<li><a href="https://github.com/geeeeeeeeek/electronic-wechat" rel="external nofollow noopener noreferrer" target="_blank">网页微信的封装，直接在 Electron 里加载微信的网页版，并向其中注入一些代码</a></li>
+<li><p><a href="https://github.com/geeeeeeeeek/electronic-wechat/issues/2" rel="external nofollow noopener noreferrer" target="_blank">网页版微信抓包+注入实现表情贴纸显示</a></p>
+</li>
+<li><p><a href="https://github.com/nodeWechat/wechat4u" rel="external nofollow noopener noreferrer" target="_blank">微信网页版的 JavaScript 实现，兼容Node和浏览器，微信机器人</a></p>
+</li>
+<li><a href="https://github.com/Urinx/WeixinBot" rel="external nofollow noopener noreferrer" target="_blank">微信网页版的 Python 实现，包含终端版微信及微信机器人</a></li>
+<li><a href="https://github.com/geeeeeeeeek/WeChatLuckyMoney" rel="external nofollow noopener noreferrer" target="_blank">微信抢红包插件–基于安卓</a></li>
+<li><p><a href="https://www.zhihu.com/question/66554815" rel="external nofollow noopener noreferrer" target="_blank">微信聊天功能使用了什么协议？</a></p>
+<p>原理 教程</p>
+</li>
+<li><a href="https://github.com/WeMobileDev/article/blob/master/%E5%9F%BA%E4%BA%8ETLS1.3%E7%9A%84%E5%BE%AE%E4%BF%A1%E5%AE%89%E5%85%A8%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AEmmtls%E4%BB%8B%E7%BB%8D.md" rel="external nofollow noopener noreferrer" target="_blank">基于TLS1.3的微信安全通信协议mmtls介绍.—by 微信员工</a></li>
+</ul>
+<h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2><h3 id="为什么不采用websocket"><a href="#为什么不采用websocket" class="headerlink" title="为什么不采用websocket?"></a>为什么不采用websocket?</h3><p>websocket占用资源多？不安全？socket连接数限制？低端浏览器不支持？手机浏览器不支持？<br>知乎说，是因为懒</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/web/服务器推送/非websocket的例子/微信网页版--聊天原理/" data-id="cjo6vcbah02cmkpzy3zmbhes9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/推送/">推送</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CS/tools/formatting/markdown/advanced-markdown-tips" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wiki/CS/tools/formatting/markdown/advanced-markdown-tips/" class="article-date">
+  <time datetime="2018-02-03T16:00:00.000Z" itemprop="datePublished">2018-02-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CS/">CS</a>►<a class="article-category-link" href="/categories/CS/tools/">tools</a>►<a class="article-category-link" href="/categories/CS/tools/formatting/">formatting</a>►<a class="article-category-link" href="/categories/CS/tools/formatting/markdown/">markdown</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wiki/CS/tools/formatting/markdown/advanced-markdown-tips/">【Markdown系列】语法进阶 (Advanced Markdown Tips)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><!--
+## Inline HTML
+
+You can also use raw HTML in your Markdown, and it'll mostly work pretty well.
+
+-->
+<p><code>markdown</code>语法简单方便，但要实现复杂的样式仍然要借助html标签。本文介绍常用的<code>html标签</code>，用于对<code>markdown</code>原生格式的增强。</p>
+<!--
+有些markdown render不支持内嵌html
+-->
+<h1 id="常用的标签"><a href="#常用的标签" class="headerlink" title="常用的标签"></a>常用的标签</h1><h2 id="折叠块-lt-summary-gt"><a href="#折叠块-lt-summary-gt" class="headerlink" title="折叠块 &lt;summary&gt;"></a>折叠块 <code>&lt;summary&gt;</code></h2><p>你和猪，打一种动物</p>
+<details><br>  <summary>点击展开答案</summary><br>  <p> 象</p><br></details>
+
+<p>源码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;details&gt;</span><br><span class="line">  &lt;summary&gt;点击展开答案&lt;/summary&gt;</span><br><span class="line">  &lt;p&gt; 象&lt;/p&gt;</span><br><span class="line">&lt;/details&gt;</span><br></pre></td></tr></table></figure></p>
+<p>通常用于FAQ页面。</p>
+<!--
+## click事件
+
+这个要加js，比较复杂。也有不需要js的click，
+-->
+<h2 id="图片-lt-img-gt"><a href="#图片-lt-img-gt" class="headerlink" title="图片 &lt;img&gt;"></a>图片 <code>&lt;img&gt;</code></h2><p>markdown的语法不支持图片大小，位置等样式。<br><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">Alt text</span>](<span class="link">图片链接 "optional title"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>所以可采用<code>&lt;img&gt;</code>标签</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">align</span>=<span class="string">"middle"</span> <span class="attr">alt</span>=<span class="string">"=&amp;quot;alternate_text&amp;quot;"</span> <span class="attr">src</span>=<span class="string">"http://img5.2345.com/duoteimg/zixunImg/local/2016/03/18/14582940693488.gif"</span> <span class="attr">title</span>=<span class="string">"hover"</span> <span class="attr">width</span>=<span class="string">"20%"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img align="middle" alt="图片样式" src="http://img5.2345.com/duoteimg/zixunImg/local/2016/03/18/14582940693488.gif" title="图片样式" width="20%"></p>
+<h2 id="对齐-align"><a href="#对齐-align" class="headerlink" title="对齐 (align)"></a>对齐 (align)</h2><blockquote>
+<p>学而不思则罔，思而不学则殆  <div style="text-align:right">—— 《论语》</div></p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"text-align:right"</span> &gt;</span>-- 《论语》<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="注释-comment"><a href="#注释-comment" class="headerlink" title="注释 (comment)"></a>注释 (comment)</h2><p>不在页面显示，一般写给自己看，或者写给编辑者看(比如提交issue的模板中附带的注释)</p>
+<ul>
+<li>方式一: 采用html注释标签    <code>&lt;!-- 这里不会显示  --&gt;</code></li>
+<li>方式二: 直接采用&lt;标签   <code>&lt;这里不会显示&gt;</code></li>
+</ul>
+<p>推荐方式一</p>
+<h2 id="代码块-code-block"><a href="#代码块-code-block" class="headerlink" title="代码块 (code block)"></a>代码块 (code block)</h2><h3 id="个性化设置code-block的样式"><a href="#个性化设置code-block的样式" class="headerlink" title="个性化设置code block的样式"></a>个性化设置<code>code block</code>的样式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;pre&gt;sample &lt;b&gt;sample&lt;/b&gt; sample&lt;/pre&gt;</span><br></pre></td></tr></table></figure>
+<pre>sample <b>sample</b> sample</pre>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;pre&gt;</span><br><span class="line">&lt;i&gt;&lt;a href=&quot;http://manpages.ubuntu.com/manpages/dapper/man1/prename.1.html&quot;&gt;rename&lt;/a&gt;&lt;/i&gt; sfds</span><br><span class="line">&lt;/pre&gt;</span><br></pre></td></tr></table></figure>
+<pre>
+<i><a href="http://manpages.ubuntu.com/manpages/dapper/man1/prename.1.html" rel="external nofollow noopener noreferrer" target="_blank">rename</a></i> sfds
+</pre>
+
+<p><code>&lt;pre&gt;</code>标签更灵活。但是，不能显示行号，需要自定义每个元素的格式。</p>
+<h3 id="code-block不常用的语言"><a href="#code-block不常用的语言" class="headerlink" title="code block不常用的语言"></a>code block不常用的语言</h3><p><code>diff</code>样式用的不多，但比较实用。<br><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class Hello1</span><br><span class="line">&#123;</span><br><span class="line">   public static void Main()</span><br><span class="line">   &#123;</span><br><span class="line"><span class="deletion">-      System.Console.WriteLine("Hello, World!");</span></span><br><span class="line"><span class="addition">+      System.Console.WriteLine("Rock all night long!");</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="动态链接-link"><a href="#动态链接-link" class="headerlink" title="动态链接 (link)"></a>动态链接 (link)</h2><p>这部分属于需要动态link，需要借助<code>javascript</code>。因此需要markdown render支持（比如<a href="https://github.com/fletcher/MultiMarkdown/wiki/MultiMarkdown-Syntax-Guide#footnotes" rel="external nofollow noopener noreferrer" target="_blank">MultiMarkdown</a>），或者利用插件（比如<a href="https://github.com/kchen0x/hexo-reference" rel="external nofollow noopener noreferrer" target="_blank">hexo-reference</a>）</p>
+<!--
+### section link
+-->
+<h3 id="链接的集中管理"><a href="#链接的集中管理" class="headerlink" title="链接的集中管理"></a>链接的集中管理</h3><p>对link的集中管理，方便复用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">这是[链接一][1]，这是[链接二][2]。多次引用更方便、更简洁，[链接一][1]。</span><br><span class="line"></span><br><span class="line">   [1]: http://url1</span><br><span class="line">   [2]: http://url2 &quot;这是2的标题，可以试着把指针移到链接二上&quot;</span><br></pre></td></tr></table></figure>
+<p>这是<a href="http://url1" rel="external nofollow noopener noreferrer" target="_blank">链接一</a>，这是<a href="http://url2" title="还可以添加标题" rel="external nofollow noopener noreferrer" target="_blank">链接二</a>。多次引用更方便、更简洁，<a href="http://url1" rel="external nofollow noopener noreferrer" target="_blank">链接一</a>。</p>
+<h3 id="脚注-footnote"><a href="#脚注-footnote" class="headerlink" title="脚注 (footnote)"></a>脚注 (footnote)</h3><ul>
+<li><p>马克飞象支持footnote，它采用的<a href="https://github.com/fletcher/MultiMarkdown/wiki/MultiMarkdown-Syntax-Guide#footnotes" rel="external nofollow noopener noreferrer" target="_blank">MultiMarkdown</a>，已经停止开发了。</p>
+</li>
+<li><p><a href="https://github.com/kchen0x/hexo-reference" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/kchen0x/hexo-reference</a></p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">basic footnote[^demo]</span><br><span class="line"></span><br><span class="line">[^demo]: basic footnote content [title](http://link)</span><br></pre></td></tr></table></figure>
+<h3 id="link总结"><a href="#link总结" class="headerlink" title="link总结"></a>link总结</h3><p>集中link和脚注link最好都放在文档末尾。区别是，前者只提供link，后者明文显示参考文献。我更倾向于后者。</p>
+<blockquote>
+<p>Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。    —— <a href="https://zh.wikipedia.org/wiki/Markdown" rel="external nofollow noopener noreferrer" target="_blank">维基百科</a></p>
+</blockquote>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="是否支持嵌入js？"><a href="#是否支持嵌入js？" class="headerlink" title="是否支持嵌入js？"></a>是否支持嵌入js？</h3><h3 id="是否支持Markdown-Inside-HTML-Blocks"><a href="#是否支持Markdown-Inside-HTML-Blocks" class="headerlink" title="是否支持Markdown Inside HTML Blocks?"></a>是否支持Markdown Inside HTML Blocks?</h3><blockquote>
+<p>Markdown in HTML does not work very well  –来自官方文档</p>
+</blockquote>
+<p><a href="https://stackoverflow.com/questions/29368902/how-can-i-wrap-my-markdown-in-an-html-div" rel="external nofollow noopener noreferrer" target="_blank">部分支持</a></p>
+<ul>
+<li style="list-style: none"><input type="checkbox" checked> <code>&lt;div&gt; *Emphasized* text. &lt;/div&gt;</code></li>
+<li style="list-style: none"><input type="checkbox"> <code>&lt;div&gt; ## dfd &lt;/div&gt;</code></li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" rel="external nofollow noopener noreferrer" target="_blank">Github-Markdown | 官方文档</a></li>
+<li><a href="https://sourceforge.net/p/hexo/wiki/markdown_syntax/" rel="external nofollow noopener noreferrer" target="_blank">Hexo-Markdown | 官方文档</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/wiki/CS/tools/formatting/markdown/advanced-markdown-tips/" data-id="cjo6vcavf01x1kpzyusjd4i5a" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/markdown/">markdown</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/90/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/89/">89</a><a class="page-number" href="/page/90/">90</a><span class="page-number current">91</span><a class="page-number" href="/page/92/">92</a><a class="page-number" href="/page/93/">93</a><span class="space">&hellip;</span><a class="page-number" href="/page/95/">95</a><a class="extend next" rel="next" href="/page/92/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/">CS</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/database/">-database</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/database/mongodb/">mongodb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/database/solr/">solr</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/database/solr/SolrClient/">SolrClient</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/database/solr/SolrServer/">SolrServer</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/distributed-system/">-distributed-system</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/distributed-system/Consensus一致性/">Consensus一致性</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/量子计算/">-量子计算</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/OS/">OS</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/OS/linux/">-linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/OS/linux/linux-kenel/">linux kenel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/OS/linux/linux-kenel/1-内核引导/">1.内核引导</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/OS/linux/linux-kenel/文件系统/">文件系统</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/OS/linux/linux-kenel/文件系统/src/">src</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/OS/linux/linux-kenel/文件系统/系统文件/">系统文件</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/OS/linux/linux-kenel/进程管理/">进程管理</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/OS/mac/">-mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/cloud/">cloud</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/cloud/google/">google</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/">network</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/tools/">tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/tools/BT-p2p/">BT-p2p</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/tools/wireshark/">wireshark</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/tools/wireshark/抓包实例分析-协议/">抓包实例分析--协议</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/tools/wireshark/抓包实例分析-网站/">抓包实例分析--网站</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/爬虫/">爬虫</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络协议-OSI七层模型/">网络协议-OSI七层模型</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络协议-OSI七层模型/1-第七层-应用层/">1. 第七层 应用层</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络协议-OSI七层模型/1-第七层-应用层/DNS/">DNS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络协议-OSI七层模型/1-第七层-应用层/HTTP/">HTTP</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络协议-OSI七层模型/4-第四层-传输层/">4. 第四层 传输层</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络协议-OSI七层模型/5-第三层-网络层/">5. 第三层 网络层</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络协议-OSI七层模型/6-第二层-链路层/">6. 第二层 链路层</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络工作方式-非协议-可以采用不同的通信协议/">网络工作方式-非协议-可以采用不同的通信协议</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络工作方式-非协议-可以采用不同的通信协议/p2p/">p2p</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络工作方式-非协议-可以采用不同的通信协议/proxy/">proxy</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络工作方式-非协议-可以采用不同的通信协议/proxy/ss/">ss</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络工作方式-非协议-可以采用不同的通信协议/proxy/ssr/">ssr</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络工作方式-非协议-可以采用不同的通信协议/vpn/">vpn</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络编程-socket编程/">网络编程-socket编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/network/网络诊断/">网络诊断</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/parallel-computing-高性能计算/">parallel computing-高性能计算</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/parallel-computing-高性能计算/cuda/">-cuda</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/parallel-computing-高性能计算/线性代数-blas-lapack-numpy/">线性代数-blas-lapack-numpy</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/parallel-computing-高性能计算/线性代数-blas-lapack-numpy/0-矩阵计算/">0. 矩阵计算</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/parallel-computing-高性能计算/线性代数-blas-lapack-numpy/0-矩阵计算/Eigen/">-Eigen</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/parallel-computing-高性能计算/线性代数-blas-lapack-numpy/1-科学计算/">1. 科学计算</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/parallel-computing-高性能计算/线性代数-blas-lapack-numpy/2-dnn库/">2. dnn库</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/">programing</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/algorithm-数据结构与算法/">algorithm-数据结构与算法</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/algorithm-数据结构与算法/1-sorting-排序/">-1.sorting-排序</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/algorithm-数据结构与算法/2-searching-查找/">-2.searching-查找</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/algorithm-数据结构与算法/2-searching-查找/hash/">hash</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/algorithm-数据结构与算法/2-searching-查找/hash/应用/">应用</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/">lan</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/C/">C++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/java/">java</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/java/tools/">-tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/java/jdk/">jdk</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/java/jdk/jvm/">jvm</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/java/jdk/jvm/HotSpot/">HotSpot</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/java/jdk/rt/">rt</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/java/jdk/rt/lang/">-lang</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/java/jdk/rt/system/">system</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/java/jdk/rt/util/">util</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/java/关键字/">关键字</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/python/">python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/python/python面向对象/">-python面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/python/src-cpython/">-src-cpython</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/python/src-cpython/Objects/">Objects</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/python/python3/">python3</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/python/动态加载/">动态加载</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/python/标准库/">标准库</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/python/标准库/collection/">collection</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/python/编码/">编码</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/lan/python/装饰器/">装饰器</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/programing/编程思想-设计模式/">编程思想 - 设计模式</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/security/">security</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/security/密码学/">密码学</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/security/密码学/前端加密类，单方加密/">前端加密类，单方加密</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/security/密码学/远程加密类，两方加密/">远程加密类，两方加密</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/security/密码学/非对称加密/">非对称加密</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/">tools</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/CI-持续集成/">CI-持续集成</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/CI-持续集成/Travis-CI/">Travis CI</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/build/">build</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/build/bazel/">-bazel</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/build/make/">-make</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/formatting/">formatting</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/formatting/tex/">-tex</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/formatting/gitbook/">gitbook</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/formatting/html-富文本编辑器/">html-富文本编辑器</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/formatting/markdown/">markdown</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/同步与版本管理/">同步与版本管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/同步与版本管理/git/">git</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/同步与版本管理/git/github/">github</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/同步与版本管理/云存储-dropbox/">云存储-dropbox</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/密码管理/">密码管理</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/文件管理/">文件管理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/文件管理/云盘/">-云盘</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/文件管理/everything/">everything</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/tools/绘图工具/">绘图工具</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/">web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/back-end/">-back-end</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/back-end/node/">node</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/back-end/node/lib/">lib</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/back-end/tomcat/">tomcat</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/back-end/后端框架/">后端框架</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/cluster-集群要解决的问题/">-cluster 集群要解决的问题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/web安全-非网络安全/">-web安全 非网络安全</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/网站示例/">-网站示例</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/blog-framework/">blog-framework</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/blog-framework/go-hugo/">go-hugo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/blog-framework/nodejs-hexo/">nodejs-hexo</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/blog-framework/nodejs-hexo/plugin/">plugin</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/blog-framework/nodejs-hexo/plugin/1/">1</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/blog-framework/nodejs-hexo/plugin/2/">2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/blog-framework/nodejs-hexo/plugin/console/">console</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/blog-framework/nodejs-hexo/plugin/theme-level/">theme-level</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/blog-framework/nodejs-hexo/src/">src</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/blog-framework/nodejs-hexo/theme/">theme</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/front-end/">front-end</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/front-end/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/front-end/example/">example</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/front-end/example/youdao/">youdao</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/front-end/framework/">framework</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/front-end/framework/Angular/">Angular</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/front-end/html5/">html5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/front-end/js/">js</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/front-end/typescript/">typescript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/front-end/前端构建工具/">前端构建工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/front-end/前端构建工具/webpack/">webpack</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/建站/">建站</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/建站/CDN与加速/">CDN与加速</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/建站/SSL证书/">SSL证书</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/建站/host/">host</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/建站/host/coding-pages/">coding-pages</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/建站/host/github-pages/">github-pages</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/建站/plugin-for-static-site/">plugin-for-static-site</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/建站/seo/">seo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/建站/推广/">推广</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/服务器推送/">服务器推送</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CS/web/服务器推送/非websocket的例子/">非websocket的例子</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/">ML</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/PGM/">PGM</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/PGM/bayesian-inference/">-bayesian-inference</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/PGM/LDA/">LDA</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/PGM/nonparametric/">nonparametric</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/">app</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/IR/">IR</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/Reinforcement-Learning/">Reinforcement Learning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/">nlp</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/web-service/">-web_service</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/">app</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/0-NLU/">-0 NLU</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/text-vector/">-text-vector</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/text-vector/vsm-tfidf/">vsm_tfidf</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/text-match/">-text_match</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/conversation/">conversation</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/conversation/系统/">系统</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/entailment/">entailment</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/entailment/dataset/">dataset</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/text-classification/">text_classification</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/text-classification/datasets/">datasets</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/text-classification/datasets/aspect/">aspect</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/text-retrieval/">text_retrieval</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/word-vector/">word-vector</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/word-vector/model/">model</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/word-vector/model/ELMo/">-ELMo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/word-vector/model/fastText/">-fastText</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/word-vector/model/glove/">-glove</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/word-vector/model/subword/">-subword</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/word-vector/model/word2vec/">word2vec</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/分词/">分词</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/分词/监督/">监督</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/新词发现/">新词发现</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/阅读理解/">阅读理解</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/app/阅读理解/dataset/">-dataset</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/trick/">trick</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/trick/trick-lm/">trick-lm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/trick/trick-nlp/">trick-nlp</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/trick/trick-数值计算/">trick-数值计算</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/nlp/框架-综述/">框架-综述</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/vision/">vision</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/vision/tools/">-tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/vision/app/">app</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/vision/app/OCR/">OCR</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/vision/app/OCR/Tesseract-OCR/">Tesseract-OCR</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/vision/app/Object-Recognition/">Object Recognition</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/vision/app/Object-Recognition/object-detection/">-object-detection</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/vision/app/Object-Recognition/image-classification/">image-classification</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/vision/app/style-transfer/">style-transfer</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/app/vision/dataset/">dataset</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/">deep learning</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/model-basic/">model-basic</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/model-basic/NN/">-NN</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/model-basic/CNN/">CNN</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/model-basic/GAN/">GAN</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/model-basic/RNN/">RNN</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/model-basic/生成模型/">生成模型</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/next/">next</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/toolbox/">toolbox</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/toolbox/pytorch/">-pytorch</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/toolbox/静态图-动态图/">-静态图-动态图</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/toolbox/tensorflow/">tensorflow</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/toolbox/tensorflow/上层包/">-上层包</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/toolbox/tensorflow/上层包/tensor2tensor/">tensor2tensor</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/toolbox/tensorflow/工业化/">-工业化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/toolbox/tensorflow/high-level-api/">high-level-api</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/toolbox/tensorflow/high-level-api/estimator/">estimator</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/toolbox/tensorflow/low-level-api/">low-level-api</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/优化-学习-训练/">优化-学习-训练</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/加速-分布式集群/">加速 分布式集群</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/可视化/">可视化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/deep-learning/存在的问题/">存在的问题</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/ml-传统方法/">ml 传统方法</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/ml-传统方法/loss-function/">loss function</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/ml-传统方法/supervised/">supervised</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/ml-传统方法/supervised/SVM/">SVM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/ml-传统方法/supervised/广义线性模型/">广义线性模型</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/ml-传统方法/supervised/广义线性模型/对数线性模型/">对数线性模型</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/ml-传统方法/降维/">降维</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/quantize/">quantize</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/recommender-system/">recommender-system</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/recommender-system/model/">model</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/recommender-system/竞赛/">竞赛</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/retrieval/">retrieval</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/retrieval/倒排索引/">倒排索引</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/trick/">trick</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/trick/数值计算/">-数值计算</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/trick/optimizer/">optimizer</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/竞赛/">竞赛</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/竞赛/kaggle/">kaggle</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ML/竞赛/kaggle/入门/">入门</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/通用/">通用</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/">Math</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/optimization/">-optimization</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/代数/">-代数</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/信号处理/">-信号处理</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/几何/">-几何</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/几何/欧式几何/">欧式几何</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/数学八卦-数学史-数学家/">-数学八卦-数学史-数学家</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/数学分析-微积分/">-数学分析(微积分)</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/数学分析-微积分/解析延拓/">-解析延拓</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/数学分析-微积分/1-数列极限、函数极限、连续函数/">1. 数列极限、函数极限、连续函数</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/数学分析-微积分/微分学/">微分学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/数学分析-微积分/积分学/">积分学</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/概率论与数理统计/">-概率论与数理统计</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/概率论与数理统计/统计推断/">统计推断</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/概率论与数理统计/统计推断/1-参数估计/">1 参数估计</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/概率论与数理统计/统计推断/1-参数估计/区间估计/">区间估计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/概率论与数理统计/统计推断/1-参数估计/点估计/">点估计</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/计算数学/">-计算数学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/运筹学-动态规划/">-运筹学-动态规划</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/运筹学-动态规划/启发式算法/">启发式算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/运筹学-动态规划/常见问题/">常见问题</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/交叉领域/">交叉领域</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/实分析-复分析/">实分析 复分析</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/实分析-复分析/实分析/">实分析</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/数论/">数论</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/数论/常量/">-常量</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/数论/素数/">素数</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/数论/随机数/">随机数</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/audio/">audio</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/audio/ASR/">ASR</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/audio/ASR/api/">api</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/audio/ASR/api/xunfei/">xunfei</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/audio/ASR/声学模型/">声学模型</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/audio/TTS/">TTS</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/audio/TTS/model/">model</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/audio/dataset/">dataset</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/audio/toolbox/">toolbox</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/audio/toolbox/kaldi/">kaldi</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/audio/toolbox/kaldi/thchs30/">thchs30</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/audio/前端信号处理/">前端信号处理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/audio/前端信号处理/特征/">特征</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/audio/基础知识/">基础知识</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/audio/基础知识/打包类型/">打包类型</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/audio/基础知识/特征/">特征</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/audio/基础知识/编码/">编码</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/audio/声纹识别/">声纹识别</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/block-chain/">block-chain</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/block-chain/区块链/">区块链</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/block-chain/虚拟货币/">虚拟货币</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/block-chain/虚拟货币/币种/">币种</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/block-chain/虚拟货币/币种/以太币-ETH/">-以太币-ETH</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/block-chain/虚拟货币/币种/比特币-BTC/">比特币-BTC</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/block-chain/虚拟货币/币种/比特币-BTC/挖矿/">-挖矿</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/block-chain/虚拟货币/币种/比特币-BTC/源码/">源码</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/block-chain/虚拟货币/币种/比特币-BTC/源码/基本的数据结构/">基本的数据结构</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/block-chain/虚拟货币/币种/比特币-BTC/源码/基本的数据结构/primitive/">primitive</a></li></ul></li></ul></li></ul></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/demo/">demo</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/demo/hexo/">hexo</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/docker/advanced/">advanced</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/tutorial/">tutorial</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/docker/tutorial/images/">images</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/hardware/">hardware</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/hardware/嵌入式设备/">-嵌入式设备</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/hardware/嵌入式设备/对讲机/">对讲机</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/language-model/">language_model</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/language-model/evaluation/">evaluation</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/language-model/model/">model</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/language-model/model/nnlm/">nnlm</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/language-model/model/nnlm/trick/">trick</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/machine-translation/">machine translation</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/machine-translation/0-related-work-survey/">-0. related-work survey</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/machine-translation/5-前沿-idea-冷门-专利-灌水/">-5. 前沿-idea-冷门-专利-灌水</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/machine-translation/5-前沿-idea-冷门-专利-灌水/无监督/">无监督</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/machine-translation/2-主流model-研究现状/">2. 主流model-研究现状</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/machine-translation/2-主流model-研究现状/0-基于规则的机器翻译/">0. 基于规则的机器翻译</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/machine-translation/2-主流model-研究现状/1-SMT/">1. SMT</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/machine-translation/2-主流model-研究现状/2-NMT/">2. NMT</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/machine-translation/evaluation/">evaluation</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/machine-translation/竞赛-业界/">竞赛 & 业界</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/">others</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/物理学/">-物理学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/足球/">-足球</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/足球/世界杯/">世界杯</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/足球/世界杯/2018世界杯/">2018世界杯</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/足球/球星/">球星</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/防忽悠系列/">-防忽悠系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/economy/">economy</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/economy/泡沫/">-泡沫</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/economy/AI-金融/">AI-金融</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/economy/体制/">体制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/economy/时代的风口/">时代的风口</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/economy/经济学原理/">经济学原理</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/economy/赋税/">赋税</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/">politics</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/american/">-american</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/俄罗斯/">-俄罗斯</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/南斯拉夫/">-南斯拉夫</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/朝鲜/">-朝鲜</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/苏联/">-苏联</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/china/">china</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/china/八卦/">-八卦</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/china/人物/">人物</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/china/党的机构/">党的机构</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/china/党的机构/中央书记处/">中央书记处</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/china/国家机构/">国家机构</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/china/国家机构/国家监察机关/">国家监察机关</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/china/国家领袖/">国家领袖</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/politics/china/国家领袖/国家主席/">国家主席</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/医疗/">医疗</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/历史/">历史</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/思想-哲学/">思想 哲学</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/思想-哲学/意识形态/">-意识形态</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/思想-哲学/意识形态/马克思主义/">马克思主义</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/机器人/">机器人</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/others/机器人/Nao/">Nao</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/通信/">通信</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/电子/">电子</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/电子/芯片/">芯片</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/电子/芯片/芯片架构/">-芯片架构</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/电子/芯片/厂商/">厂商</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/电子/芯片/基础知识/">基础知识</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/电子/芯片/芯片类型/">芯片类型</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/电子/芯片/芯片类型/CPU/">CPU</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/电子/芯片/芯片类型/GPU/">GPU</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/电子/芯片/芯片类型/TPU/">TPU</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/通信/">通信</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/通信/信号处理/">信号处理</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/通信/信号处理/信号与系统-奥本海姆/">-信号与系统-奥本海姆</a></li></ul></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Everthing/">Everthing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GPU/">GPU</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OCR/">OCR</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SEO/">SEO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SNLI/">SNLI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SNN/">SNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SemEval/">SemEval</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tesseract/">Tesseract</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ajax/">ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/attention/">attention</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/baidu/">baidu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/category/">category</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/checksum/">checksum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/class/">class</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/">cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cnn/">cnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/collection/">collection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/computer-engine/">computer engine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cv/">cv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dataset/">dataset</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/deep-learning/">deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dns/">dns</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/domain/">domain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/entailment/">entailment</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/framework/">framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/front-end/">front-end</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitbook/">gitbook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradient-vanish/">gradient vanish</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gru/">gru</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hash/">hash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-abbrlink/">hexo-abbrlink</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-auto-category/">hexo-auto-category</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hierarchical-softmax/">hierarchical softmax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hmm/">hmm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hotspot/">hotspot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/image-classification/">image classification</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/instant-message/">instant-message</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java源码/">java源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keras/">keras</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lstm/">lstm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/map/">map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathjax/">mathjax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mxnet/">mxnet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/negative-sampling/">negative sampling</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nn/">nn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pages/">pages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/plugin/">plugin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pytorch/">pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/random/">random</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/render/">render</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rnn/">rnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/robots协议/">robots协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/robot协议/">robot协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rule/">rule</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/seq2seq/">seq2seq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spiking-neural-network/">spiking neural network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sru/">sru</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ss/">ss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/string/">string</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorflow/">tensorflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tex/">tex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/theano/">theano</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/travis/">travis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/travis-ci/">travis-ci</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/viterbi/">viterbi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websocket/">websocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/word2vec/">word2vec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/两会/">两会</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/公式/">公式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/写时拷贝/">写时拷贝</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/军委主席/">军委主席</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端架构/">前端架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端渲染/">前端渲染</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态服务/">动态服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单播/">单播</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单页应用/">单页应用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/卷积/">卷积</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原理/">原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反卷积/">反卷积</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同步/">同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/国务院/">国务院</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/国家主席/">国家主席</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/国家元首/">国家元首</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/国家机构/">国家机构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/国家机构改革/">国家机构改革</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/国家监察委员会/">国家监察委员会</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/国家领导/">国家领导</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/域名/">域名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/官员级别/">官员级别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/宪法/">宪法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/对话系统/">对话系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/建站/">建站</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/总书记/">总书记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/持续集成/">持续集成</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/推荐系统/">推荐系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/推送/">推送</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/插件/">插件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/搜索引擎/">搜索引擎</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据分析/">数据分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件管理/">文件管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文本分类/">文本分类</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/时序图/">时序图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器翻译/">机器翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/构建工具/">构建工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式/">正则表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/流程图/">流程图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/矢量图/">矢量图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/聊天机器人/">聊天机器人</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自动化部署/">自动化部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自然语言推理/">自然语言推理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/阅读理解/">阅读理解</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随机数/">随机数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态网站/">静态网站</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CNN/" style="font-size: 12.86px;">CNN</a> <a href="/tags/DNS/" style="font-size: 11.43px;">DNS</a> <a href="/tags/Everthing/" style="font-size: 10px;">Everthing</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/OCR/" style="font-size: 11.43px;">OCR</a> <a href="/tags/RNN/" style="font-size: 12.86px;">RNN</a> <a href="/tags/SEO/" style="font-size: 11.43px;">SEO</a> <a href="/tags/SNLI/" style="font-size: 10px;">SNLI</a> <a href="/tags/SNN/" style="font-size: 10px;">SNN</a> <a href="/tags/SemEval/" style="font-size: 10px;">SemEval</a> <a href="/tags/Tesseract/" style="font-size: 10px;">Tesseract</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/angular/" style="font-size: 12.86px;">angular</a> <a href="/tags/attention/" style="font-size: 12.86px;">attention</a> <a href="/tags/baidu/" style="font-size: 10px;">baidu</a> <a href="/tags/blog/" style="font-size: 18.57px;">blog</a> <a href="/tags/category/" style="font-size: 10px;">category</a> <a href="/tags/checksum/" style="font-size: 10px;">checksum</a> <a href="/tags/class/" style="font-size: 10px;">class</a> <a href="/tags/cloud/" style="font-size: 14.29px;">cloud</a> <a href="/tags/cnn/" style="font-size: 10px;">cnn</a> <a href="/tags/collection/" style="font-size: 11.43px;">collection</a> <a href="/tags/computer-engine/" style="font-size: 10px;">computer engine</a> <a href="/tags/cv/" style="font-size: 11.43px;">cv</a> <a href="/tags/dataset/" style="font-size: 15.71px;">dataset</a> <a href="/tags/deep-learning/" style="font-size: 15.71px;">deep learning</a> <a href="/tags/dns/" style="font-size: 12.86px;">dns</a> <a href="/tags/docker/" style="font-size: 12.86px;">docker</a> <a href="/tags/domain/" style="font-size: 15.71px;">domain</a> <a href="/tags/entailment/" style="font-size: 10px;">entailment</a> <a href="/tags/framework/" style="font-size: 10px;">framework</a> <a href="/tags/front-end/" style="font-size: 11.43px;">front-end</a> <a href="/tags/git/" style="font-size: 11.43px;">git</a> <a href="/tags/gitbook/" style="font-size: 11.43px;">gitbook</a> <a href="/tags/github/" style="font-size: 12.86px;">github</a> <a href="/tags/google/" style="font-size: 10px;">google</a> <a href="/tags/gradient-vanish/" style="font-size: 11.43px;">gradient vanish</a> <a href="/tags/gru/" style="font-size: 10px;">gru</a> <a href="/tags/hash/" style="font-size: 10px;">hash</a> <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/hexo-abbrlink/" style="font-size: 10px;">hexo-abbrlink</a> <a href="/tags/hexo-auto-category/" style="font-size: 10px;">hexo-auto-category</a> <a href="/tags/hierarchical-softmax/" style="font-size: 10px;">hierarchical softmax</a> <a href="/tags/hmm/" style="font-size: 11.43px;">hmm</a> <a href="/tags/hotspot/" style="font-size: 10px;">hotspot</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/image-classification/" style="font-size: 10px;">image classification</a> <a href="/tags/instant-message/" style="font-size: 10px;">instant-message</a> <a href="/tags/java/" style="font-size: 14.29px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/java源码/" style="font-size: 17.14px;">java源码</a> <a href="/tags/keras/" style="font-size: 10px;">keras</a> <a href="/tags/lstm/" style="font-size: 10px;">lstm</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/markdown/" style="font-size: 11.43px;">markdown</a> <a href="/tags/mathjax/" style="font-size: 10px;">mathjax</a> <a href="/tags/mxnet/" style="font-size: 10px;">mxnet</a> <a href="/tags/negative-sampling/" style="font-size: 10px;">negative sampling</a> <a href="/tags/network/" style="font-size: 18.57px;">network</a> <a href="/tags/nlp/" style="font-size: 11.43px;">nlp</a> <a href="/tags/nn/" style="font-size: 10px;">nn</a> <a href="/tags/pages/" style="font-size: 14.29px;">pages</a> <a href="/tags/plugin/" style="font-size: 14.29px;">plugin</a> <a href="/tags/pytorch/" style="font-size: 10px;">pytorch</a> <a href="/tags/random/" style="font-size: 10px;">random</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/render/" style="font-size: 10px;">render</a> <a href="/tags/rnn/" style="font-size: 12.86px;">rnn</a> <a href="/tags/robots协议/" style="font-size: 10px;">robots协议</a> <a href="/tags/robot协议/" style="font-size: 10px;">robot协议</a> <a href="/tags/rule/" style="font-size: 11.43px;">rule</a> <a href="/tags/seq2seq/" style="font-size: 18.57px;">seq2seq</a> <a href="/tags/spiking-neural-network/" style="font-size: 10px;">spiking neural network</a> <a href="/tags/sru/" style="font-size: 10px;">sru</a> <a href="/tags/ss/" style="font-size: 10px;">ss</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/tensorflow/" style="font-size: 10px;">tensorflow</a> <a href="/tags/tex/" style="font-size: 11.43px;">tex</a> <a href="/tags/theano/" style="font-size: 10px;">theano</a> <a href="/tags/travis/" style="font-size: 10px;">travis</a> <a href="/tags/travis-ci/" style="font-size: 10px;">travis-ci</a> <a href="/tags/viterbi/" style="font-size: 12.86px;">viterbi</a> <a href="/tags/web/" style="font-size: 12.86px;">web</a> <a href="/tags/webpack/" style="font-size: 11.43px;">webpack</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/word2vec/" style="font-size: 10px;">word2vec</a> <a href="/tags/两会/" style="font-size: 10px;">两会</a> <a href="/tags/公式/" style="font-size: 10px;">公式</a> <a href="/tags/写时拷贝/" style="font-size: 10px;">写时拷贝</a> <a href="/tags/军委主席/" style="font-size: 10px;">军委主席</a> <a href="/tags/前端架构/" style="font-size: 11.43px;">前端架构</a> <a href="/tags/前端渲染/" style="font-size: 10px;">前端渲染</a> <a href="/tags/动态服务/" style="font-size: 10px;">动态服务</a> <a href="/tags/动态规划/" style="font-size: 14.29px;">动态规划</a> <a href="/tags/单播/" style="font-size: 10px;">单播</a> <a href="/tags/单页应用/" style="font-size: 10px;">单页应用</a> <a href="/tags/卷积/" style="font-size: 10px;">卷积</a> <a href="/tags/原理/" style="font-size: 11.43px;">原理</a> <a href="/tags/反卷积/" style="font-size: 10px;">反卷积</a> <a href="/tags/同步/" style="font-size: 11.43px;">同步</a> <a href="/tags/国务院/" style="font-size: 10px;">国务院</a> <a href="/tags/国家主席/" style="font-size: 10px;">国家主席</a> <a href="/tags/国家元首/" style="font-size: 10px;">国家元首</a> <a href="/tags/国家机构/" style="font-size: 11.43px;">国家机构</a> <a href="/tags/国家机构改革/" style="font-size: 12.86px;">国家机构改革</a> <a href="/tags/国家监察委员会/" style="font-size: 11.43px;">国家监察委员会</a> <a href="/tags/国家领导/" style="font-size: 14.29px;">国家领导</a> <a href="/tags/域名/" style="font-size: 10px;">域名</a> <a href="/tags/官员级别/" style="font-size: 10px;">官员级别</a> <a href="/tags/宪法/" style="font-size: 11.43px;">宪法</a> <a href="/tags/对话系统/" style="font-size: 10px;">对话系统</a> <a href="/tags/建站/" style="font-size: 15.71px;">建站</a> <a href="/tags/总书记/" style="font-size: 11.43px;">总书记</a> <a href="/tags/持续集成/" style="font-size: 11.43px;">持续集成</a> <a href="/tags/推荐系统/" style="font-size: 10px;">推荐系统</a> <a href="/tags/推送/" style="font-size: 10px;">推送</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/搜索引擎/" style="font-size: 11.43px;">搜索引擎</a> <a href="/tags/数据分析/" style="font-size: 14.29px;">数据分析</a> <a href="/tags/文件管理/" style="font-size: 10px;">文件管理</a> <a href="/tags/文本分类/" style="font-size: 10px;">文本分类</a> <a href="/tags/时序图/" style="font-size: 10px;">时序图</a> <a href="/tags/机器翻译/" style="font-size: 18.57px;">机器翻译</a> <a href="/tags/构建工具/" style="font-size: 11.43px;">构建工具</a> <a href="/tags/架构/" style="font-size: 10px;">架构</a> <a href="/tags/正则表达式/" style="font-size: 11.43px;">正则表达式</a> <a href="/tags/流程图/" style="font-size: 10px;">流程图</a> <a href="/tags/源码/" style="font-size: 11.43px;">源码</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/矢量图/" style="font-size: 10px;">矢量图</a> <a href="/tags/聊天机器人/" style="font-size: 10px;">聊天机器人</a> <a href="/tags/自动化部署/" style="font-size: 11.43px;">自动化部署</a> <a href="/tags/自然语言推理/" style="font-size: 10px;">自然语言推理</a> <a href="/tags/阅读理解/" style="font-size: 11.43px;">阅读理解</a> <a href="/tags/随机数/" style="font-size: 10px;">随机数</a> <a href="/tags/静态网站/" style="font-size: 10px;">静态网站</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2000/01/">January 2000</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/wiki/Math/-optimization/adam/">adam</a>
+          </li>
+        
+          <li>
+            <a href="/wiki/Math/-optimization/weight-decay/">weight decay</a>
+          </li>
+        
+          <li>
+            <a href="/wiki/Math/-optimization/summary/">优化方法，汇总</a>
+          </li>
+        
+          <li>
+            <a href="/wiki/通信/信号处理/-信号与系统-奥本海姆/平稳信号/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/wiki/CS/tools/文件管理/-云盘/google云盘/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
